@@ -1,0 +1,80 @@
+.contactContent {
+    margin-top: 20px;
+    display: flex;
+}
+
+.catogory {
+    margin: 0px;
+    padding: 0px;
+    width: 300px;
+}
+
+.contactInforTitle {
+    line-height: 35px;
+    background-color: #f99717;
+    border-radius: 5px 5px 0px 0px;
+    padding-left: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.contactInforContent {
+    margin: 0px;
+    padding: 0px;
+    width: 300px;
+    border: 1px solid #f99717;
+    padding-bottom: 5px;
+    border-radius: 0px 0px 5px 5px;
+    text-align: center;
+}
+
+.support {
+    font-size: 18px;
+    font-weight: 600;
+    color: blueviolet;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.bubble {
+    z-index: 1000;
+}
+
+.map {
+    width: 600px;
+    height: 600px;
+    margin: 0px 20px;
+    position: relative;
+}
+
+.map iframe {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.address {
+    width: 260px;
+    margin: 0px;
+    padding: 15px 20px;
+    box-shadow: 1px 1px 1px 1px;
+    background-color: cyan;
+    height: 150px;
+}
+
+.address h4 {
+    color: darkred;
+}
+
+.address p {
+    color: brown;
+    text-decoration: none;
+    padding-left: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.address p:hover {
+    color: limegreen;
+}

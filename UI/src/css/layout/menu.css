@@ -1,0 +1,159 @@
+.mainMenu {
+    margin: 0px;
+    padding: 0px;
+    background-color: #83bb3e;
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    font-size: 13px;
+}
+
+.menuContent {
+    margin: 0px auto;
+    padding: 0px;
+    width: 1200px;
+    display: flex;
+}
+
+.menuLeft {
+    margin: 0px;
+    padding: 0px;
+    line-height: 45px;
+    width: 70%;
+}
+
+.menuLeft ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    line-height: 45px;
+    position: relative;
+}
+
+.menuLeft ul li {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    padding: 0px 15px;
+}
+
+.menuLeft ul li a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.menuLeft ul li:hover {
+    background-color: #058134;
+}
+
+.menuContent ul li ul {
+    margin: 0px;
+    padding: 0px;
+    width: 1200px;
+    background-color: #fef79c;
+    line-height: 50px;
+    position: absolute;
+    top: 45px;
+    left: 0px;
+    border-radius: 0px 0px 10px 10px;
+    list-style: disc !important;
+    border: 1px solid #ff5722;
+    border-top: 0px;
+    display: none;
+}
+
+.menuContent ul li ul li {
+    margin: 0px;
+    padding: 0px;
+    line-height: 50px;
+    padding: 0px 20px;
+    display: inline-block;
+}
+
+.menuContent ul li ul li:hover {
+    background-color: #fef79c;
+}
+
+.menuContent ul li ul li:hover a {
+    color: #5c3d21;
+}
+
+.menuContent ul li ul li a {
+    color: #000;
+    text-decoration: none;
+}
+
+.menuLeft ul li:hover ul {
+    display: block;
+}
+
+.search {
+    padding: 0px;
+    margin: 0px;
+    width: 30%;
+    line-height: 45px;
+    text-align: right;
+}
+
+.search input {
+    border: 0px;
+    height: 30px;
+    margin: 0px;
+    padding: 0px;
+    width: calc(100% - 36px);
+    margin-top: 2px;
+}
+
+.search button {
+    padding: 0px;
+    margin: 0px;
+    height: 30px;
+    width: 30px;
+}
+
+.search .search-bg {
+    background-color: white;
+    line-height: 34px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 5px;
+    width: 300px;
+    padding: 0px 10px;
+    border-radius: 30px;
+}
+
+#smartSearch {
+    position: absolute;
+    width: 100%;
+    background: white;
+    margin: 0px auto;
+    top: 40px;
+    left: 0px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 1px 1px 3px #000000;
+}
+
+#smartSearch img {
+    width: 70px;
+}
+
+#smartSearch ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+#smartSearch ul li {
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 5px;
+    display: flex;
+    text-align: left;
+    padding: 10px 5px;
+}
+
+.search input:focus {
+    outline: none;
+}
