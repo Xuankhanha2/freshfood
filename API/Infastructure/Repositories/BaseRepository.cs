@@ -16,7 +16,7 @@ namespace Infastructure.Repositories
         /// created date: 22/06/2021
         /// Lớp base kết nối với cơ sở dữ liệu
         /// </summary>
-        private string connectionString = "";
+        private string connectionString = "User Id=root;Host=localhost;Character Set=utf8;password=Khanh2000;Database=freshfood";
         private IDbConnection dbConnection;
 
         public BaseRepository()
@@ -66,6 +66,7 @@ namespace Infastructure.Repositories
             int result = dbConnection.Execute(procName, param: param, commandType: CommandType.StoredProcedure);
             return result;
         }
+
         /// <summary>
         /// created date: 23/06/2021
         /// created by: VXKHANH

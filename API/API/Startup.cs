@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Core.Services;
 namespace API
 {
     public class Startup
@@ -36,6 +36,11 @@ namespace API
                 services.AddCors();
             });
             services.AddScoped<IBaseRepository, BaseRepository>();
+            services.AddScoped<IBaseService, BaseService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

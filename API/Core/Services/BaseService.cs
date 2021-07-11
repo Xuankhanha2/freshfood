@@ -4,10 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using static Core.Models.BaseClass;
-
 namespace Core.Services
 {
-    class BaseService : IBaseService
+    public class BaseService : IBaseService
     {
         /// <summary>
         /// created date: 23/06/2021
@@ -35,14 +34,12 @@ namespace Core.Services
                 {
                     serviceResult.isValid = true;
                     serviceResult.data = list;
-                    serviceResult.message = "Success";
                     serviceResult.code = statusCode.success;
                 }
                 else
                 {
                     serviceResult.isValid = true;
                     serviceResult.data = list;
-                    serviceResult.message = "No content";
                     serviceResult.code = statusCode.noContent;
                 }
             }
@@ -50,12 +47,20 @@ namespace Core.Services
             {
                 serviceResult.isValid = false;
                 serviceResult.data = null;
-                serviceResult.message = "Fail";
+                serviceResult.message = e.Message;
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;
         }
 
+        /// <summary>
+        /// created date: 23/06/2021
+        /// created by: VXKHANH
+        /// Lấy bản ghi theo id
+        /// </summary>
+        /// <typeparam name="entity"></typeparam>
+        /// <param name="id"></param>
+        /// <returns>Trả về bản ghi có id tương ứng</returns>
         public ServiceResult getById<entity>(Guid id)
         {
             try
@@ -65,57 +70,168 @@ namespace Core.Services
                 {
                     serviceResult.isValid = true;
                     serviceResult.data = data;
-                    serviceResult.message = "Success";
                     serviceResult.code = statusCode.success;
                 }
                 else
                 {
                     serviceResult.isValid = true;
                     serviceResult.data = data;
-                    serviceResult.message = "No content";
                     serviceResult.code = statusCode.noContent;
                 }
             }
             catch (Exception e)
             {
+                serviceResult.message = e.Message;
                 serviceResult.isValid = false;
                 serviceResult.data = null;
-                serviceResult.message = "Fail";
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;
         }
 
+        /// <summary>
+        /// created date: 23/06/2021
+        /// created by: VXKHANH
+        /// Thêm mới 1 bản ghi
+        /// </summary>
+        /// <typeparam name="entity">Kiểu</typeparam>
+        /// <param name="param">Đối tượng</param>
+        /// <returns>Số dòng ảnh hưởng. Nếu > 0 thì đã thêm thành công</returns>
         public ServiceResult insert<entity>(entity param)
         {
             try
             {
-                int check = baseRepository.insertEntity<entity>(param);
-                if(check > 0)
+                baseValidate<entity>(param);
+                if (serviceResult.isValid)
                 {
-
+                    int check = baseRepository.insertEntity<entity>(param);
+                    if (check > 0)
+                    {
+                        serviceResult.code = statusCode.success;
+                        serviceResult.message = Properties.resource.createdSuccess;
+                        serviceResult.data = check;
+                    }
+                    else
+                    {
+                        serviceResult.code = statusCode.fail;
+                        serviceResult.message = Properties.resource.createFail;
+                        serviceResult.data = check;
+                    }
+                }
+                else
+                {
+                    serviceResult.code = statusCode.notValid;
+                    //Không cần gán message vì trong hàm validate đã gán rồi
+                    serviceResult.data = null;
                 }
             }
             catch(Exception e)
             {
-
+                serviceResult.message = e.Message;
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.code = statusCode.exception;
             }
             return serviceResult;
         }
 
+        /// <summary>
+        /// created date: 23/06/2021
+        /// created by: VXKHANH
+        /// Cập nhật dữ liệu 
+        /// </summary>
+        /// <typeparam name="entity">Kiểu</typeparam>
+        /// <param name="param">Đói tượng</param>
+        /// <returns>Số dòng ảnh hưởng. Nếu > 0 thì đã cập nhật thành công</returns>
         public ServiceResult update<entity>(entity param)
         {
-            throw new NotImplementedException();
+            try
+            {
+                baseValidate<entity>(param);
+                if (serviceResult.isValid)
+                {
+                    int check = baseRepository.updateEntity<entity>(param);
+                    if (check > 0)
+                    {
+                        serviceResult.code = statusCode.success;
+                        serviceResult.message = Properties.resource.updatetSuccess;
+                        serviceResult.data = check;
+                    }
+                    else
+                    {
+                        serviceResult.code = statusCode.fail;
+                        serviceResult.message = Properties.resource.updateFail;
+                        serviceResult.data = check;
+                    }
+                }
+                else
+                {
+                    serviceResult.code = statusCode.notValid;
+                    //Không cần gán message vì trong hàm validate đã gán rồi
+                    serviceResult.data = null;
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.message = e.Message;
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
         }
 
+        /// <summary>
+        /// created date: 23/06/2021
+        /// created by: VXKHANH
+        /// Xoá dữ liệu theo id 
+        /// </summary>
+        /// <typeparam name="entity"></typeparam>
+        /// <param name="id"></param>
+        /// <returns>Số dòng ảnh hưởng. Nếu > 0 thì đã xóa thành công</returns>
         public ServiceResult delete<entity>(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (id != null)
+                {
+                    int check = baseRepository.deleteEntity<entity>(id);
+                    if (check > 0)
+                    {
+                        serviceResult.code = statusCode.success;
+                        serviceResult.message = Properties.resource.deleteSuccess;
+                        serviceResult.data = check;
+                    }
+                    else
+                    {
+                        serviceResult.code = statusCode.fail;
+                        serviceResult.message = Properties.resource.deleteFail;
+                        serviceResult.data = check;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.message = e.Message;
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
         }
 
-        public ServiceResult baseValidate<entity>(entity data)
+        /// <summary>
+        /// created date: 23/06/2021
+        /// created by: VXKHANH
+        /// Hàm validate dữ liệu chung cho các hàm thêm sửa
+        /// </summary>
+        /// <typeparam name="entity"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public void baseValidate<entity>(entity data)
         {
             serviceResult.isValid = true;
+            serviceResult.code = statusCode.success;
             var listError = new List<string>();
 
             var properties = data.GetType().GetProperties();
@@ -131,6 +247,7 @@ namespace Core.Services
                         serviceResult.isValid = false;
                         listError.Add(propertyName + "is required!");
                         serviceResult.code = statusCode.notValid;
+                        serviceResult.message = property.Name + Properties.resource.requiredData;
                     }
                 }
                 if(property.IsDefined(typeof(duplicate), false))
@@ -143,10 +260,10 @@ namespace Core.Services
                         serviceResult.isValid = false;
                         listError.Add(propertyName + "is not duplicate!");
                         serviceResult.code = statusCode.notValid;
+                        serviceResult.message = property.Name + Properties.resource.duplicateData;
                     }
                 }
             }
-            return serviceResult;
         }
     }
 }

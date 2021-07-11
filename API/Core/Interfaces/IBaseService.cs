@@ -10,7 +10,7 @@ namespace Core.Interfaces
     /// created by: VXKHANH
     /// 
     /// </summary>
-    interface IBaseService
+    public interface IBaseService
     {
         /// <summary>
         /// created date: 23/06/2021

@@ -33,6 +33,11 @@ namespace Core.Models
         /// <summary>
         /// Không có dữ liệu
         /// </summary>
-        noContent = 204
+        noContent = 204,
+
+        /// <summary>
+        /// Thực hiện thất bại
+        /// </summary>
+        fail = 401
     }
 }
