@@ -35,12 +35,34 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
                 services.AddCors();
             });
+
+            //Base
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IBaseService, BaseService>();
+
+            //Customer
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerService, CustomerService>();
+
+            //Product
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
+
+            //Category
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            //Store
+            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
+
+            //News
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<INewsRepository, NewsRepository>();
+
+            //User
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

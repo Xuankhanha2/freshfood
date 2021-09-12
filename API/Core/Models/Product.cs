@@ -28,7 +28,7 @@ namespace Core.Models
         /// <summary>
         /// Mã danh mục sản phẩm
         /// </summary>
-        public Guid categoryId { get; set; }
+        public Guid? categoryId { get; set; }
 
         /// <summary>
         /// Giá của sản phẩm
@@ -39,12 +39,12 @@ namespace Core.Models
         /// <summary>
         /// giảm giá (%)
         /// </summary>
-        public double discount { get; set; }
+        public double? discount { get; set; }
 
         /// <summary>
         /// Sản phẩm đang hot
         /// </summary>
-        public bool hot { get; set; }
+        public bool? hot { get; set; }
 
         /// <summary>
         /// Ảnh chính của sản phẩm
@@ -59,8 +59,12 @@ namespace Core.Models
         /// <summary>
         /// Mã cửa hàng phân phối sản phẩm
         /// </summary>
-        public Guid storeId { get; set; }
+        public Guid? storeId { get; set; }
 
+        /// <summary>
+        /// Trạng thái của sản phẩm ( true - còn hàng ; false - hết hàng )
+        /// </summary>
+        public bool? status { get; set; }
         #endregion 
 
 

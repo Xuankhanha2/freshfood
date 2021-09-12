@@ -1,27 +1,28 @@
 <template>
   <div id="app">
-    <headerLayout/>
-    <bannerLayout/>
-    <menuLayout/>
-    <contentLayout/>
-    <footerLayout/>
+      <headerLayout/>
+      <bannerLayout/>
+      <menuLayout/>
+      <contentLayout/>
+      <footerLayout/>
   </div>
 </template>
 
 <script>
-import headerLayout from './components/layout/headerLayout.vue'
-import bannerLayout from './components/layout/bannerLayout.vue'
-import menuLayout from './components/layout/menuLayout.vue'
-import contentLayout from './components/layout/contentLayout.vue'
-import footerLayout from './components/layout/footerLayout.vue'
+
+import headerLayout from './components/layout/headerLayout'
+import bannerLayout from './components/layout/bannerLayout'
+import contentLayout from './components/layout/contentLayout'
+import footerLayout from './components/layout/footerLayout'
+import menuLayout from './components/layout/menuLayout'
+
 export default {
-  name: 'App',
-  components: {
+  components:{
     headerLayout,
     bannerLayout,
-    menuLayout,
     contentLayout,
-    footerLayout
+    footerLayout,
+    menuLayout
   }
 }
 </script>

@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Infastructure.Repositories
 {
+    /// <summary>
+    /// Created date: 20/7/2021
+    /// Created by: VXKHANH
+    /// </summary>
     public class CustomerRepository:BaseRepository, ICustomerRepository
     {
     }

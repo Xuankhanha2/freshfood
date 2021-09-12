@@ -1,0 +1,331 @@
+<template>
+    <div class="revenue">
+        <!-- <div class="category">
+            <div class="category-item">
+                <hr>
+                Quy trình
+            </div>
+            <div class="category-item category-item-active">
+                <hr class="active-hr">
+                Danh sách khoản thu
+            </div>
+            <div class="category-item">
+                <hr>
+                Đăng ký khoản thu
+            </div>
+            <div class="category-item">
+                <hr>
+                Danh sách miễn giảm
+            </div>
+        </div> -->
+        <div class="grid">
+            <div class="filter-line">
+                <div class="filter-left">
+                    <div class="select-line"
+                        :class="{'selected-line':stopBusiness}"
+                        @click="showStopBusiness"
+                    ></div>
+                    <label for="">Hiển thị sản phẩm ngừng kinh doanh</label>
+                </div>
+                <div class="filter-right">
+                    <newButton 
+                        :Text="'Thêm mới'"
+                        :second="false"
+                        @click.native="openForm(false, {})"
+                        />
+                    <newButton
+                    :Text="'Sắp lại thứ tự'"
+                        :second="true"
+                        />
+                    <div class="trash-btn"></div>
+                </div>
+            </div>
+
+            <div class="grid-list">
+                <div class="outline-table">
+                <table cellspacing="0" cellpadding="0" border="0">
+                    <!-- Dòng tiêu đề của bảng -->
+                    <tr>
+                        <th colspan="1"> </th>
+                        <th colspan="1" class="td-to-check">Ảnh sản phẩm</th>
+                        <th colspan="1" class="col-name-revenue">
+                            <div class="th-text">Tên sản phẩm</div>
+                            <div class="btn-filter"><input type="text"></div>
+                        </th>
+                        <th colspan="1" class="col-group-revenue">
+                            <div class="th-text">Danh mục sản phẩm</div>
+                            <div class="btn-filter"><input type="text"></div>
+                        </th>
+                        <th colspan="1" class="col-mount-revenue">
+                            <div class="th-text">Giá sản phẩm</div>
+                            <div class="btn-filter"><input type="text"></div>
+                        </th>
+                        <th colspan="1" class="col-mount-revenue">
+                            <div class="th-text">Nhà cung cấp</div>
+                            <div class="btn-filter"><input type="text"></div>
+                        </th>
+                        <!-- <th colspan="1" style="min-width: 96px">
+                            <div class="th-text">Kỳ thu</div>
+                            <div class="btn-filter">
+                                <select >
+                                    <option value="0">Tháng</option>
+                                    <option value="1">Quý</option>
+                                    <option value="2">Kỳ học</option>
+                                    <option value="3">Năm</option>
+                                </select>
+                            </div>
+                        </th> -->
+                        <th colspan="1" class="td-to-check">Giảm giá</th>
+                        <th colspan="1" class="td-to-check">Sản phẩm hot</th>
+                        <th colspan="1" class="td-to-check">Trạng thái</th>
+                        <th colspan="1"></th>
+                    </tr>
+                    <!-- Các dòng dữ liệu -->
+                    <tr v-for="product in products" :key="product.productId"
+                        :class="{'row-focus':product.selectedItem}"
+                    >
+                        <td colspan="1">
+                            <div class="select-line"
+                                :class="{'selected-line':product.selectedItem}"
+                                @click="product.selectedItem = !product.selectedItem"
+                            ></div>
+                        </td>
+                        <td colspan="1" class="imageCell">
+                            <a :href="product.image" >
+                                {{product.image}}
+                            </a>
+                            <!-- <div class="main-cell">
+                                <div class="cell-link"></div>
+                                <div class="important">
+                                    <div class="tooltip-cell">Đây là khoản thu mặc định của hệ thống, bạn không thể xóa.</div>
+                                </div>
+                            </div> -->
+                        </td>
+                        <td colspan="1" class="colLinked"
+                            @click="openForm(true, product)"
+                        >{{product.productName}}</td>
+                        <td colspan="1" class="">{{bindCategoryName(product.categoryId)}}</td>
+                        <td colspan="1" class="td-to-check align-right-text" >{{product.price}} vnđ</td>
+                        <td colspan="1" class="td-to-check">{{bindStoreName(product.storeId)}}</td>
+                        <td colspan="1" class="td-to-check">{{product.discount}}%</td>
+                        <td colspan="1" class="td-to-check"><div :class="{'cell-checking':product.hot}"></div></td>
+                        <td colspan="1" class="td-to-check">{{product.status}}</td>
+                        <!-- <td colspan="1" class="td-to-check"><div class="cell-checking"></div></td> -->
+                        <td colspan="1">
+                            <div class="last-cell">
+                                <div class="btn-edit" title="Chỉnh sửa dòng dữ liệu này"
+                                    @click="openForm(true, product)"
+                                ></div>
+                                <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
+                                <div class="btn-delete" title="Xóa dòng dữ liệu này"
+                                    @click="showDeletePopup(product.productId)"
+                                ></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="result">
+                    Tổng số: <span class="count">{{products.length}}</span> kết quả.
+                </div>
+            </div>
+        </div>
+        <productDetail
+            v-if="showPopup"
+            :isUpdate="isUpdate"
+            :pageTitle="productDetailTitle"
+            :refProduct="this.product"
+            :refCategories="this.categories"
+            :refStores="this.stores"
+            @closeForm="closeForm"
+            @loadData="loadData"
+        />
+        <!-- Popup xóa sản phẩm -->
+        <popup 
+            :text="'Bạn có muốn xóa sản phẩm này?'"
+            v-if="deletePopup"
+            :firstBtn="true"
+            :secondBtn="true"
+            @closePopup="closePopup"
+            @negativeFunction="deleteProduct"
+            :param="popupParam"
+        />
+        <!-- end Popup xóa sản phẩm -->
+
+        <!-- Popup thông báo -->
+        <popup
+            :text="notifyText"
+            :thirdBtn="true"
+            @closePopup="closePopup"
+            v-if="notifyPopup"
+        />
+        <!-- end Popup thông báo -->
+        
+        <!-- Ảnh loading của trang  -->
+        <div class="preload" v-show="loading"></div>
+    </div>
+</template>
+
+<script>
+/*
+    created by: vu xuan khanh
+    created date: 12/7/2021
+*/
+import axios from 'axios'
+import productDetail from './productDetail.vue'
+import newButton from '../../layout/button.vue'
+import popup from '../../popup/notifyPopup.vue'
+export default {
+    data() {
+        return {
+            
+           /**Biến  mảng chứa danh sách sản phẩm khi gọi api*/
+           products:[],
+           /**Biến tiêu đề của popup thêm - sửa sản phẩm */
+           productDetailTitle: '',
+           /** Biến kiểm tra popup thêm sửa hiển thị lên là thêm hay sửa*/
+           isUpdate:false,
+           /**Biến mở - đóng popup thêm - sửa */
+           showPopup: false,
+           /**Biến bật tắt hiển thị danh sách sản phẩm ngừng kinh doanh*/
+           stopBusiness: false,
+           /**Biến lưu trữ 1 thông tin sản phẩm - phục vụ cho việc cập nhật dữ liệu*/
+           product:{},
+           //Biến dùng để lưu danh sách danh mục sản phẩm, sử dụng để tải dữ liệu vào ô chọn danh mục sản phẩm
+            categories: [{}],
+            //Biến stores chứa danh sách cửa hàng, dùng để đưa dữ liêu vào ô chọn cửa hàng cung cấp - nhà phân phối sp
+            stores: [{}],
+            //Biến hiển thị thông báo hỏi khi xóa sản phẩm
+            deletePopup: false,
+            //Biến hiển thị thông báo
+            notifyPopup:false,
+            //Biến chứa thông điệp khi thông báo
+            notifyText: 'Đã có lỗi xảy ra.',
+            //Biến dùng để truyền prop cho popup
+            popupParam:'',
+            //Biến sử dung để hiển thị loading khi load dữ liệu 
+            loading: false,
+        }
+    },
+    components:{
+        productDetail,
+        newButton,
+        popup
+    },
+    watch:{
+        
+    },
+
+    methods:{
+        /**Hàm sử dung để hiển thị các dòng được chọn trong bảng */
+        selectRow(selectedItem){
+            selectedItem = !selectedItem;
+            return selectedItem;
+        },
+        /**Bảng mở form thêm - sửa sản phẩm */
+        openForm(check, product){
+            //nếu true  thì form mở lên là form sửa
+            this.isUpdate = check;
+            if(this.isUpdate){
+                this.product=product;
+                this.productDetailTitle="Cập nhật thông tin sản phẩm";
+            }
+            else{
+                this.product={};
+                this.productDetailTitle="Thêm sản phẩm";
+            }
+            this.showPopup = true;
+        },
+        /**Hàm đóng form thêm sửa sản phẩm */
+        closeForm(){
+            this.showPopup = false;
+        },
+        /**Hàm hiển thị nhứng sản phẩn đã ngừng theo dõi */
+        showStopBusiness(){
+            this.stopBusiness = !this.stopBusiness;
+        },
+        /**Hàm hiển thị tên danh mục lên lưới thông qua id */
+        bindCategoryName(categoryId){
+            var name
+            this.categories.forEach(element => {
+                if(element.categoryId == categoryId){
+                    name = element.categoryName;
+                }
+            });
+            return name;
+        },
+        /**Hàm hiển thị tên cửa hàng - nhà cung cấp sản phẩm */
+        bindStoreName(storeId){
+            var name;
+            this.stores.forEach(element => {
+                if(element.storeId == storeId){
+                    name = element.storeName;
+                }
+            });
+            return name;
+        },
+        /**Hàm hiển thị popup hỏi người dùng có xóa sản phẩm này hay ko */
+        showDeletePopup(id){
+            this.popupParam = id;
+            this.deletePopup = true;
+        },
+        /**Hàm đóng popup */
+        closePopup(){
+            this.notifyText= "Đã có lỗi xảy ra.";
+            this.deletePopup = false;
+            this.notifyPopup = false;
+        },
+        /**Hàm xóa sản phẩm theo id */
+        async deleteProduct(id){
+            await axios.delete('https://localhost:44368/api/v1.0/products/'+id).then((result)=>{
+                this.notifyText = "Đã xóa sản phẩm vừa chọn.";
+                this.notifyPopup = true;
+                this.loadData();
+                console.log(result.data);
+                return result;
+            }).catch(()=>{
+                this.notifyText = "Không thể xóa sản phẩm này";
+                this.notifyPopup = true;
+            })
+        },
+        /**Hàm load lại trang sau khiu thêm sủa xóa  */
+        async loadData(){
+            this.loading = true;
+            await axios.get('https://localhost:44368/api/v1.0/products').then((response)=>{
+                this.products = response.data;
+            }).catch(()=>{
+                console.log("Có lỗi xảy ra khi gọi api product");
+            });
+            this.loading = false;
+        }
+
+    },
+
+    async created() {
+        this.loading = true;
+        this.products = await axios.get('https://localhost:44368/api/v1.0/products').then((response)=>{
+            return response.data;
+        }).catch(()=>{
+            console.log("Có lỗi xảy ra khi gọi api product");
+        });
+        this.categories = await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+            return result.data;
+        }).catch(()=>{
+            console.log('Đã có lỗi xảy ra khi lấy categories');
+        });
+
+        this.stores = await axios.get('https://localhost:44368/api/v1.0/stores').then((result)=>{
+            return result.data;
+        }).catch(()=>{
+            console.log('Đã có lỗi xảy ra khi lấy stores');
+        });
+        this.loading = false;
+    },
+}
+</script>
+
+<style lang="css">
+    @import '../../../css/dictionary/product/productPage.css';
+</style>

@@ -44,12 +44,12 @@ namespace Core.Models
         /// <summary>
         /// Ngày sinh 
         /// </summary>
-        public DateTime dateOfBirth { get; set; }
+        public DateTime? dateOfBirth { get; set; }
 
         /// <summary>
         /// Giới tính (0 - Nữ, 1-Nam, 2 - Khách)
         /// </summary>
-        public int gender { get; set; }
+        public int? gender { get; set; }
 
         /// <summary>
         /// Tên tài khoản 

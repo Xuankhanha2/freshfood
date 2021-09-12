@@ -17,7 +17,7 @@ namespace Infastructure.Repositories
         /// Lớp base kết nối với cơ sở dữ liệu
         /// </summary>
         private string connectionString = "User Id=root;Host=localhost;Character Set=utf8;password=Khanh2000;Database=freshfood";
-        private IDbConnection dbConnection;
+        protected IDbConnection dbConnection;
 
         public BaseRepository()
         {
@@ -97,6 +97,24 @@ namespace Infastructure.Repositories
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add($"@{className}Id", id.ToString());
             int result = dbConnection.Execute(procName, param: dynamicParameters, commandType: CommandType.StoredProcedure);
+            return result;
+        }
+
+        /// <summary>
+        /// created date 3/8/2021
+        /// created by: vu xuan khanh
+        /// Hàm lấy dữ liệu theo tên thuộc tính truyền vào
+        /// </summary>
+        /// <typeparam name="entity">Type</typeparam>
+        /// <param name="param">Tham số giá trị để tìm kiếm </param>
+        /// <param name="propertyName">Tên của thuộc tính</param>
+        public entity getByProperty<entity>(string param, string propertyName)
+        {
+            string className = typeof(entity).Name;
+            string procName = $"procGet{className}By{propertyName}";
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add($"@{propertyName}", param.ToString());
+            entity result = dbConnection.Query<entity>(propertyName, param: dynamicParameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
     }

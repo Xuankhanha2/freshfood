@@ -55,8 +55,10 @@
                     </div>
                     <div class="quantity">
                         <input type="button" id="decreaseBtn" value="-">
-                        <input type="text" name="number" id="soluong" value="1" size="1">
-                        <input type="button" id="increaseBtn" value="+">
+                        <input type="text" name="number" id="soluong" v-model="number" size="1">
+                        <input type="button" id="increaseBtn" value="+"
+                            @click="inscreaNumber()"
+                        >
                     </div>
                     <input type="submit" class="btn btn-block btn-success" style="font-size: 20px; margin-bottom: 12px;" onclick="UpdateCart(@Model.id)" value="Mua hàng">
                 </div>
@@ -193,7 +195,6 @@
                             </div>
                         </div>
                     </div>
-
             </div>
             <!-- san pham noi bat -->
             <div class="suggestedProduct col-xl-3 offset-xl-1">
@@ -231,6 +232,11 @@
  * created by: VXKHANH
  */
 export default {
+    data() {
+        return {
+            number: 1,
+        }
+    },
     methods: {
         /**
          * created by: vxkhanh
@@ -243,6 +249,14 @@ export default {
             var element = this.$refs.txt;
             var top = element.offsetTop;
             window.scrollTo(0, top+200);
+        },
+        /**
+        created date: 12/7/2021
+        created by: VXKHANH
+        Hàm sửu dụng để cộng thên số lượng sản phẩm
+         */
+        inscreaNumber() {
+            this.number++;
         }
     },
 }

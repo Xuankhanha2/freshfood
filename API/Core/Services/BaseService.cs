@@ -101,7 +101,8 @@ namespace Core.Services
         {
             try
             {
-                baseValidate<entity>(param);
+                //validate với trạng thái là insert
+                baseValidate<entity>(param, false);
                 if (serviceResult.isValid)
                 {
                     int check = baseRepository.insertEntity<entity>(param);
@@ -147,7 +148,7 @@ namespace Core.Services
         {
             try
             {
-                baseValidate<entity>(param);
+                baseValidate<entity>(param, true);
                 if (serviceResult.isValid)
                 {
                     int check = baseRepository.updateEntity<entity>(param);
@@ -228,13 +229,13 @@ namespace Core.Services
         /// <typeparam name="entity"></typeparam>
         /// <param name="data"></param>
         /// <returns></returns>
-        public void baseValidate<entity>(entity data)
+        public void baseValidate<entity>(entity data, bool isUpdate)
         {
             serviceResult.isValid = true;
             serviceResult.code = statusCode.success;
             var listError = new List<string>();
 
-            var properties = data.GetType().GetProperties();
+            var properties = data.GetType().GetProperties();    
             foreach(var property in properties)
             {
                 string propertyName = property.Name;
@@ -252,16 +253,48 @@ namespace Core.Services
                 }
                 if(property.IsDefined(typeof(duplicate), false))
                 {
-                    //Kiểm tra trùng Id
-                    Guid id = new Guid(propertyValue.ToString());
-                    var check = baseRepository.getById<entity>(id);
-                    if(check != null)
+                    if (isUpdate)
                     {
-                        serviceResult.isValid = false;
-                        listError.Add(propertyName + "is not duplicate!");
-                        serviceResult.code = statusCode.notValid;
-                        serviceResult.message = property.Name + Properties.resource.duplicateData;
+                        string primaryKeyName = typeof(entity).Name.ToLower()+"Id";
+
+                        Guid papram = new Guid(data.GetType().GetProperty(primaryKeyName).GetValue(data).ToString());
+                        //Lấy dữ liệu từ db thông qua id của đối tượng được truyền từ đầu hàm
+                        entity newEntity = baseRepository.getById<entity>(papram);
+                        //Giá trị của thuộc tính hiện tại
+                        var curentValue = property.GetValue(data).ToString();
+                        //Giá trị khóa chính được lấy trong db để so sánh 
+                        var compareValue = newEntity.GetType().GetProperty(property.Name).GetValue(newEntity).ToString();
+                        //So sánh xem dữ liệu có thay đổi hay là không 
+                        if (curentValue.Equals(compareValue))
+                        {
+                            //Nếu bằng nhau .
+                        }
+                        else
+                        {
+                            entity checkingData = baseRepository.getByProperty<entity>(curentValue, property.Name);
+                            if(checkingData != null)
+                            {
+                                serviceResult.isValid = false;
+                                listError.Add(propertyName + " này đã tồn tại.");
+                                serviceResult.code = statusCode.notValid;
+                                
+                            }
+                        }
                     }
+                    else
+                    {
+                        //Kiểm tra trùng Id với trạng thái là insert
+                        Guid id = new Guid(propertyValue.ToString());
+                        var check = baseRepository.getById<entity>(id);
+                        if (check != null)
+                        {
+                            serviceResult.isValid = false;
+                            listError.Add(propertyName + "is not duplicate!");
+                            serviceResult.code = statusCode.notValid;
+                            serviceResult.message = property.Name + Properties.resource.duplicateData;
+                        }
+                    }
+                    
                 }
             }
         }

@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Created date: 17/07/2021
+    /// Created by: VXKHANH
+    /// </summary>
     public class ProductController : BaseController<Product>
     {
         IProductService productService;

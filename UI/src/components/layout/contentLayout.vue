@@ -1,20 +1,19 @@
 <template>
     <div class="contentLayout">
-        <!-- <homePage/> -->
-        <!-- <productDetailPage/> -->
-        <contactPage/>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-// import homePage from '../page/homePage.vue'
-// import productDetailPage from '../page/productDetailPage.vue'
-import contactPage from '../page/contactPage.vue'
+
 export default {
+    data() {
+        return {
+            
+        }
+    },
     components:{
-        // homePage,
-        // productDetailPage,
-        contactPage
+    
     }
 }
 </script>

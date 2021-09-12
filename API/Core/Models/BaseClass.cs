@@ -10,6 +10,14 @@ namespace Core.Models
     /// </summary>
     public class BaseClass
     {
+        #region Contructor
+        public BaseClass()
+        {
+            this.selectedItem = false;
+        }
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Ngày tạo bản ghi
         /// </summary>
@@ -24,6 +32,11 @@ namespace Core.Models
         /// Ngày sửa đổi gần nhất
         /// </summary>
         public DateTime modifiedDate { get; set; }
+
+        /// <summary>
+        /// Biến dử dụng để xác định phần tử đươc chọn trong lưới dữ liệu
+        /// </summary>
+        public bool selectedItem { get; set; }
 
         /// <summary>
         /// Attribute Bắt buộc không để trống
@@ -41,5 +54,7 @@ namespace Core.Models
         {
 
         }
+
+        #endregion
     }
 }

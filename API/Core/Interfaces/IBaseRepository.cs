@@ -54,5 +54,15 @@ namespace Core.Interfaces
         /// <returns></returns>
         public int deleteEntity<entity>(Guid id);
 
+        /// <summary>
+        /// created date 3/8/2021
+        /// created by: vu xuan khanh
+        /// Hàm lấy dữ liệu theo tên thuộc tính truyền vào
+        /// </summary>
+        /// <typeparam name="entity">Type</typeparam>
+        /// <param name="param">Tham số giá trị để tìm kiếm </param>
+        /// <param name="propertyName">Tên của thuộc tính</param>
+        public entity getByProperty<entity>(string param, string propertyName);
+
     }
 }

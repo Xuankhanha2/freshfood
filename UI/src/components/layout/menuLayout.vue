@@ -3,17 +3,44 @@
         <div class="menuContent">
             <div class="menuLeft">
                 <ul>
-                    <li><a href="/Home">Trang chủ</a></li>
+                    <router-link to="/home">
                     <li>
-                        <a href="/Product/Index">Sản phẩm</a>
+                        Trang chủ
+                    </li>
+                    </router-link>
+
+                    <router-link to="/category">
+                    <li>
+                        Sản phẩm
                         <ul>
-                            <li><a href="/Product/PhanLoaiSanPham/@item.id">item1</a></li>
+                            <li><a href="#">item1</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Nhà cung cấp</a></li>
-                    <li><a href="/News/listNews">Tin tức</a></li>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="/Home/Contact">Liên hệ</a></li>
+                    </router-link>
+
+                    <router-link to="/provider">
+                    <li>
+                        Nhà cung cấp
+                    </li>
+                    </router-link>
+
+                    <router-link to="/news">
+                    <li>
+                        Tin tức
+                    </li>
+                    </router-link>
+
+                    <router-link to="/introduct">
+                    <li>
+                        Giới thiệu
+                    </li>
+                    </router-link>
+
+                    <router-link to="/contact">
+                    <li>
+                        Liên hệ
+                    </li>
+                    </router-link>
                 </ul>
             </div>
             <div class="search">
