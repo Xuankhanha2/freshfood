@@ -3,7 +3,7 @@
         <div class="logo-box">
             <div class="logo"> </div>
             <div class="web-title">
-                K Admin
+                Admin
             </div>
             <div class="toggle-btn"></div>
         </div>
@@ -39,23 +39,22 @@
                 <div class="nav-item-text">Quản lý hóa đơn</div>
             </div>
 
-            <div class="nav-item">
-                <div class="select-highline"></div>
-                <div class="nav-item-icon mountofdebt-icon"></div>
-                <div class="nav-item-text">Tin tức</div>
-            </div>
+            <router-link to="news">
+                <div class="nav-item">
+                    <div class="select-highline"></div>
+                    <div class="nav-item-icon mountofdebt-icon"></div>
+                    <div class="nav-item-text">Tin tức</div>
+                </div>
+            </router-link>
 
-            <div class="nav-item">
-                <div class="select-highline"></div>
-                <div class="nav-item-icon report-icon"></div>
-                <div class="nav-item-text">Khách hàng</div>
-            </div>
+            <router-link to="customerPage">
+                <div class="nav-item">
+                    <div class="select-highline"></div>
+                    <div class="nav-item-icon report-icon"></div>
+                    <div class="nav-item-text">Khách hàng</div>
+                </div>
+            </router-link>
 
-            <div class="nav-item">
-                <div class="select-highline"></div>
-                <div class="nav-item-icon message-icon"></div>
-                <div class="nav-item-text">Tin nhắn</div>
-            </div>
 
             <div class="nav-item">
                 <div class="select-highline"></div>
@@ -78,7 +77,7 @@ export default {
   src: url('../../assets/Fonts/OpenSans-Bold.ttf');
 }
     .menu{
-        background-color: #24344b;
+        background-color: #2f3136 ;
         width: 220px;
         min-width: 220px;
         max-width: 220px;
@@ -91,15 +90,17 @@ export default {
         display: flex;
         align-items: center;
         position: relative;
+        background:  #202225;
     }
     .logo{
         height: 32px;
         width: 32px;
         margin-left: 10px;
-        background-image: url('../../assets/image/ic_KhoanThu_56.svg');
+        background-image: url('../../assets/image/K_logo.jpg');
         background-position: center;
-        background-size: contain;
+        background-size: cover;
         background-repeat: no-repeat;
+        border-radius: 4px;
     }
     .web-title{
         font-family: OpenSan-Semibold;
@@ -135,7 +136,7 @@ export default {
         height: 46px;
         display: flex;
         align-items: center;
-        background-color: #24344b;
+        background-color: #2f3136;
         padding-left: 10px;
         cursor: pointer;
     }

@@ -15,8 +15,8 @@ export default {
     .label label{
         margin-top: 16px;
         display: inline-block;
-        font-size: 12px;
-        font-family: OpenSan-Regular;
+        font-size: 14px;
+        font-family: OpenSan-Semibold;
         /* color: #757575; */
         color:#000;
     }

@@ -1,7 +1,7 @@
 .header {
     margin: 0px;
     padding: 0px;
-    line-height: 35px;
+    line-height: 40px;
     background-color: #83bb3e;
 }
 
@@ -9,15 +9,16 @@
     display: flex;
     margin: 0px;
     padding: 0px;
-    line-height: 35px;
+    line-height: 40px;
     width: 1200px;
     margin: 0 auto;
+    justify-content: space-between;
 }
 
 .headerLeft {
     margin: 0px;
     padding: 0px;
-    width: 50%;
+    width: auto;
     text-align: left;
 }
 
@@ -33,7 +34,7 @@
 }
 
 .headerLeft ul li a {
-    font-size: 14px;
+    font-size: 16px;
     text-decoration: none;
     color: white;
 }
@@ -48,7 +49,7 @@
     margin: 0px;
     padding: 0px;
     text-align: right;
-    width: 50%;
+    width: auto;
 }
 
 .headerRight ul {
@@ -69,7 +70,7 @@
 .headerRight ul li a {
     text-decoration: none;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .headerRight ul li:hover ul {

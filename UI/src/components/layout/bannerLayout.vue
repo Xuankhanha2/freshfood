@@ -32,7 +32,7 @@
 
       <div class="cart">
         <i class="fas fa-shopping-bag"></i>
-        <a href="/Cart/Index">Giỏ hàng</a>
+        <router-link to="/cart">Giỏ hàng</router-link>
         <div id="countCart"><span>0</span></div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 <template>
     <div class="productDetailPage">
         <!-- History -->
-        <div class="history">
-            <ul>
-                <li><a href="/Home/Index">TRANG CHỦ /</a></li>
-                <li><a href="/Product/Index">&nbsp;DANH MỤC /</a></li>
-                <li><a href="#"><span>&nbsp;SẢN PHẨM</span></a></li>
-            </ul>
+        <div class="widgetBar">
+            <div class="history">
+                <span class="parentPage"><a href="/Home">Trang chủ</a></span>
+                <span style="padding: 0px 8px; color:brown">/</span>
+                <span class="currentPage">Danh mục sản phẩm</span>
+            </div>
         </div>
         <!-- history -->
 
@@ -263,5 +263,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    @import url("../../css/page/productDetail.css")
+    @import url("../../css/page/productDetailPage.css")
 </style>

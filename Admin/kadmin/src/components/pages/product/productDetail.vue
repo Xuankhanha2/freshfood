@@ -149,6 +149,7 @@
                     </div> -->
                 </div>
                 <div class="form-right">
+                    <!-- Ảnh sản phẩm -->
                     <div class="form-right-top-content">
                         <img :src="cloneProduct.image">
                         <div id="inputLinkImage">
@@ -159,6 +160,9 @@
                             >
                         </div>
                     </div>
+                    <!-- / -->
+
+                    <!-- Mô tả về sản phẩm -->
                     <div class="form-right-middle-content">
                         <newLabel :text="'Mô tả về sản phẩm'" 
                             :required="false"/>
@@ -175,6 +179,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- / -->
+
+                    <!-- Sản phẩm hot -->
                     <div class="form-right-bottom-content">
                         <div class="form-r-col">
                             <div class="row-check">
@@ -191,6 +198,7 @@
                             <!--  -->
                         </div>
                     </div>
+                    <!-- / -->
                 </div>
             </div>
             <div class="form-footer">
@@ -280,6 +288,7 @@ export default {
             notifyText: '',
             /*Biến hiển thị thông báo*/
             popup: false,
+            
         }
     },
     beforeUpdate(){

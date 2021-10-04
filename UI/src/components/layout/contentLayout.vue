@@ -24,4 +24,6 @@ export default {
     width: 1200px;
     margin-top: 10px;
 }
+
+@import url('../../css/layout/content.css')
 </style>

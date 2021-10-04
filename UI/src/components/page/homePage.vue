@@ -1,23 +1,31 @@
 <template>
     <div class="homeContent">
         <!-- slie show & danh muc -->
-        <div class="slideNcategory">
-            <!--Catogory -->
+        <div class="slideNcategory row">
+            <!-- category -->
+            <sideCategoryBar class="col-xl-3"/>
+            <!-- end category -->
+
+            <!--  -->
+            <div class="slide col-xl-9">
+                <div class="slideItem "><img src="../../assets/images/slide1.jpg" alt=""></div>
+                <div class="slideItem imageOnTop"><img src="../../assets/images/slide2.jpg" alt=""></div>
+                <div class="slideItem "><img src="../../assets/images/slide3.jpg" alt=""></div>
+                <div class="slideItem "><img src="../../assets/images/slide4.jpg" alt=""></div>
+                <div class="slideItem "><img src="../../assets/images/slide5.jpg" alt=""></div>
+            </div>
             
-            <!--/end Catogory-->
-           
         </div>
         <!-- end slie show & danh muc -->
 
         <!-- product -->
         <div class="productRow">
             <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
-            <div class="productList">
-                <div class="productCell col-xl-2.5">
-                        <a href="#"><img src="../../assets/images/tcmn-image3.jpg"></a>
-                        <a href="#">
-                            <h1>Hồng xanh</h1>
-                        </a>
+            <div class="productList row">
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -40,15 +48,77 @@
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
-                        <!-- button add cart -->
-                        <div class="buyBtn btn-primary">Add cart</div>
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
+                </div>
+                
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
+                        <!-- ratingStar -->
+                        <div class="ratingStars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <!-- end rating Star -->
+
+                        <!--Real price -->
+                        <h2>100.000 đ</h2>
+
+                        <!-- price after discount -->
+                        <p>80.000 ₫</p>
+
+                        <!-- discount percent -->
+                        <div class="sale">-20%</div>
+
+                        <!-- button add wishlist -->
+                        <div class="wishlist"><i class="far fa-heart"></i></div>
+
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
+                </div>
+                
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
+                        <!-- ratingStar -->
+                        <div class="ratingStars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <!-- end rating Star -->
+
+                        <!--Real price -->
+                        <h2>100.000 đ</h2>
+
+                        <!-- price after discount -->
+                        <p>80.000 ₫</p>
+
+                        <!-- discount percent -->
+                        <div class="sale">-20%</div>
+
+                        <!-- button add wishlist -->
+                        <div class="wishlist"><i class="far fa-heart"></i></div>
+
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
                 </div>
 
-                <div class="productCell col-xl-2.5">
-                        <a href="#"><img src="../../assets/images/tcmn-image3.jpg"></a>
-                        <a href="#">
-                            <h1>Hồng xanh</h1>
-                        </a>
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -71,15 +141,15 @@
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
-                        <!-- button add cart -->
-                        <div class="buyBtn btn-primary">Add cart</div>
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
                 </div>
 
-                <div class="productCell col-xl-2.5">
-                        <a href="#"><img src="../../assets/images/tcmn-image3.jpg"></a>
-                        <a href="#">
-                            <h1>Hồng xanh</h1>
-                        </a>
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -102,15 +172,15 @@
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
-                        <!-- button add cart -->
-                        <div class="buyBtn btn-primary">Add cart</div>
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
                 </div>
 
-                <div class="productCell col-xl-2.5">
-                        <a href="#"><img src="../../assets/images/tcmn-image3.jpg"></a>
-                        <a href="#">
-                            <h1>Hồng xanh</h1>
-                        </a>
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -133,8 +203,9 @@
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
-                        <!-- button add cart -->
-                        <div class="buyBtn btn-primary">Add cart</div>
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,11 +220,10 @@
         <div class="productRow">
             <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
             <div class="productList">
-                <div class="productCell col-xl-2.5">
-                        <a href="#"><img src="../../assets/images/tcmn-image3.jpg"></a>
-                        <a href="#">
-                            <h1>Hồng xanh</h1>
-                        </a>
+                <div class="marginProductCell col-xl-3">
+                    <div class="productCell">
+                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
+                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -176,8 +246,9 @@
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
-                        <!-- button add cart -->
-                        <div class="buyBtn btn-primary">Add cart</div>
+                        <!-- button Thêm vào giỏ -->
+                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,21 +280,21 @@
         <div class="newsContent">
             <div class="newsList col-xl-12">
                 <div class="newsCell ">
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="@item.name">
+                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
                     <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
                     <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
                     <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
                 </div>
 
                 <div class="newsCell ">
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="@item.name">
+                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
                     <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
                     <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
                     <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
                 </div>
 
                 <div class="newsCell ">
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="@item.name">
+                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
                     <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
                     <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
                     <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
@@ -245,10 +316,15 @@
 </template>
 
 <script>
+
+import sideCategoryBar from '../shared/sideCategoryBar.vue'
 export default {
+    components:{
+        sideCategoryBar
+    }
     
 }
 </script>
 <style lang="css">
-    @import url('../../css/page/home.css');
+    @import url('../../css/page/homePage.css');
 </style>

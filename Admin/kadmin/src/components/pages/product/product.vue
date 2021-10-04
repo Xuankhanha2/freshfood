@@ -20,6 +20,7 @@
         </div> -->
         <div class="grid">
             <div class="filter-line">
+                <!-- checkbox hiển thị sản phẩm ngừng kinh doanh -->
                 <div class="filter-left">
                     <div class="select-line"
                         :class="{'selected-line':stopBusiness}"
@@ -27,18 +28,27 @@
                     ></div>
                     <label for="">Hiển thị sản phẩm ngừng kinh doanh</label>
                 </div>
+                <!-- / -->
+
+                <!--  -->
                 <div class="filter-right">
+                    <!-- Nút thêm  -->
                     <newButton 
                         :Text="'Thêm mới'"
                         :second="false"
                         @click.native="openForm(false, {})"
                         />
+                    <!-- / -->
+
+                    <!-- Nút sắp xếp -->
                     <newButton
                     :Text="'Sắp lại thứ tự'"
                         :second="true"
                         />
                     <div class="trash-btn"></div>
+                    <!-- / -->
                 </div>
+                <!--  -->
             </div>
 
             <div class="grid-list">
@@ -46,82 +56,129 @@
                 <table cellspacing="0" cellpadding="0" border="0">
                     <!-- Dòng tiêu đề của bảng -->
                     <tr>
+                        <!-- Cột chứa ô checkbox chọn dòng sản phẩm -->
                         <th colspan="1"> </th>
+                        <!-- / -->
+
+                        <!-- Ảnh sản phẩm -->
                         <th colspan="1" class="td-to-check">Ảnh sản phẩm</th>
+                        <!-- / -->
+
+                        <!-- Tên sản phẩm -->
                         <th colspan="1" class="col-name-revenue">
                             <div class="th-text">Tên sản phẩm</div>
                             <div class="btn-filter"><input type="text"></div>
                         </th>
+                        <!-- / -->
+
+                        <!-- Danh mục sản phẩm -->
                         <th colspan="1" class="col-group-revenue">
                             <div class="th-text">Danh mục sản phẩm</div>
                             <div class="btn-filter"><input type="text"></div>
                         </th>
+                        <!-- / -->
+
+                        <!-- Giá sản phẩm -->
                         <th colspan="1" class="col-mount-revenue">
                             <div class="th-text">Giá sản phẩm</div>
                             <div class="btn-filter"><input type="text"></div>
                         </th>
+                        <!-- / -->
+
+                        <!-- Nhà cung cấp -->
                         <th colspan="1" class="col-mount-revenue">
                             <div class="th-text">Nhà cung cấp</div>
                             <div class="btn-filter"><input type="text"></div>
                         </th>
-                        <!-- <th colspan="1" style="min-width: 96px">
-                            <div class="th-text">Kỳ thu</div>
-                            <div class="btn-filter">
-                                <select >
-                                    <option value="0">Tháng</option>
-                                    <option value="1">Quý</option>
-                                    <option value="2">Kỳ học</option>
-                                    <option value="3">Năm</option>
-                                </select>
-                            </div>
-                        </th> -->
+                        <!-- / -->
+                        
+                        <!-- Giảm giá -->
                         <th colspan="1" class="td-to-check">Giảm giá</th>
+                        <!-- / -->
+
+                        <!-- Sản phẩm hot -->
                         <th colspan="1" class="td-to-check">Sản phẩm hot</th>
+                        <!-- / -->
+
+                        <!-- Trạng thái còn hàng -->
                         <th colspan="1" class="td-to-check">Trạng thái</th>
+                        <!-- / -->
+
+                        <!-- Cột chứa các nút chức năng -->
                         <th colspan="1"></th>
+                        <!-- / -->
                     </tr>
+
                     <!-- Các dòng dữ liệu -->
                     <tr v-for="product in products" :key="product.productId"
                         :class="{'row-focus':product.selectedItem}"
                     >
+                        <!-- Ô checkbox đánh dấu dòng được chọn -->
                         <td colspan="1">
                             <div class="select-line"
                                 :class="{'selected-line':product.selectedItem}"
                                 @click="product.selectedItem = !product.selectedItem"
                             ></div>
                         </td>
+                        <!-- / -->
+
+                        <!-- Ảnh sản phẩm -->
                         <td colspan="1" class="imageCell">
-                            <a :href="product.image" >
-                                {{product.image}}
-                            </a>
-                            <!-- <div class="main-cell">
-                                <div class="cell-link"></div>
-                                <div class="important">
-                                    <div class="tooltip-cell">Đây là khoản thu mặc định của hệ thống, bạn không thể xóa.</div>
-                                </div>
-                            </div> -->
+                            <img :src="product.image" />
                         </td>
+                        <!-- / -->
+
+                        <!-- Tên sản phẩm -->
                         <td colspan="1" class="colLinked"
                             @click="openForm(true, product)"
                         >{{product.productName}}</td>
+                        <!-- / -->
+
+                        <!-- Danh mục sản phẩm -->
                         <td colspan="1" class="">{{bindCategoryName(product.categoryId)}}</td>
+                        <!-- / -->
+
+                        <!-- Giá sản phẩm -->
                         <td colspan="1" class="td-to-check align-right-text" >{{product.price}} vnđ</td>
+                        <!-- / -->
+
+                        <!-- Nhà cung cấp -->
                         <td colspan="1" class="td-to-check">{{bindStoreName(product.storeId)}}</td>
+                        <!-- / -->
+
+                        <!-- Giảm giá -->
                         <td colspan="1" class="td-to-check">{{product.discount}}%</td>
+                        <!-- / -->
+
+                        <!-- Sản phẩm hot -->
                         <td colspan="1" class="td-to-check"><div :class="{'cell-checking':product.hot}"></div></td>
+                        <!-- / -->
+
+                        <!-- Trạng thái còn hàng -->
                         <td colspan="1" class="td-to-check">{{product.status}}</td>
-                        <!-- <td colspan="1" class="td-to-check"><div class="cell-checking"></div></td> -->
+                        <!-- / -->
+
+                        <!-- Ô chức các nút chức năng  -->
                         <td colspan="1">
                             <div class="last-cell">
+                                <!-- Sửa -->
                                 <div class="btn-edit" title="Chỉnh sửa dòng dữ liệu này"
                                     @click="openForm(true, product)"
                                 ></div>
+                                <!-- / -->
+
+                                <!-- Sao chép -->
                                 <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
+                                <!-- / -->
+
+                                <!-- Xóa -->
                                 <div class="btn-delete" title="Xóa dòng dữ liệu này"
                                     @click="showDeletePopup(product.productId)"
                                 ></div>
+                                <!-- / -->
                             </div>
                         </td>
+                        <!-- / -->
                     </tr>
                 </table>
                 </div>
@@ -132,6 +189,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Form thêm sửa -->
         <productDetail
             v-if="showPopup"
             :isUpdate="isUpdate"
@@ -142,6 +201,8 @@
             @closeForm="closeForm"
             @loadData="loadData"
         />
+        <!-- / -->
+
         <!-- Popup xóa sản phẩm -->
         <popup 
             :text="'Bạn có muốn xóa sản phẩm này?'"

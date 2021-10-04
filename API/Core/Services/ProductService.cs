@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces;
+using Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Core.Services
@@ -15,6 +17,40 @@ namespace Core.Services
         public ProductService(IProductRepository _productRepository) : base(_productRepository)
         {
             productRepository = _productRepository;
+        }
+
+        /// <summary>
+        /// Service lấy danh sách sản phẩm đã được sắp xếp
+        /// </summary>
+        /// <param name="order">Tiêu chí sắp xếp</param>
+        /// <returns>Danh sách sản phẩm đã được sắp xếp</returns>
+        public ServiceResult getOrderedProduct(string order)
+        {
+            try
+            {
+                //gọi hàm lấy danh sách sản phẩm
+                var list = productRepository.getOrderedProduct(order);
+                if (list != null)
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.success;
+                }
+                else
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.noContent;
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.message = e.Message;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace API.Controllers
         /// </summary>
         /// <typeparam name="entity"></typeparam>
         /// <returns>Danh sách các bản ghi</returns>
-        [HttpGet()]
+        [HttpGet]
         public IActionResult getAll()
         {
             ServiceResult result = baseService.getAll<entity>();

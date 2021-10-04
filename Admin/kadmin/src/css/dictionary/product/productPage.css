@@ -204,21 +204,30 @@ label{
     outline: none;
 }
 .grid-list table tr td{
-    height: 32px;
-    line-height: 32px;
+    height: auto;
     border: 1px solid #D5D8E6;
     font-size: 13px;
     font-family: OpenSan-Regular;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 4px 12px;
     white-space: nowrap;
     overflow-x: hidden;
 }
+
+.grid-list table tr td img{
+    height: 100px;
+    width: 100px;   
+    padding: 0px !important;
+    margin: 8px !important; 
+}
+
 .imageCell{
-    max-width: 200px !important;
-    white-space: nowrap;
-    text-overflow: hidden;
-    overflow-x: hidden;
+    width: 100%;
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    
 }
 .row-focus{
     background-color: #cce8ff !important;
@@ -300,6 +309,7 @@ label{
 .align-right-text{
     text-align: right !important;
 }
+
 .col-name-revenue{
     min-width: 350px;
 }

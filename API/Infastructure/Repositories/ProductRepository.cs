@@ -22,24 +22,49 @@ namespace Infastructure.Repositories
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public IEnumerable<Product> getOrderProduct(string order)
+        public IEnumerable<Product> getOrderedProduct(string order)
         {
-            string procName = "";
-            switch (order) {
-                case "name_a_z":
-                    procName = "procGetProductOrderByNameASC";
-                    break;
-                case "name_z_a":
-                    procName = "procGetProductOrderByNameDESC";
-                    break;
-                case "price_increase":
-                    procName = "procGetProductOrderByPriceASC";
-                    break;
-                case "price_decrease":
-                    procName = "procGetProductOrderByPriceDESC";
-                    break;
+            //Câu lệnh sql mẫu
+            string sql = "SELECT p.productId," +
+                            " p.productName," +
+                            " p.categoryId," +
+                            " p.price," +
+                            " p.discount," +
+                            " p.hot," +
+                            " p.image," +
+                            " p.description," +
+                            " p.storeId," +
+                            " p.createdDate," +
+                            " p.createdBy," +
+                            " p.modifiedDate," +
+                            " p.status FROM product p ORDER BY";
+            //Thêm tiêu chí đánh giá vào câu lệnh sql
+            if (order.Equals("name_a_z"))
+            {
+                //theo tên từ a-z
+                sql += " p.productName ASC;";
             }
-            var products = dbConnection.Query<Product>(procName, commandType: CommandType.StoredProcedure);
+            else if(order.Equals("name_z_a"))
+            {
+                //theo tên từ z-a
+                sql += " p.productName DESC;";
+            }else if (order.Equals("price_increase"))
+            {
+                //theo giá tăng dần
+                sql += " p.price ASC;";
+            }else if (order.Equals("price_decrease"))
+            {
+                //theo giá giảm dần
+                sql += " p.price DESC;";
+            }
+            else
+            {
+                //mặc định sắp xếp theo ngày tạo mới nhất
+                sql += " p.createdDate DESC;";
+            }
+            //Lấy danh sách sản phẩm từ db
+            var products = dbConnection.Query<Product>(sql, commandType: CommandType.Text);
+            //trả về danh sách sản phẩm
             return products;
 
         }
@@ -52,7 +77,7 @@ namespace Infastructure.Repositories
         /// <param name="categoryId">id của anh mục</param>
         /// <param name="order">Tiêu chí sắp xếp</param>
         /// <returns></returns>
-        public IEnumerable<Product> getOrderProduct(Guid categoryId, string order)
+        public IEnumerable<Product> getOrderedProduct(Guid categoryId, string order)
         {
             return null;
         }

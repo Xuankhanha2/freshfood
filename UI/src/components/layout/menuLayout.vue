@@ -11,10 +11,19 @@
 
                     <router-link to="/category">
                     <li>
-                        Sản phẩm
-                        <ul>
-                            <li><a href="#">item1</a></li>
-                        </ul>
+                        Danh mục
+                        <div id="subMenu">
+                            <div class="row justify-content-start">
+                                <div class="col-xl-3 categoryItem"><a href="#">Thịt tươi</a></div>
+                                <div class="col-xl-3 categoryItem"><a href="#">Rau củ tươi</a></div>
+                                <div class="col-xl-3 categoryItem"><a href="#">Trứng</a></div>
+                                <div class="col-xl-3 categoryItem"><a href="#">Thực phẩm đã chế biến</a></div>
+                            </div>
+                            <div class="row justify-content-start">
+                                <div class="col-xl-3 categoryItem"><a href="#">Hải sản</a></div>
+                                <div class="col-xl-3 categoryItem"><a href="#">Các loại gia vị</a></div>
+                            </div>
+                        </div>
                     </li>
                     </router-link>
 

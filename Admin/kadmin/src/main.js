@@ -6,13 +6,17 @@ import VueRouter from 'vue-router'
 
 import productPage from './components/pages/product/product.vue'
 import categoryPage from './components/pages/category/category.vue'
-
+import news from './components/pages/news/news.vue'
 Vue.use(VueRouter)
 
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+
+Vue.use( CKEditor );
 
 const routes = [
     { path: '/productPage', component: productPage },
-    { path: '/categoryPage', component: categoryPage }
+    { path: '/categoryPage', component: categoryPage },
+    { path: '/news', component: news }
   ]
 
 const router = new VueRouter({

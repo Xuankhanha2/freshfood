@@ -17,7 +17,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="order">Tiêu chí sắp xếp</param>
         /// <returns></returns>
-        public IEnumerable<Product> getOrderProduct(string order);
+        public IEnumerable<Product> getOrderedProduct(string order);
 
         /// <summary>
         /// created date: 8/9/2021
@@ -27,6 +27,6 @@ namespace Core.Interfaces
         /// <param name="categoryId">id của anh mục</param>
         /// <param name="order">Tiêu chí sắp xếp</param>
         /// <returns></returns>
-        public IEnumerable<Product> getOrderProduct(Guid categoryId, string order);
+        public IEnumerable<Product> getOrderedProduct(Guid categoryId, string order);
     }
 }

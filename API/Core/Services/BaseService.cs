@@ -12,7 +12,7 @@ namespace Core.Services
         /// created date: 23/06/2021
         /// created by: VXKHANH
         /// </summary>
-        ServiceResult serviceResult = new ServiceResult();
+        protected ServiceResult serviceResult = new ServiceResult();
         IBaseRepository baseRepository;
         public BaseService(IBaseRepository _baseRepository)
         {

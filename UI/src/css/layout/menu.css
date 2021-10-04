@@ -5,7 +5,7 @@
     position: sticky;
     top: 0;
     z-index: 9999;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .menuContent {
@@ -49,47 +49,44 @@
     background-color: #058134;
 }
 
-.menuContent ul li ul {
-    margin: 0px;
-    padding: 0px;
-    width: 1200px;
-    background-color: #fef79c;
-    line-height: 50px;
+.menuContent ul li #subMenu{
+    /* background-color: #fef79c; */
+    background-color: #FFF;
     position: absolute;
-    top: 45px;
+    width: 1200px;
+    padding:0px 24px 24px 24px;
+    top: 44px;
     left: 0px;
-    border-radius: 0px 0px 10px 10px;
-    list-style: disc !important;
-    border: 1px solid #ff5722;
+    /* border-radius: 0px 0px 10px 10px; */
+    /* border: 1px solid #ff5722; */
     border-top: 0px;
     display: none;
+    box-shadow: 1px 1px 3px #000000;
 }
 
-.menuContent ul li ul li {
-    margin: 0px;
-    padding: 0px;
-    line-height: 50px;
-    padding: 0px 20px;
-    display: inline-block;
+.menuContent ul li #subMenu .justify-content-start{
+    margin: 0px !important;
+    padding-top: 16px;
+
 }
 
-.menuContent ul li ul li:hover {
-    background-color: #fef79c;
+
+.menuContent ul li #subMenu .row a:hover{
+    color: #aaa !important;
 }
 
-.menuContent ul li ul li:hover a {
-    color: #5c3d21;
-}
-
-.menuContent ul li ul li a {
-    color: #000;
+.menuContent ul li #subMenu a {
+    color: #000 !important;
     text-decoration: none;
 }
 
-.menuLeft ul li:hover ul {
+.menuLeft ul li:hover #subMenu {
     display: block;
 }
-
+.categoryItem{
+    text-align: left;
+    padding-left: 24px !important;
+}
 .search {
     padding: 0px;
     margin: 0px;

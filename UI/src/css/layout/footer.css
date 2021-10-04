@@ -44,7 +44,7 @@
         }
 
         .ftlContent ul li {
-            font-size: 14px;
+            font-size: 16px;
             margin-top: 10px;
         }
         .ftlContent ul li i{
@@ -80,12 +80,13 @@
         .ftmContent ul li {
             padding: 0px;
             margin-top: 5px;
-            font-size: 14px;
+            font-size: 16px;
             line-height: 24px;
         }
 
         .ftmContent ul li a {
             color: white;
+            text-decoration: none !important;
         }
 
         .ftmContent ul li a:hover {
@@ -121,6 +122,10 @@
             font-weight: bold;
             text-shadow: 1px 1px blue;
             text-decoration: none;
+        }
+
+        .ftrContent a:hover{
+            text-decoration: none !important;
         }
     /* end footer top right */
 /* end footer */
