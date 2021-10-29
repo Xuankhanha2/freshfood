@@ -21,11 +21,16 @@
         <!-- product -->
         <div class="productRow">
             <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
+            <!-- Danh sách sản phẩm -->
             <div class="productList row">
-                <div class="marginProductCell col-xl-3">
+                <!-- Ô sản phẩm -->
+                <div class="marginProductCell col-xl-3" 
+                    v-for="product in products" 
+                    :key="product.productId"
+                >
                     <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
+                        <router-link to="/productDetail"><img :src="product.image"></router-link>
+                        <router-link to="/productDetail"><h1>{{product.productName}}</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -40,10 +45,10 @@
                         <h2>100.000 đ</h2>
 
                         <!-- price after discount -->
-                        <p>80.000 ₫</p>
+                        <p>{{product.price}} ₫</p>
 
                         <!-- discount percent -->
-                        <div class="sale">-20%</div>
+                        <div class="sale">-{{product.discount}}%</div>
 
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
@@ -52,162 +57,9 @@
                         <div class="btn btn-primary">Thêm vào giỏ</div>
                     </div>
                 </div>
-                
-                <div class="marginProductCell col-xl-3">
-                    <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>80.000 ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-20%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
-                    </div>
-                </div>
-                
-                <div class="marginProductCell col-xl-3">
-                    <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>80.000 ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-20%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
-                    </div>
-                </div>
-
-                <div class="marginProductCell col-xl-3">
-                    <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>80.000 ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-20%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
-                    </div>
-                </div>
-
-                <div class="marginProductCell col-xl-3">
-                    <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>80.000 ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-20%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
-                    </div>
-                </div>
-
-                <div class="marginProductCell col-xl-3">
-                    <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>80.000 ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-20%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
-                    </div>
-                </div>
+                <!-- /Ô sản phẩm -->
             </div>
+            <!-- /Danh sách sản phẩm -->
         </div>
         <!-- /end product  -->
 
@@ -316,12 +168,47 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 import sideCategoryBar from '../shared/sideCategoryBar.vue'
 export default {
+     data() {
+        return {
+            //Biến lưu danh sách sản phẩm hiện trên trang chủ
+            products:[],
+            //Biến lưu danh sách sản phẩm thứ 2
+            secondProducts:[],
+            //Danh sách danh mục hiển thị trên trang chủ
+            categories:[],
+            //Danh sách menu item
+            menuItems:[],
+        }
+    },
     components:{
         sideCategoryBar
-    }
+    },
+    methods: {
+        
+    },
+    async created() {
+        //Lấy danh sách sản phẩm
+        await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
+            // this.products = result.data;
+            for(var i=0;i<12;i++){
+                this.products[i] = result.data[i];
+            }
+
+        }).catch(()=>{
+            console.log("Đã xảy ra lỗi khi lấy sản phẩm.");
+        });
+        //Lấy danh sách danh mục 
+        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+            //Gán kết quả vào biến categories
+            this.categories = result.data;
+        }).catch(()=>{
+            console.log("Đã xảy ra lỗi khi lấy danh mục sản phẩm");
+        });
+    },
+    
     
 }
 </script>

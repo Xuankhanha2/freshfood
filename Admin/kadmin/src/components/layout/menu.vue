@@ -16,7 +16,7 @@
                 </div>
             </router-link>
 
-            <router-link to="productPage">
+            <router-link to="product">
                 <div class="nav-item">
                     <div class="select-highline"></div>
                     <div class="nav-item-icon plan-icon"></div>
@@ -24,7 +24,7 @@
                 </div>
             </router-link>
 
-            <router-link to="categoryPage">
+            <router-link to="category">
                 <div class="nav-item">
                     <div class="select-highline"></div>
                     <div class="nav-item-icon manage-revenue-icon"></div>
@@ -47,14 +47,13 @@
                 </div>
             </router-link>
 
-            <router-link to="customerPage">
+            <router-link to="customer">
                 <div class="nav-item">
                     <div class="select-highline"></div>
                     <div class="nav-item-icon report-icon"></div>
                     <div class="nav-item-text">Khách hàng</div>
                 </div>
             </router-link>
-
 
             <div class="nav-item">
                 <div class="select-highline"></div>

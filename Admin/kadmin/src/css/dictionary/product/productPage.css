@@ -52,7 +52,7 @@
 }
 .grid{
     border-top: 1px solid #dddddd;
-    height: calc(100% - 40px);
+    height: calc(100% - 1px);
     width: 100%;
     background-color: #FFFFFF;
 }
@@ -321,6 +321,7 @@ label{
 }
 .colLinked{
     color: blue;
+    font-weight: bold !important;
     cursor: pointer;
 }
 

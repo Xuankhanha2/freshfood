@@ -54,13 +54,11 @@ namespace Core.Models
         /// <summary>
         /// Tên tài khoản 
         /// </summary>
-        [required]
         public string username { get; set; }
 
         /// <summary>
         /// Mật khẩu
         /// </summary>
-        [required]
         public string password { get; set; }
         #endregion
     }

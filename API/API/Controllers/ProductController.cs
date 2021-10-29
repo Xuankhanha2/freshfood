@@ -30,7 +30,7 @@ namespace API.Controllers
             {
                 return StatusCode(200, result.data);
             }
-            else 
+            else
             {
                 return StatusCode(500, result);
             }

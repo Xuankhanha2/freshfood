@@ -73,7 +73,7 @@
                         <!-- Ô nhập dữ liệu -->
                         <input type="text" 
                             ref="feeName" 
-                            class="textbox margin-r-16"
+                            class="textbox margin-r-16 percentEnd"
                             :class="{'required-outline':false}"
                             v-model="cloneProduct.discount"
                         >
@@ -104,49 +104,6 @@
                     </div>
                 <!-- end Nhà cung cấp sản phẩm -->
 
-                    <!--
-                    <newLabel :text="'Tính chất'"/>
-                    <div class="form-left-row ">
-                        <select class="mar-r-16px radius">
-                            <option value="0">Thu theo thỏa thuận</option>
-                            <option value="1">Thu theo hệ thống</option>
-                        </select>
-                    </div> -->
-
-                    <!-- <newLabel :text="'Kỳ thu'" :required="true"/>
-                    <div class="radio-row">
-                        <div class="radio-button" >
-                            <input type="radio" name="term"
-                                value="0"
-                            >
-                            <label for=""></label>
-                            <div class="radio-text">Tháng</div>
-                        </div>
-                        <div class="radio-button" >
-                            <input type="radio" name="term" 
-                                value="1"
-                            >
-                            <label for=""></label>
-                            <div class="radio-text">Quý</div>
-                        </div>
-
-                            <div class="radio-button">
-                            <input type="radio" name="term" 
-                                value="2"
-                            >
-                            <label for=""></label>
-                            <div class="radio-text">Học kỳ</div>
-                        </div>
-                        
-                            <div class="radio-button" >
-                            <input type="radio" name="term" 
-                                value="3"
-                            >
-                            <label for=""></label>
-                            <div class="radio-text">Năm học</div>
-                        </div>
-                        <div class="tooltip" v-show="false">Dữ liệu không được để trống!</div>
-                    </div> -->
                 </div>
                 <div class="form-right">
                     <!-- Ảnh sản phẩm -->
@@ -155,7 +112,7 @@
                         <div id="inputLinkImage">
                             <!-- <input type="file" id="selectImage"> -->
                             <label>Link ảnh sản phẩm</label>
-                            <input type="text" 
+                            <input type="text" class="textbox"
                                 v-model="cloneProduct.image"
                             >
                         </div>
@@ -406,7 +363,8 @@ export default {
         /**Hàm load dữ liệu khi thêm hoặc sủa trên form */
         loadData(){
             this.$emit('loadData');
-        }
+        },
+        
             
     },
     created() {
@@ -420,5 +378,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    @import'../../../css/dictionary/product/productDetailPage.css'
+    @import'../../../css/dictionary/product/productDetail.css'
 </style>

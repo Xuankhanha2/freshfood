@@ -24,6 +24,7 @@ namespace API.Controllers
         {
             baseService = _baseService;
         }
+
         // GET: api/<BaseController>
         /// <summary>
         /// created date: 20/06/2021
@@ -63,7 +64,6 @@ namespace API.Controllers
                 return StatusCode(204, result.data);
         }
 
-        // POST api/<BaseController>
         /// <summary>
         /// created date: 20/06/2021
         /// created by: VXKHANH

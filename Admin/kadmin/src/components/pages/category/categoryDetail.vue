@@ -232,6 +232,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-    @import'../../../css/dictionary/product/productDetailPage.css';
+    @import'../../../css/dictionary/product/productDetail.css';
     @import'../../../css/dictionary/category/categoryDetail.css'
 </style>

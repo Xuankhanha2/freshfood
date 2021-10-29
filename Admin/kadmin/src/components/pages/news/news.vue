@@ -89,7 +89,7 @@
                         <!-- /Nguồn tin tức -->
                         
                         <!-- Ngày tạo tin tức -->
-                        <td colspan="1" class="">{{news.createdDate}}</td>
+                        <td colspan="1" class="">{{formatDate(String(news.createdDate))}}</td>
                         <!-- / -->
 
                         <!-- Tin hot -->
@@ -268,6 +268,17 @@ export default {
             });
             //Ẩn ảnh load dữ liệu khi dữ liệu đã được tải xong
             this.loading = false;
+        },
+
+        /**Hàm định dạng ngày */
+        formatDate(datetime){
+            if(datetime != null){
+                var date = datetime.substr(0, 10);
+                date = date.split("-");
+                var formatedDate = [date[2],date[1],date[0]].join("/");
+                return formatedDate;
+            }
+            return "";
         }
 
     },
