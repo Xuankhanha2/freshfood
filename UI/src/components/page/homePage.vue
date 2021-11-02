@@ -29,8 +29,8 @@
                     :key="product.productId"
                 >
                     <div class="productCell">
-                        <router-link to="/productDetail"><img :src="product.image"></router-link>
-                        <router-link to="/productDetail"><h1>{{product.productName}}</h1></router-link>
+                        <router-link :to="'/productDetail/'+product.productId"><img :src="product.image"></router-link>
+                        <router-link :to="'/productDetail/'+product.productId"><h1>{{product.productName}}</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -45,7 +45,7 @@
                         <h2>100.000 đ</h2>
 
                         <!-- price after discount -->
-                        <p>{{product.price}} ₫</p>
+                        <p>{{formatMoney(product.price)}} ₫</p>
 
                         <!-- discount percent -->
                         <div class="sale">-{{product.discount}}%</div>
@@ -54,7 +54,7 @@
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
                         <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                        <div class="btn btn-primary" id="btnAddCart">Thêm vào giỏ</div>
                     </div>
                 </div>
                 <!-- /Ô sản phẩm -->
@@ -69,13 +69,19 @@
         </div>
         <!--end Banner-->
 
+        <!-- product -->
         <div class="productRow">
             <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
-            <div class="productList">
-                <div class="marginProductCell col-xl-3">
+            <!-- Danh sách sản phẩm -->
+            <div class="productList row">
+                <!-- Ô sản phẩm -->
+                <div class="marginProductCell col-xl-3" 
+                    v-for="product in products" 
+                    :key="product.productId"
+                >
                     <div class="productCell">
-                        <router-link to="/productDetail"><img src="../../assets/images/tcmn-image3.jpg"></router-link>
-                        <router-link to="/productDetail"><h1>Hồng xanh</h1></router-link>
+                        <router-link :to="'/productDetail/'+product.productId"><img :src="product.image"></router-link>
+                        <router-link :to="'/productDetail/'+product.productId"><h1>{{product.productName}}</h1></router-link>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -90,20 +96,24 @@
                         <h2>100.000 đ</h2>
 
                         <!-- price after discount -->
-                        <p>80.000 ₫</p>
+                        <p>{{formatMoney(product.price)}} ₫</p>
 
                         <!-- discount percent -->
-                        <div class="sale">-20%</div>
+                        <div class="sale">-{{product.discount}}%</div>
 
                         <!-- button add wishlist -->
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
                         <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary">Thêm vào giỏ</div>
+                        <div class="btn btn-primary" id="btnAddCart">Thêm vào giỏ</div>
                     </div>
                 </div>
+                <!-- /Ô sản phẩm -->
             </div>
+            <!-- /Danh sách sản phẩm -->
         </div>
+        <!-- /end product  -->
+        
         <div class="serviceTitle">
             <p>CHÍNH SÁCH</p>
             <hr>
@@ -187,16 +197,25 @@ export default {
         sideCategoryBar
     },
     methods: {
-        
+        /**Hàm format giá tiền sản phẩm
+         * created by: VXKHANH
+         * created date: 30/10/21
+         */
+        formatMoney(money){
+            //chuyển đổi tiền
+            var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
+            return formatedMoney;
+        }
     },
     async created() {
         //Lấy danh sách sản phẩm
         await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
             // this.products = result.data;
+            //Lấy 12 sản phẩm hiển thị ở đầu trang chủ
             for(var i=0;i<12;i++){
                 this.products[i] = result.data[i];
             }
-
+            
         }).catch(()=>{
             console.log("Đã xảy ra lỗi khi lấy sản phẩm.");
         });

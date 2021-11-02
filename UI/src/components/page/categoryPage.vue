@@ -187,6 +187,7 @@
     </div>
 </template>
 <script>
+
 export default {
     data() {
         return {
@@ -195,7 +196,6 @@ export default {
     },
     methods: {
         change(arr){
-            
             this.className = arr;
         }
     },

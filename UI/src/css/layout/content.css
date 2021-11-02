@@ -58,6 +58,7 @@
     color: #ff5722;
     text-align: center;
     font-weight: bold;
+    margin-top: 12px;
 }
 
 .productCell a:hover {
@@ -98,8 +99,10 @@
     margin: 0px;
     line-height: 30px;
 }
-.btn{
-    font-size: 18px !important;
+#btnAddCart{
+    font-size: 16px !important;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
 }
 .sale{
     font-size: 13px;
@@ -172,7 +175,7 @@
 }
 
 .filterPrice label{
-    padding: 0px;
+    padding: 0px;   
     margin: 8px;
     line-height: 40px;
 }

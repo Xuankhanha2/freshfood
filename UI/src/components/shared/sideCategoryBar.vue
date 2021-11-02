@@ -5,22 +5,32 @@
             </div>
             <div class="catogory-content">
                 <ul> 
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Thịt tươi</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Hoa quả</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Rau củ tươi</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Hải sản</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Thịt tươi</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Gia vị nấu ăn</a></li>
-                    <li><a href="/Product/PhanLoaiSanPham/@item.id"><i class="fab fa-envira"></i>Thực phẩm đã chế biến</a></li>
-
+                    <li 
+                        v-for="category in categories" 
+                        :key="category.categoryId"
+                    >
+                        <a href="/Product/PhanLoaiSanPham/@item.id">
+                            <i class="fab fa-envira"></i>{{category.categoryName}}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-    
+    data() {
+        return {
+            categories: [],
+        }
+    },
+    async created() {
+        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+            this.categories = result.data;
+        })
+    },
 }
 </script>
 
@@ -28,7 +38,7 @@ export default {
 .slideBar {
     margin: 0px;
     padding: 0px;
-    width: 100%
+    width: 100%;
 }
 
 .catogory-title {

@@ -30,10 +30,15 @@
                 </div>
             </div>
             <!-- /Khoi trai -->
+            
             <!-- Khoi phai -->
             <div class="blockRight col-xl-4">
                 <div class="productInfor">
-                    <h1>Hồng xanh</h1>
+                    <!-- Tên sản phẩm -->
+                    <h1>{{product.productName}}</h1>
+                    <!-- / -->
+
+                    <!-- Số sao đánh giá -->
                     <div class="stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -41,26 +46,50 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
-                    <h2>80.000<sup>₫</sup></h2>
-                    <div class="detail" style="min-height: 70px">
-                        Là sản phẩm tươi ngon được nhập khẩu từ Úc
+                    <!-- / -->
+
+                    <!-- Giá của sản phẩm -->
+                    <h2>{{formatMoney(product.price)}}<sup>₫</sup></h2>
+                    <!-- / -->
+
+                    <!-- Mổ tả ngắn về sản phẩm -->
+                    <div class="detail">
+                        {{product.description}}
                     </div>
+                    <!-- / -->
+
+                    <!-- Thêm vào sản phẩm ưa thích -->
                     <div>
-                        <a href="#" style="text-decoration: none !important;"><i class="far fa-heart"></i> Add Wishlist</a>
+                        <a href="#" style="text-decoration: none !important;"><i class="far fa-heart"></i> Ưa thích</a>
                     </div>
+                    <!-- / -->
+
+                    <!-- Trạng thái của sản phẩm -->
                     <div class="productStatus">
                         Tình trạng:
-                            <span>còn hàng <i class="far fa-check-circle"></i></span>
-                            <!-- <span style="color: red !important;">Hết hàng <i class="far fa-times-circle"></i></span> -->
+                            <!-- Còn hàng -->
+                            <span v-if="product.status">còn hàng <i class="far fa-check-circle"></i></span>
+                            <!-- Hết hàng -->
+                            <span v-else style="color: red !important;">Hết hàng <i class="far fa-times-circle"></i></span>
                     </div>
+                    <!-- / -->
+
+                    <!-- Số lượng trước khi thêm vào giỏ hàng -->
                     <div class="quantity">
-                        <input type="button" id="decreaseBtn" value="-">
+                        <input type="button" id="decreaseBtn" value="-"
+                            @click="decreaseNumber()"
+                        >
                         <input type="text" name="number" id="soluong" v-model="number" size="1">
                         <input type="button" id="increaseBtn" value="+"
-                            @click="inscreaNumber()"
+                            @click="increaseNumber()"
                         >
                     </div>
-                    <input type="submit" class="btn btn-block btn-success" style="font-size: 20px; margin-bottom: 12px;" onclick="UpdateCart(@Model.id)" value="Mua hàng">
+                    <!-- / -->
+
+                    <!-- Nút thêm vào giỏ hàng -->
+                    <input type="submit" class="btn btn-block btn-success" id="btnAddCart" value="Thêm vào giỏ">
+                    <!-- / -->
+
                 </div>
                 <div class="extendInfor">
                     <div class="keyword">từ khóa: <a href="#">hoa quả</a></div>
@@ -77,20 +106,9 @@
             <!-- Phan mo rong -->
             <div class="moreChoice col-xl-3 offset-xl-1">
                 <!-- catogory -->
-                <div class="catogory">
-                    <div class="catogoryTitle">
-                        <i class="fas fa-carrot"></i> DANH MỤC SẢN PHẨM
-                    </div>
-                    <div class="catogoryContent">
-                        <ul>
-                            <li><a href="#"><i class="fab fa-envira"></i>Danh mục 1</a></li>   
-                            <li><a href="#"><i class="fab fa-envira"></i>Danh mục 1</a></li>
-                            <li><a href="#"><i class="fab fa-envira"></i>Danh mục 1</a></li>
-                            
-                        </ul>
-                    </div>
-                </div>
+                <sideCategoryBar/>
                 <!-- /catogory -->
+
                 <!-- quang cao -->
                 <!-- /quang cao -->
             </div>
@@ -104,14 +122,8 @@
                 <!-- description -->
                 <div class="">
                     <div class="descriptionTitle">Mô tả</div>
-                    <div class="descriptionContent">
-                        Giá trị dinh dưỡng:   Nho tươi cung cấp các chất dinh dưỡng,
-                        làm giảm mệt nhọc ngay lập tức. Các nghiên cứu cho thấy Nho tươi
-                        có chứa vitamin A, C, Calcium và sắt giúp duy trì sức khỏe,
-                        tốt cho tim mạch, ngăn ngừa tiến trình bệnh tiểu đường.
-                        Cũng như Táo, Nho của Mỹ, Úc… đều được bảo quản trong môi
-                        trường lạnh đặc biệt từ khi hái, không chất bảo quản và các
-                        chất gây hại cho sức khỏe.
+                    <div class="descriptionContent shortenContent">
+                        {{product.description}}
                     </div>
                 </div>
                 <!-- end description -->
@@ -198,27 +210,7 @@
             </div>
             <!-- san pham noi bat -->
             <div class="suggestedProduct col-xl-3 offset-xl-1">
-                <div class="catogoryTitle">
-                    <i class="fas fa-carrot"></i> SẢN PHẨM NỔI BẬT
-                </div>
-                <div class="suggestedProductContent">
-                    <ul>
-                        <li>
-                            <img src="../../assets/images/tcmn-image12.jpg">
-                            <div class="suggestedProductInfor">
-                                <p>Dâu tây</p>
-                                <h3>80.000<sup>₫</sup></h3>
-                                <h4>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </h4>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <recommendProduct/>
             </div>
         </div>
         <!-- end Mo ta - danh gia san pham -->
@@ -227,6 +219,9 @@
 </template>
 
 <script>
+import sideCategoryBar from '../shared/sideCategoryBar.vue'
+import axios from 'axios'
+import recommendProduct from '../shared/recommendProduct.vue'
 /**
  * created date: 19/06/2021
  * created by: VXKHANH
@@ -235,7 +230,12 @@ export default {
     data() {
         return {
             number: 1,
+            product: {},
         }
+    },
+    components:{
+        sideCategoryBar,
+        recommendProduct
     },
     methods: {
         /**
@@ -244,20 +244,45 @@ export default {
          * Hàm dùng để chuyển đến phần dánh giá sản phẩm khi nhấn nút "Đánh giá ngay"
          */
         ratingRow(){
-            console.log("Hello");
             this.$refs.txt.focus();
-            var element = this.$refs.txt;
-            var top = element.offsetTop;
-            window.scrollTo(0, top+200);
+            //var element = this.$refs.txt;
+            //var top = element.offsetTop;
+            //window.scrollTo(0, top+200);
         },
         /**
         created date: 12/7/2021
         created by: VXKHANH
         Hàm sửu dụng để cộng thên số lượng sản phẩm
          */
-        inscreaNumber() {
+        increaseNumber() {
             this.number++;
+        },
+
+        /**Hàm giảm số lượng sản phẩm 
+         * created by: VXKHANH
+         * created date 1/11/2021
+         */
+        decreaseNumber(){
+            if(this.number > 1)
+                this.number--;
+        },
+        /**Hàm format giá tiền sản phẩm
+         * created by: VXKHANH
+         * created date: 30/10/21
+         */
+        formatMoney(money){
+            //Chuyển đổi tiền
+            var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
+            return formatedMoney;
         }
+    },
+    async created() {
+        //Lấy thông tin sản phẩm theo id trên router
+        await axios.get('https://localhost:44368/api/v1.0/Products/'+this.$route.params.productId).then((result)=>{
+            this.product = result.data;
+        }).catch(()=>{
+            return;
+        });
     },
 }
 </script>

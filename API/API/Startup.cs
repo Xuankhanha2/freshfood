@@ -63,6 +63,10 @@ namespace API
             //User
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            //Cart
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartService, CartService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

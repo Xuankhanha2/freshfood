@@ -44,7 +44,7 @@
                             </td>
                         </tr>
                     </table>
-                    <a href="/Home" class="btn btn-dark"> Tiếp tục mua hàng</a>
+                    <a href="/Home" class="btn btn-dark" id="btnContinueShopping"> Tiếp tục mua hàng</a>
                     <a href="javascript: Clear()"><div class="btn btn-primary"><i class="fas fa-trash-alt"></i> Xóa toàn bộ</div></a>
                 </div>
                 <!-- end drop box -->
@@ -76,6 +76,6 @@ export default {
 }
 </script>
 
-<style lang="css" >
+<style lang="css" scoped>
     @import url('../../css/page/cart.css');
 </style>

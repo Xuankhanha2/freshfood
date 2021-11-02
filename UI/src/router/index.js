@@ -15,7 +15,7 @@ const routes = [
   },
   { path: '/category', component: category },
   { path: '/home', component: home },
-  { path: '/productDetail', component: productDetail },
+  { path: '/productDetail/:productId', component: productDetail },
   { path: '/contact', component: contact },
   { path: '/introduction', component: introduction },
   { path: '/cart', component: cart },
