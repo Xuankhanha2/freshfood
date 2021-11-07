@@ -1,8 +1,6 @@
 <template>
     <div class="contentLayout">
-        <router-view 
-            @formatMoney="formatedMoney"
-        ></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -15,7 +13,7 @@ export default {
         }
     },
     components:{
-    
+        
     },
     methods: {
         

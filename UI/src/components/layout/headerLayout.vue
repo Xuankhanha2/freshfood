@@ -20,8 +20,8 @@
             <!-- /header left -->
             <div class="headerRight">
                     <ul>
-                        <li><a href="/Account/Login">Đăng nhập</a></li>
-                        <li><a href="/Account/Register">Đăng ký</a></li>
+                        <li><router-link to="/login">Đăng nhập</router-link></li>
+                        <li><router-link to="/register">Đăng ký</router-link></li>
                     </ul>
                     <!-- <ul>
                         <li><a href="#">Xin chào: Vu Xuan Khanh <i class="fas fa-user-circle"></i></a>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,5 +12,14 @@ namespace Core.Interfaces
     /// </summary>
     public interface ICustomerService:IBaseService
     {
+        /// <summary>
+        /// created date: 11/04/2021
+        /// created by: vxkhanh
+        /// Hàm kiểm tra đăng nhập tài khoản khách hàng
+        /// </summary>
+        /// <param name="username">Tên tài khoản</param>
+        /// <param name="password">Mật khẩu</param>
+        /// <returns>ServiceResult</returns>
+        public ServiceResult customerLogin(string username, string password);
     }
 }

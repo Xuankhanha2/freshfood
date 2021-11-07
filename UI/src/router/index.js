@@ -6,7 +6,8 @@ import contact from '../components/page/contactPage.vue'
 import introduction from '../components/page/introductionPage.vue'
 import cart from '../components/page/cart.vue'
 import news from '../components/page/newsPage.vue'
-
+import login from '../components/page/loginPage.vue'
+import register from '../components/page/registerPage.vue'
 const routes = [
   {
     path: '/',
@@ -19,7 +20,9 @@ const routes = [
   { path: '/contact', component: contact },
   { path: '/introduction', component: introduction },
   { path: '/cart', component: cart },
-  { path: '/news', component: news }
+  { path: '/news', component: news },
+  { path: '/login', component: login },
+  { path: '/register', component: register },
 ]
 
 const router = createRouter({
