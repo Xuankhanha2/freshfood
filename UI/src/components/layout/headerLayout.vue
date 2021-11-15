@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="headerContent">
-            <div class="headerLeft">
+            <div class="headerLeft col-xl-8">
                 <ul>
                     <li>
                         <i class="fas fa-mobile-alt h-icon"></i>
@@ -18,20 +18,22 @@
                 </ul>
             </div>
             <!-- /header left -->
-            <div class="headerRight">
-                    <ul>
+            <div class="headerRight col-xl-4 d-flex justify-content-end">
+                    <ul v-if="!logedIn">
                         <li><router-link to="/login">Đăng nhập</router-link></li>
                         <li><router-link to="/register">Đăng ký</router-link></li>
                     </ul>
-                    <!-- <ul>
-                        <li><a href="#">Xin chào: Vu Xuan Khanh <i class="fas fa-user-circle"></i></a>
-                            <ul class="sub-account-option">
+                    <ul v-if="logedIn" class="col-xl-12">
+                        <li class="col-xl-8">
+                            <img src="../../assets/logo.png" id="avatar">
+                            <a href="#">{{userName}}</a>
+                            <ul class="sub-account-option col-xl-12">
                                 <li><a href="#"><i class="fas fa-user-edit"></i> Thông tin tài khoản</a></li>
                                 <li><a href="#"><i class="far fa-heart"></i> Sản phẩm ưa thích</a></li>
                                 <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                             </ul>
                         </li> 
-                    </ul> -->
+                    </ul>
             </div>
             <!-- /header-right -->
         </div>
@@ -40,7 +42,19 @@
 
 <script>
 export default {
-    
+    data(){
+        return {
+            userName: "",
+            logedIn: false,
+        }
+    },
+    created(){
+        this.userName = localStorage.getItem('userName')
+        if(this.userName != null && this.userName != "")
+            this.logedIn = true;
+        else
+            this.logedIn = false;
+    }
 }
 </script>
 

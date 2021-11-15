@@ -78,6 +78,9 @@ export default {
             loginFail: false,
         }
     },
+    created(){
+        
+    },
     methods: {
         /**
          * created date: 05/11/2021
@@ -95,15 +98,23 @@ export default {
             }
             return true
         },
+        /**
+         * created by: vxkhanh
+         * created date: 08/11/2021
+         * Hàm gửi yêu cầu đăng nhập lên server
+         */
         async login(){
             if(this.validate())
             {
                 var response = await axios.get('https://localhost:44368/api/Login?username='+this.user.username+'&password='+this.user.password).then((result)=>{
                     return result.data;
                 });
-                console.log(response);
+                //console.log(response);
                 if(response != null && response != ""){
                     this.loginFail = false;
+                    console.log(response)
+                    localStorage.setItem('userName', response.data.customerName);
+                    localStorage.setItem('userId', response.data.customerId);
                     this.$router.push('/home');
                 }
                 else

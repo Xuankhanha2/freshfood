@@ -8,10 +8,11 @@
                     <li 
                         v-for="category in categories" 
                         :key="category.categoryId"
+                        @click="pushToCategory(category.categoryId)"
                     >
-                        <a href="/Product/PhanLoaiSanPham/@item.id">
+                        <span>
                             <i class="fab fa-envira"></i>{{category.categoryName}}
-                        </a>
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -24,6 +25,17 @@ export default {
     data() {
         return {
             categories: [],
+        }
+    },
+    methods:{
+        /***
+         * created date: 12/11/2021
+         * created by: vxkhanh
+         * Hàm chuyển đến trang danh mục với id tương ứng
+         */
+        pushToCategory(categoryId){
+            var id = String(categoryId);
+            this.$router.push({ name: 'category', path:'/category', params: {categoryId: id}});
         }
     },
     async created() {
@@ -90,7 +102,7 @@ export default {
     cursor: pointer;
 }
 
-.catogory-content ul li a {
+.catogory-content ul li span {
     color: #5c3d21;
     font-size: 14px;
     text-decoration: none;

@@ -17,5 +17,14 @@ namespace Core.Interfaces
         /// <param name="order">Tiêu chí sắp xếp</param>
         /// <returns>Danh sách sản phẩm đã được sắp xếp</returns>
         public ServiceResult getOrderedProduct(string order);
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date 12/11/2011
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
+        /// </summary>
+        /// <param name="categoryId">categoryId</param>
+        /// <returns></returns>
+        public ServiceResult getProductsByCategory(Guid categoryId);
     }
 }

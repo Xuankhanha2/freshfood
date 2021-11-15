@@ -17,7 +17,7 @@
             <div class="blockLeft col-xl-4">
                 <div class="productImage">
                     <div class="mainImage">
-                        <img src="../../assets/images/tcmn-image12.jpg" id="anh-chinh" alt="">
+                        <img :src="product.image?product.image:'#'" id="anh-chinh" alt="">
                     </div>
                     <div class="otherImage">
                         <ul class="row">
@@ -130,83 +130,83 @@
 
                 <!-- Rating -->
                 <div class="descriptionTitle">Đánh giá</div>
-                    <div class="rating">
-                        <div class="ratingTitle">Đánh giá cho Name product</div>
-                        <div class="ratingContent">
-                            <div class="curentScore">
-                                <span>0.00 </span>
-                                <i class="fas fa-star starColor"></i>
-                                <i class="fas fa-star starColor"></i>
-                                <i class="fas fa-star starColor"></i>
-                                <i class="fas fa-star starColor"></i>
-                                <i class="fas fa-star starColor"></i>
+                <div class="rating">
+                    <div class="ratingTitle">Đánh giá cho Name product</div>
+                    <div class="ratingContent">
+                        <div class="curentScore">
+                            <span>0.00 </span>
+                            <i class="fas fa-star starColor"></i>
+                            <i class="fas fa-star starColor"></i>
+                            <i class="fas fa-star starColor"></i>
+                            <i class="fas fa-star starColor"></i>
+                            <i class="fas fa-star starColor"></i>
+                        </div>
+                        <ul>
+                            <li>
+                                <span>5</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
+                                <label for="">0% | 0 Đánh giá</label>
+                            </li>
+                            <li>
+                                <span>4</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
+                                <label for="">0% | 0 Đánh giá</label>
+                            </li>
+                            <li>
+                                <span>3</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
+                                <label for="">0% | 0 Đánh giá</label>
+                            </li>
+                            <li>
+                                <span>2</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
+                                <label for="">0% | 0 Đánh giá</label>
+                            </li>
+                            <li>
+                                <span>1</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
+                                <label for="">0% | 0 Đánh giá</label>
+                            </li>
+                        </ul>
+                        <div class="ratingBtn bg-primary" @click="ratingRow()">Đánh giá ngay</div>
+                    </div>
+
+                    <div class="ratingForm">
+                        <form action="#" method="post">
+                            <!-- <input type="textarea" row id="txtbox" placeholder="viết đánh giá..."> -->
+                            <div class="ratingStars">
+                                <h2>Bạn đánh giá sản phẩm này bao nhiêu sao?</h2>
+                                <p id="move-rating">
+                                    <i class="fas fa-star" id="star1"></i>
+                                    <i class="fas fa-star" id="star2"></i>
+                                    <i class="fas fa-star" id="star3"></i>
+                                    <i class="fas fa-star" id="star4"></i>
+                                    <i class="fas fa-star" id="star5"></i>
+                                </p>
                             </div>
-                            <ul>
-                                <li>
-                                    <span>5</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
-                                    <label for="">0% | 0 Đánh giá</label>
-                                </li>
-                                <li>
-                                    <span>4</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
-                                    <label for="">0% | 0 Đánh giá</label>
-                                </li>
-                                <li>
-                                    <span>3</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
-                                    <label for="">0% | 0 Đánh giá</label>
-                                </li>
-                                <li>
-                                    <span>2</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
-                                    <label for="">0% | 0 Đánh giá</label>
-                                </li>
-                                <li>
-                                    <span>1</span><i class="fas fa-star"></i><div class="ratingPercentBar"><div class="ratingPercent"> </div></div>
-                                    <label for="">0% | 0 Đánh giá</label>
-                                </li>
-                            </ul>
-                            <div class="ratingBtn bg-primary" @click="ratingRow()">Đánh giá ngay</div>
-                        </div>
+                            <textarea name="ratingComment" ref="txt" id="txtbox" placeholder="viết đánh giá..."></textarea>
+                            <button class="btnSend">Gửi đánh giá</button>
+                        </form>
+                    </div>
 
-                        <div class="ratingForm">
-                            <form action="#" method="post">
-                                <!-- <input type="textarea" row id="txtbox" placeholder="viết đánh giá..."> -->
-                                <div class="ratingStars">
-                                    <h2>Bạn đánh giá sản phẩm này bao nhiêu sao?</h2>
-                                    <p id="move-rating">
-                                        <i class="fas fa-star" id="star1"></i>
-                                        <i class="fas fa-star" id="star2"></i>
-                                        <i class="fas fa-star" id="star3"></i>
-                                        <i class="fas fa-star" id="star4"></i>
-                                        <i class="fas fa-star" id="star5"></i>
-                                    </p>
-                                </div>
-                                <textarea name="ratingComment" ref="txt" id="txtbox" placeholder="viết đánh giá..."></textarea>
-                                <button class="btnSend">Gửi đánh giá</button>
-                            </form>
-                        </div>
-
-                        <div class="ratingTitle" style="margin-top: 30px; margin-bottom: 5px;">Một số đánh giá của khách hàng</div>
-                        <div class="productRatingList">
-                            <div class="ratingLine">
-                                <div class="userInfor">
-                                    <div class="userAvatar"><img src="../../assets/images/avatar-placeholder.png" alt=""></div>
-                                    <div class="userRatingContent">
-                                        <h3>Vu Xuan Khanh</h3>
-                                        <!-- <div class="timeRating">
-                                            <span class="hour">11</span>:<span class="minute">20</span>
-                                        </div> -->
-                                        <h4>
-                                            <i class="fas fa-star starColor" ></i>
-                                            <i class="fas fa-star starColor" ></i>
-                                            <i class="fas fa-star starColor" ></i>
-                                            <i class="fas fa-star" ></i>
-                                            <i class="fas fa-star" ></i>
-                                        </h4>
-                                        <p>Sản phẩm rất tốt</p>
-                                    </div>
+                    <div class="ratingTitle" style="margin-top: 30px; margin-bottom: 5px;">Một số đánh giá của khách hàng</div>
+                    <div class="productRatingList">
+                        <div class="ratingLine">
+                            <div class="userInfor">
+                                <div class="userAvatar"><img src="../../assets/images/avatar-placeholder.png" alt=""></div>
+                                <div class="userRatingContent">
+                                    <h3>Vu Xuan Khanh</h3>
+                                    <!-- <div class="timeRating">
+                                        <span class="hour">11</span>:<span class="minute">20</span>
+                                    </div> -->
+                                    <h4>
+                                        <i class="fas fa-star starColor" ></i>
+                                        <i class="fas fa-star starColor" ></i>
+                                        <i class="fas fa-star starColor" ></i>
+                                        <i class="fas fa-star" ></i>
+                                        <i class="fas fa-star" ></i>
+                                    </h4>
+                                    <p>Sản phẩm rất tốt</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
             <!-- san pham noi bat -->
             <div class="suggestedProduct col-xl-3 offset-xl-1">
@@ -274,9 +274,11 @@ export default {
             //Chuyển đổi tiền
             var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
             return formatedMoney;
-        }
+        },
+        
     },
     async created() {
+        console.log(this)
         //Lấy thông tin sản phẩm theo id trên router
         await axios.get('https://localhost:44368/api/v1.0/Products/'+this.$route.params.productId).then((result)=>{
             this.product = result.data;

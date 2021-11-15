@@ -49,6 +49,7 @@
     height: 245px;
     object-fit: contain;
     object-position: center;
+    cursor: pointer;
 }
 
 .productCell h1 {
@@ -59,7 +60,9 @@
     text-align: center;
     font-weight: bold;
     margin-top: 12px;
+    cursor: pointer;
 }
+
 
 .productCell a:hover {
     text-decoration: none;

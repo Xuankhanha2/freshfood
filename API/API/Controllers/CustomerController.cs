@@ -1,11 +1,14 @@
 ﻿using Core.Interfaces;
 using Core.Models;
+using Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Web.Helpers;
 
 namespace API.Controllers
 {
@@ -21,5 +24,26 @@ namespace API.Controllers
         {
             customerService = _customerService;
         }
+
+        /// <summary>
+        /// created date: 11/08/2021
+        /// created by: VXKHANH
+        /// Thêm thông tin khách hàng mới với mật khẩu được mã hóa sha256
+        /// </summary>
+        [HttpPost]
+        public override IActionResult post(Customer papram)
+        {
+            try
+            {
+                papram.password = Crypto.SHA256(papram.password).ToUpper();
+                return base.post(papram);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+            
+        }
+
     }
 }

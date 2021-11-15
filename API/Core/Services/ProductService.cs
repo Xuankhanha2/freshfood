@@ -52,5 +52,41 @@ namespace Core.Services
             }
             return serviceResult;
         }
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date 12/11/2011
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
+        /// </summary>
+        /// <param name="categoryId">categoryId</param>
+        /// <returns></returns>
+        public ServiceResult getProductsByCategory(Guid categoryId)
+        {
+            try
+            {
+                //gọi hàm lấy danh sách sản phẩm
+                var list = productRepository.getProductsByCategory(categoryId);
+                if (list != null)
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.success;
+                }
+                else
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.noContent;
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.message = e.Message;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
+        }
     }
 }

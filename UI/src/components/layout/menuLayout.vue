@@ -9,23 +9,22 @@
                     </li>
                     </router-link>
 
-                    <router-link to="/category">
+                    
                     <li>
-                        Danh mục
+                        <router-link to="/category"><span>Danh mục</span></router-link>
                         <div id="subMenu">
                             <div class="row justify-content-start">
-                                <div class="col-xl-3 categoryItem"><a href="#">Thịt tươi</a></div>
-                                <div class="col-xl-3 categoryItem"><a href="#">Rau củ tươi</a></div>
-                                <div class="col-xl-3 categoryItem"><a href="#">Trứng</a></div>
-                                <div class="col-xl-3 categoryItem"><a href="#">Thực phẩm đã chế biến</a></div>
-                            </div>
-                            <div class="row justify-content-start">
-                                <div class="col-xl-3 categoryItem"><a href="#">Hải sản</a></div>
-                                <div class="col-xl-3 categoryItem"><a href="#">Các loại gia vị</a></div>
+                                <div class="col-xl-3 categoryItem"
+                                    v-for="category in categories"
+                                    :key="category.categoryId"
+                                    @click="pushToCategory(category.categoryId)"
+                                >
+                                    {{category.categoryName}}
+                                </div>
                             </div>
                         </div>
                     </li>
-                    </router-link>
+                    
 
                     <router-link to="/provider">
                     <li>
@@ -39,7 +38,7 @@
                     </li>
                     </router-link>
 
-                    <router-link to="/introduct">
+                    <router-link to="/introduction">
                     <li>
                         Giới thiệu
                     </li>
@@ -68,8 +67,30 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
+    data() {
+        return {
+            categories: [],
+        }
+    },
+    methods: {
+        /***
+         * created date: 12/11/2021
+         * created by: vxkhanh
+         * Hàm chuyển đến trang danh mục với id tương ứng
+         */
+        pushToCategory(categoryId){
+            var id = String(categoryId);
+            this.$router.push({ name: 'category', path:'/category', params: {categoryId: id}});
+        }
+    },
+    async created() {
+        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+            this.categories = result.data;
+        })
+    },
+
 
 };
 </script>

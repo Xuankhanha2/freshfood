@@ -8,21 +8,25 @@ import cart from '../components/page/cart.vue'
 import news from '../components/page/newsPage.vue'
 import login from '../components/page/loginPage.vue'
 import register from '../components/page/registerPage.vue'
+import provider from '../components/page/providerPage.vue'
+
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'firstPage',
     component: home
   },
-  { path: '/category', component: category },
-  { path: '/home', component: home },
-  { path: '/productDetail/:productId', component: productDetail },
-  { path: '/contact', component: contact },
-  { path: '/introduction', component: introduction },
-  { path: '/cart', component: cart },
-  { path: '/news', component: news },
-  { path: '/login', component: login },
-  { path: '/register', component: register },
+  { name: 'category', path: '/category', component: category },
+  { name: 'home', path: '/home', component: home },
+  { name: 'productDetail', path: '/productDetail', component: productDetail },
+  { name: 'contact', path: '/contact', component: contact },
+  { name: 'introduction', path: '/introduction', component: introduction },
+  { name: 'cart', path: '/cart', component: cart },
+  { name: 'news', path: '/news', component: news },
+  { name: 'login', path: '/login', component: login },
+  { name: 'register', path: '/register', component: register },
+  { name: 'provider', path: '/provider', component: provider },
+  
 ]
 
 const router = createRouter({

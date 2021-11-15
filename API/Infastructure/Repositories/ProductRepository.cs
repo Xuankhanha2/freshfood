@@ -81,6 +81,23 @@ namespace Infastructure.Repositories
         {
             return null;
         }
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date: 12/11/2021
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
+        /// </summary>
+        /// <param name="categoryId">categoryId</param>
+        /// <returns></returns>
+        public IEnumerable<Product> getProductsByCategory(Guid categoryId)
+        {
+            string procName = $"procGetProductsByCategory";
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("categoryId", categoryId.ToString());
+            var products = dbConnection.Query<Product>(procName, dynamicParameters, commandType: CommandType.StoredProcedure);
+            return products;
+        }
+
     }
 
 }

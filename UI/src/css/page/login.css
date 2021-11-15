@@ -36,3 +36,10 @@
     margin-top: 12px;
 
 }
+#registerLink{
+    text-align: center;
+}
+.alertFont{
+    color: red;
+    font-size: 14px !important;
+}

@@ -35,10 +35,11 @@
 }
 
 
-.listProduct td a{
+.listProduct td h2{
     font-size: 16px;
     font-weight: bold;
     color: blueviolet;
+    cursor: pointer;
 }
 .listProduct td img{
     width: 120px;
@@ -69,10 +70,11 @@
 .deleteProduct{
     position: relative;
 }
-.deleteProduct a{
+.deleteProduct i{
     position: absolute;
     line-height: 16px !important;
     top: 16px;
+    cursor: pointer;
     color: #999999 !important;
 }
 
@@ -140,7 +142,8 @@
     text-decoration: none;
 }
 
-#btnContinueShopping{
+.btnCart{
+    font-size: 14px;
     font-size: 16px !important;
     margin-top: 16px !important;
     margin-right: 12px !important;

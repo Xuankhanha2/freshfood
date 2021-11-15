@@ -28,5 +28,14 @@ namespace Core.Interfaces
         /// <param name="order">Tiêu chí sắp xếp</param>
         /// <returns></returns>
         public IEnumerable<Product> getOrderedProduct(Guid categoryId, string order);
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date: 12/11/2021
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
+        /// </summary>
+        /// <param name="categoryId">categoryId</param>
+        /// <returns></returns>
+        public IEnumerable<Product> getProductsByCategory(Guid categoryId);
     }
 }

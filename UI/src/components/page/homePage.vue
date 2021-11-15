@@ -25,12 +25,17 @@
             <div class="productList row">
                 <!-- Ô sản phẩm -->
                 <div class="marginProductCell col-xl-3" 
-                    v-for="product in products" 
+                    v-for="product in secondProducts" 
                     :key="product.productId"
                 >
                     <div class="productCell">
-                        <router-link :to="'/productDetail/'+product.productId"><img :src="product.image"></router-link>
-                        <router-link :to="'/productDetail/'+product.productId"><h1>{{product.productName}}</h1></router-link>
+                        <img :src="product.image"
+                            class="productImage"
+                            @click="pushToDetail(product.productId)"
+                        >
+                        <h1 class="productName"
+                            @click="pushToDetail(product.productId)"
+                        >{{product.productName}}</h1>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -54,7 +59,9 @@
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
                         <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary" id="btnAddCart">Thêm vào giỏ</div>
+                        <div class="btn btn-primary" id="btnAddCart"
+                            @click="addCart(product.productId)"
+                        >Thêm vào giỏ</div>
                     </div>
                 </div>
                 <!-- /Ô sản phẩm -->
@@ -76,12 +83,16 @@
             <div class="productList row">
                 <!-- Ô sản phẩm -->
                 <div class="marginProductCell col-xl-3" 
-                    v-for="product in products" 
+                    v-for="product in secondProducts" 
                     :key="product.productId"
                 >
                     <div class="productCell">
-                        <router-link :to="'/productDetail/'+product.productId"><img :src="product.image"></router-link>
-                        <router-link :to="'/productDetail/'+product.productId"><h1>{{product.productName}}</h1></router-link>
+                        <img :src="product.image"
+                            @click="pushToDetail(product.productId)"
+                        >
+                        <h1
+                            @click="pushToDetail(product.productId)"
+                        >{{product.productName}}</h1>
                         <!-- ratingStar -->
                         <div class="ratingStars">
                             <i class="fas fa-star"></i>
@@ -105,7 +116,9 @@
                         <div class="wishlist"><i class="far fa-heart"></i></div>
 
                         <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary" id="btnAddCart">Thêm vào giỏ</div>
+                        <div class="btn btn-primary" id="btnAddCart"
+                            @click="addCart(product.productId)"
+                        >Thêm vào giỏ</div>
                     </div>
                 </div>
                 <!-- /Ô sản phẩm -->
@@ -181,10 +194,11 @@
 import axios from 'axios'
 import sideCategoryBar from '../shared/sideCategoryBar.vue'
 export default {
-     data() {
+    props:['products'],
+    data() {
         return {
-            //Biến lưu danh sách sản phẩm hiện trên trang chủ
-            products:[],
+            //Biến tạm thời dùng để lưu thông tin giỏ hàng
+            cart: {},
             //Biến lưu danh sách sản phẩm thứ 2
             secondProducts:[],
             //Danh sách danh mục hiển thị trên trang chủ
@@ -205,20 +219,74 @@ export default {
             //chuyển đổi tiền
             var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
             return formatedMoney;
+        },
+        /**
+         * created date: 09/11/2021
+         * created by: vxkhanh
+         * Hàm thêm sản phẩm vào giỏ hàng
+         */
+        async addCart(productId){
+            if(localStorage.getItem('userId'))
+            {
+                if(productId != null && productId != ""){
+                    this.cart.productId = productId;
+                    //Nhấn nút thêm -> mặc định số lượng thêm là 1 sp
+                    this.cart.quantity = 1;
+                    //Lấy mã khách hàng đã đăng nhập được lưu trong localStorage
+                    this.cart.customerId = localStorage.getItem('userId');
+                    await axios.post('https://localhost:44368/api/v1.0/Carts', this.cart).then((result)=>{
+                        console.log(result.data);
+                        alert("Đã thêm sản phẩm vào giỏ hàng.");
+                    }).catch(()=>{
+                        console.log("Đã có lỗi hệ thống xảy ra.");
+                    })
+                }
+            }
+            else{
+                this.$router.push('/login');
+            }
+        },
+
+        /**
+         * created by: vxkhanh
+         * created date: 11/11/2021
+         * Hàm chuyển đến trang chi tiết sản phẩm
+         */
+        pushToDetail(productId){
+            var id = String(productId);
+            console.log(id);
+            this.$router.push({
+                name: 'productDetail', 
+                path: '/productDetail', 
+                params: { productId: id}
+            });
+        },
+    },
+    async mounted() {
+        //Kiểm tra props nếu chưa được truyền thì
+        
+        if(this.products == undefined)
+        {
+            await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
+                this.secondProducts = result.data;
+            }).catch(()=>{
+                console.log("Đã xảy ra lỗi.");
+            })
         }
+        else{
+            this.secondProducts = this.products;
+        }
+        
     },
     async created() {
-        //Lấy danh sách sản phẩm
-        await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
-            // this.products = result.data;
-            //Lấy 12 sản phẩm hiển thị ở đầu trang chủ
-            for(var i=0;i<12;i++){
-                this.products[i] = result.data[i];
-            }
-            
-        }).catch(()=>{
-            console.log("Đã xảy ra lỗi khi lấy sản phẩm.");
-        });
+        //Tạo giá trị ban đầu cho biến cart
+        this.cart = {
+            cartId: "00000000-0000-0000-0000-000000000000",
+            productId: "00000000-0000-0000-0000-000000000000",
+            customerId: "00000000-0000-0000-0000-000000000000",
+            quantity: 1,
+            total: 0
+        }
         //Lấy danh sách danh mục 
         await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
             //Gán kết quả vào biến categories
@@ -226,6 +294,7 @@ export default {
         }).catch(()=>{
             console.log("Đã xảy ra lỗi khi lấy danh mục sản phẩm");
         });
+        
     },
     
     

@@ -5,44 +5,18 @@
         </div>
         <div class="listNews">
             <ul class="row col-xl-12">
-                <li class="col-xl-6">
-                    <img src="../../assets/images/tintuc-image2.jpg" class="News-img">
+                <li class="col-xl-6" 
+                    v-for="item in news"
+                    :key="item.newsId"
+                >
+                    <img :src="item.newsImage" class="News-img">
                     <div class="newsRow">
                         <a href="/News/Detail">
-                            <h3 class="">Sáu loại đồ ăn không nên để qua đêm</h3>
+                            <h3 class="">{{item.newsTitle}}</h3>
                         </a>
                         <a href="/News/Detail">
                             <p class="description">
-                                Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.
-                            </p>
-                        </a>
-                        <a href="/News/Detail/@item.id"><div class="btnDetail btn-success">Chi tiết</div></a>
-                    </div>
-                </li>
-                <li class="col-xl-6">
-                    <img src="../../assets/images/tintuc-image2.jpg" class="News-img">
-                    <div class="newsRow">
-                        <a href="/News/Detail">
-                            <h3 class="">Sáu loại đồ ăn không nên để qua đêm</h3>
-                        </a>
-                        <a href="/News/Detail">
-                            <p class="description">
-                                Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.
-                            </p>
-                        </a>
-                        <a href="/News/Detail/@item.id"><div class="btnDetail btn-success">Chi tiết</div></a>
-                    </div>
-                </li>
-
-                <li class="col-xl-6">
-                    <img src="../../assets/images/tintuc-image2.jpg" class="News-img">
-                    <div class="newsRow">
-                        <a href="/News/Detail">
-                            <h3 class="">Sáu loại đồ ăn không nên để qua đêm</h3>
-                        </a>
-                        <a href="/News/Detail">
-                            <p class="description">
-                                Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.
+                                {{item.newsContent}}
                             </p>
                         </a>
                         <a href="/News/Detail/@item.id"><div class="btnDetail btn-success">Chi tiết</div></a>
@@ -75,10 +49,19 @@
     </div>
 </template>
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
-    
-   
+    data() {
+        return {
+            news: [],
+        }
+    },
+    async created() {
+        await axios.get('https://localhost:44368/api/News').then((result)=>{
+            this.news = result.data;
+        })
+
+    },
 }
 </script>
 

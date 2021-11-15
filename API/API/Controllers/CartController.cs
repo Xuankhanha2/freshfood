@@ -17,17 +17,19 @@ namespace API.Controllers
     public class CartController : BaseController<Cart>
     {
         ICartService cartService;
-        public CartController(ICartService _cartService) : base(_cartService)
+        public CartController(ICartService _cartService): base(_cartService)
         {
             cartService = _cartService;
         }
 
         /// <summary>
+        /// created date: 02/11/2021
+        /// created by: vxkhanh
         /// Hàm điều khiển - lấy danh sách giỏ hàng theo id khách hàng
         /// </summary>
         /// <param name="customerId">id khách hàng</param>
         /// <returns>Service result</returns>
-        [HttpGet("customerId")]
+        [HttpGet("customerId/{customerId}")]
         public IActionResult getCartsByCustomerId(Guid customerId)
         {
             ServiceResult result = cartService.getCartsByCustomerId(customerId);
@@ -38,6 +40,5 @@ namespace API.Controllers
             else
                 return StatusCode(204, result.data);
         }
-
     }
 }

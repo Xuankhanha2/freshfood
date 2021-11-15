@@ -54,7 +54,9 @@
     background-color: #FFF;
     position: absolute;
     width: 1200px;
+    max-height: calc(100vh - 60px);
     padding:0px 24px 24px 24px;
+    overflow-y: auto;
     top: 44px;
     left: 0px;
     /* border-radius: 0px 0px 10px 10px; */
@@ -70,23 +72,30 @@
 
 }
 
-
 .menuContent ul li #subMenu .row a:hover{
     color: #aaa !important;
 }
 
-.menuContent ul li #subMenu a {
+/* .menuContent ul li #subMenu a {
     color: #000 !important;
     text-decoration: none;
-}
+} */
 
 .menuLeft ul li:hover #subMenu {
     display: block;
 }
+
 .categoryItem{
     text-align: left;
     padding-left: 24px !important;
+    cursor: pointer;
+    color: #888;
 }
+
+.categoryItem:hover{
+    color: #000;
+}
+
 .search {
     padding: 0px;
     margin: 0px;

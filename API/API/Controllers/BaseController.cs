@@ -34,7 +34,7 @@ namespace API.Controllers
         /// <typeparam name="entity"></typeparam>
         /// <returns>Danh sách các bản ghi</returns>
         [HttpGet]
-        public IActionResult getAll()
+        public virtual IActionResult getAll()
         {
             ServiceResult result = baseService.getAll<entity>();
             if (result.code == statusCode.exception)
@@ -53,7 +53,7 @@ namespace API.Controllers
         /// </summary>
         /// <typeparam name="entity"></typeparam>
         [HttpGet("{id}")]
-        public IActionResult getById(Guid id)
+        public virtual IActionResult getById(Guid id)
         {
             ServiceResult result = baseService.getById<entity>(id);
             if (result.code == statusCode.exception)
@@ -70,7 +70,7 @@ namespace API.Controllers
         /// Thêm bản ghi mới với dữ liệu được láy từ bodyRequest
         /// </summary>
         [HttpPost]
-        public IActionResult post(entity papram)
+        public virtual IActionResult post(entity papram)
         {
             ServiceResult result = baseService.insert<entity>(papram);
             if (result.code == statusCode.exception)
@@ -90,8 +90,8 @@ namespace API.Controllers
         /// Sửa bản ghi với dữ liêu được lấy tử bodyRequest
         /// </summary>
         /// <param name="id">Id</param>
-        [HttpPut()]
-        public IActionResult put(entity papram)
+        [HttpPut]
+        public virtual IActionResult put(entity papram)
         {
             ServiceResult result = baseService.update<entity>(papram);
             if (result.code == statusCode.exception)
@@ -112,7 +112,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id">Id</param>
         [HttpDelete("{id}")]
-        public IActionResult delete(Guid id)
+        public virtual IActionResult delete(Guid id)
         {
             ServiceResult result = baseService.delete<entity>(id);
             if (result.code == statusCode.success)

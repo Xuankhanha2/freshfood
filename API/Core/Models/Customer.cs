@@ -61,5 +61,12 @@ namespace Core.Models
         /// </summary>
         public string password { get; set; }
         #endregion
+
+        #region Constructor
+        public Customer()
+        {
+            this.customerId = new Guid();
+        }
+        #endregion
     }
 }
