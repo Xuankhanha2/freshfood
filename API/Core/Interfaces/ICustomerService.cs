@@ -21,5 +21,6 @@ namespace Core.Interfaces
         /// <param name="password">Mật khẩu</param>
         /// <returns>ServiceResult</returns>
         public ServiceResult customerLogin(string username, string password);
+
     }
 }

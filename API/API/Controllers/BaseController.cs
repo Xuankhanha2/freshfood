@@ -34,7 +34,7 @@ namespace API.Controllers
         /// <typeparam name="entity"></typeparam>
         /// <returns>Danh sách các bản ghi</returns>
         [HttpGet]
-        public virtual IActionResult getAll()
+        public virtual IActionResult getAll([FromQuery]int? orderVar)
         {
             ServiceResult result = baseService.getAll<entity>();
             if (result.code == statusCode.exception)

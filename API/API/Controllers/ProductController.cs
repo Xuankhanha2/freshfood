@@ -23,19 +23,23 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// created by: vxkhanh
         /// created date: 12/11/2021
-        /// Hàm lấy danh sách sản phẩm đã sắp xếp 
+        /// created by: vxkhanh
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
         /// </summary>
-        /// <param name="order"></param>
-        /// <returns></returns>
-        [HttpGet("order/{order}")]
-        public IActionResult getCustomerOrderBy(string order)
+        /// <param name="categoryId"></param>
+        /// <returns>IActionResult</returns>
+        [HttpGet("categoryId/{categoryId}")]
+        public IActionResult getProductsByCategory(Guid categoryId)
         {
-            ServiceResult result = productService.getOrderedProduct(order);
-            if(result.code == statusCode.success || result.code == statusCode.noContent)
+            ServiceResult result = productService.getProductsByCategory(categoryId);
+            if (result.code == statusCode.success)
             {
                 return StatusCode(200, result.data);
+            }
+            else if (result.code == statusCode.noContent)
+            {
+                return StatusCode(204, result.data);
             }
             else
             {
@@ -43,11 +47,18 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("categoryId/{categoryId}")]
-        public IActionResult getProductsByCategory(Guid categoryId)
+        /// <summary>
+        /// created date: 15/11/2021
+        /// created by: vxkhanh
+        /// Hàm tìm kiếm sản phẩm theo từ khóa
+        /// </summary>
+        /// <param name="key">Từ khóa</param>
+        /// <returns>IActionResult</returns>
+        [HttpGet("search")]
+        public IActionResult searchProduct([FromQuery]string key)
         {
-            ServiceResult result = productService.getProductsByCategory(categoryId);
-            if (result.code == statusCode.success)
+            ServiceResult result = productService.searchProduct(key);
+            if(result.code == statusCode.success)
             {
                 return StatusCode(200, result.data);
             }

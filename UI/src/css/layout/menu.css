@@ -139,12 +139,12 @@
     top: 40px;
     left: 0px;
     z-index: 1000;
-    display: none;
     box-shadow: 1px 1px 3px #000000;
 }
 
 #smartSearch img {
     width: 70px;
+    height: 70px;
 }
 
 #smartSearch ul {
@@ -156,12 +156,34 @@
 #smartSearch ul li {
     padding: 0px;
     margin: 0px;
+    height: 80px;
     margin-bottom: 5px;
     display: flex;
+    align-items: center;
     text-align: left;
     padding: 10px 5px;
+    cursor: pointer;
 }
-
+#smartSearch ul li:hover{
+    background-color: #eee;
+}
+.productSearchContent{
+    height: 60px;
+    font-family: sans-serif;
+    padding-left: 12px;
+}
+.productSearchContent h2{
+    color: #ff5722;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0px;
+}
+.productSearchContent h3{
+    color: #f99717;
+    font-size: 16px;
+    padding: 0px;
+    font-weight: bold;
+}
 .search input:focus {
     outline: none;
 }

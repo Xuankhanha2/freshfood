@@ -37,7 +37,7 @@ body{
   padding: 0px;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 @import url('./css/bootstrap/bootstrap.css')
 </style>

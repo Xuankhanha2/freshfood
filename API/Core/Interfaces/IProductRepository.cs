@@ -11,13 +11,6 @@ namespace Core.Interfaces
     /// </summary>
     public interface IProductRepository:IBaseRepository
     {
-        /// <summary>
-        /// created date: 8/9/2021
-        /// Hàm lấy danh sách sản phẩm được sắp xếp theo tiêu chí được truyền vào
-        /// </summary>
-        /// <param name="order">Tiêu chí sắp xếp</param>
-        /// <returns></returns>
-        public IEnumerable<Product> getOrderedProduct(string order);
 
         /// <summary>
         /// created date: 8/9/2021
@@ -37,5 +30,14 @@ namespace Core.Interfaces
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
         public IEnumerable<Product> getProductsByCategory(Guid categoryId);
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date: 16/11/2021
+        /// Hàm tìm kiếm sản phẩm 
+        /// </summary>
+        /// <param name="key">Từ khóa</param>
+        /// <returns></returns>
+        public IEnumerable<Product> searchProduct(string key);
     }
 }

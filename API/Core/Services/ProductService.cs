@@ -20,16 +20,18 @@ namespace Core.Services
         }
 
         /// <summary>
-        /// Service lấy danh sách sản phẩm đã được sắp xếp
+        /// created by: vxkhanh
+        /// created date 12/11/2011
+        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
         /// </summary>
-        /// <param name="order">Tiêu chí sắp xếp</param>
-        /// <returns>Danh sách sản phẩm đã được sắp xếp</returns>
-        public ServiceResult getOrderedProduct(string order)
+        /// <param name="categoryId">categoryId</param>
+        /// <returns></returns>
+        public ServiceResult getProductsByCategory(Guid categoryId)
         {
             try
             {
                 //gọi hàm lấy danh sách sản phẩm
-                var list = productRepository.getOrderedProduct(order);
+                var list = productRepository.getProductsByCategory(categoryId);
                 if (list != null)
                 {
                     serviceResult.isValid = true;
@@ -53,19 +55,12 @@ namespace Core.Services
             return serviceResult;
         }
 
-        /// <summary>
-        /// created by: vxkhanh
-        /// created date 12/11/2011
-        /// Hàm lấy danh sách sản phẩm theo danh mục sản phẩm
-        /// </summary>
-        /// <param name="categoryId">categoryId</param>
-        /// <returns></returns>
-        public ServiceResult getProductsByCategory(Guid categoryId)
+        public ServiceResult searchProduct(string key)
         {
             try
             {
                 //gọi hàm lấy danh sách sản phẩm
-                var list = productRepository.getProductsByCategory(categoryId);
+                var list = productRepository.searchProduct(key);
                 if (list != null)
                 {
                     serviceResult.isValid = true;

@@ -11,12 +11,6 @@ namespace Core.Interfaces
     /// </summary>
     public interface IProductService:IBaseService
     {
-        /// <summary>
-        /// Service lấy danh sách sản phẩm đã được sắp xếp
-        /// </summary>
-        /// <param name="order">Tiêu chí sắp xếp</param>
-        /// <returns>Danh sách sản phẩm đã được sắp xếp</returns>
-        public ServiceResult getOrderedProduct(string order);
 
         /// <summary>
         /// created by: vxkhanh
@@ -26,5 +20,14 @@ namespace Core.Interfaces
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
         public ServiceResult getProductsByCategory(Guid categoryId);
+
+        /// <summary>
+        /// created by: vxkhanh
+        /// created date: 16/11/2021
+        /// Hàm tìm kiếm sản phẩm
+        /// </summary>
+        /// <param name="key">Từ khóa</param>
+        /// <returns>ServiceResult</returns>
+        public ServiceResult searchProduct(string key);
     }
 }
