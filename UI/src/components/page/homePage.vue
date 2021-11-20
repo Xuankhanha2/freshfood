@@ -25,7 +25,7 @@
             <div class="productList row">
                 <!-- Ô sản phẩm -->
                 <div class="marginProductCell col-xl-3" 
-                    v-for="product in secondProducts" 
+                    v-for="product in firstProducts" 
                     :key="product.productId"
                 >
                     <div class="productCell">
@@ -67,6 +67,18 @@
                 <!-- /Ô sản phẩm -->
             </div>
             <!-- /Danh sách sản phẩm -->
+
+            <!-- pagination -->
+            <nav class="newsPageList">
+                <ul class="pagination alignRight">
+                    <li class="page-item"><span class="page-link" @click="goToPage(1)">Prev</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPage(1)">1</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPage(2)">2</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPage(3)">3</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPage(1)">Next</span></li>
+                </ul>
+            </nav>
+            <!-- / -->
         </div>
         <!-- /end product  -->
 
@@ -147,42 +159,31 @@
                 </div>
             </div>
         </div>
-        <!-- TIN tuc -->
+        <!-- Tin tức -->
         <div class="serviceTitle">
             <p>TIN TỨC VỀ THỰC PHẨM</p>
             <hr>
         </div>
         <div class="newsContent">
             <div class="newsList col-xl-12">
-                <div class="newsCell ">
+                <div class="newsCell"
+                    v-for="news in newsList"
+                    :key="news.newsId"
+                >
                     <img src="../../assets/images/tintuc-image1.jpg" alt="">
-                    <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
-                    <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
-                    <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
-                </div>
-
-                <div class="newsCell ">
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
-                    <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
-                    <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
-                    <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
-                </div>
-
-                <div class="newsCell ">
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
-                    <h1><a href="#">Sáu loại đồ ăn không nên để qua đêm</a></h1>
-                    <p>Bạn có thể tiết kiệm bằng cách cất thực phẩm còn thừa sau bữa ăn nhưng có một số loại không thể để qua đêm.</p>
+                    <h1><a href="#">{{news.newsTitle}}</a></h1>
+                    <p>{{news.newsContent}}</p>
                     <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
                 </div>
             </div>
 
             <nav class="newsPageList">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <ul class="pagination alignRight">
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">Prev</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">1</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews(2)">2</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews(3)">3</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">Next</span></li>
                 </ul>
             </nav>
         </div>
@@ -199,12 +200,16 @@ export default {
         return {
             //Biến tạm thời dùng để lưu thông tin giỏ hàng
             cart: {},
+            //Biến lưu danh sách sản phẩm thứ 1
+            firstProducts:[],
             //Biến lưu danh sách sản phẩm thứ 2
             secondProducts:[],
             //Danh sách danh mục hiển thị trên trang chủ
             categories:[],
             //Danh sách menu item
             menuItems:[],
+            //Biến lưu danh sách tin tức
+            newsList:[],
         }
     },
     components:{
@@ -261,24 +266,42 @@ export default {
                 params: { productId: id}
             });
         },
-    },
-    async mounted() {
-        //Kiểm tra props nếu chưa được truyền thì
-        
-        if(this.products == undefined)
-        {
-            await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
-                this.secondProducts = result.data;
+        /**
+         * created date: 19/11/2021
+         * created by: vxkhanh
+         * Hàm xủ lý sư kiện chuyển số trang sang trang tiếp theo cho phần sản phẩm
+         */
+        async goToPage(page){
+            page = parseInt(page);
+            await axios.get('https://localhost:44368/api/v1.0/Products?pageNumber='+page+'&items=12').then((result)=>{
+                this.firstProducts = result.data;
             }).catch(()=>{
                 console.log("Đã xảy ra lỗi.");
             })
+        },
+
+        /**
+         * created date: 19/11/2021
+         * created by: vxkhanh
+         * Hàm xủ lý sư kiện chuyển số trang sang trang tiếp theo cho phần tin tức
+         */
+        async goToPageForNews(page){
+            page = parseInt(page);
+            await axios.get('https://localhost:44368/api/v1.0/news?pageNumber='+page+'&items=3').then((result)=>{
+                this.newsList = result.data;
+            }).catch(()=>{
+                console.log("Đã có lỗi xảy ra.")
+            })
         }
-        else{
-            this.secondProducts = this.products;
-        }
+    },
+    async mounted() {
         
     },
     async created() {
+        //Khởi tạo dữ liệu
+        this.firstProducts = new Array;
+        this.secondProducts = new Array;
+        this.newsList = new Array;
         //Tạo giá trị ban đầu cho biến cart
         this.cart = {
             cartId: "00000000-0000-0000-0000-000000000000",
@@ -287,17 +310,20 @@ export default {
             quantity: 1,
             total: 0
         }
-        //Lấy danh sách danh mục 
-        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
-            //Gán kết quả vào biến categories
-            this.categories = result.data;
+        //Lấy danh sách sản phẩm ở trang đầu tiên
+        await axios.get('https://localhost:44368/api/v1.0/Products?pageNumber=1&items=12').then((result)=>{
+            this.firstProducts = result.data;
         }).catch(()=>{
-            console.log("Đã xảy ra lỗi khi lấy danh mục sản phẩm");
-        });
+            console.log("Đã có lỗi xảy ra.")
+        })
         
+        //Lấy danh sách tin tức
+        await axios.get('https://localhost:44368/api/v1.0/News?pageNumber=1&items=3').then((result)=>{
+            this.newsList = result.data;
+        }).catch(()=>{
+            console.log("Đã có lỗi xảy ra.")
+        })
     },
-    
-    
 }
 </script>
 <style lang="css">

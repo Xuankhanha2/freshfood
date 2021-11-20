@@ -19,7 +19,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
-        public ServiceResult getProductsByCategory(Guid categoryId);
+        public ServiceResult getProductsByCategory(Guid categoryId, int? orderVal);
 
         /// <summary>
         /// created by: vxkhanh

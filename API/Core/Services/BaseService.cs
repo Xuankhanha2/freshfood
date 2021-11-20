@@ -25,11 +25,11 @@ namespace Core.Services
         /// Lấy toàn bộ dữ liệu 
         /// </summary>
         /// <returns>Danh sách dữ liệu</returns>
-        public ServiceResult getAll<entity>()
+        public ServiceResult getAll<entity>(int? pageNumber, int? items)
         {
             try
             {
-                var list = baseRepository.GetAll<entity>();
+                var list = baseRepository.GetAll<entity>(pageNumber, items);
                 if (list != null)
                 {
                     serviceResult.isValid = true;

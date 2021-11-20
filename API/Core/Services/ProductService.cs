@@ -26,12 +26,12 @@ namespace Core.Services
         /// </summary>
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
-        public ServiceResult getProductsByCategory(Guid categoryId)
+        public ServiceResult getProductsByCategory(Guid categoryId, int? orderVal)
         {
             try
             {
                 //gọi hàm lấy danh sách sản phẩm
-                var list = productRepository.getProductsByCategory(categoryId);
+                var list = productRepository.getProductsByCategory(categoryId, orderVal);
                 if (list != null)
                 {
                     serviceResult.isValid = true;

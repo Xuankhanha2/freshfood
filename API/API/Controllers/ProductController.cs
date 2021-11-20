@@ -30,9 +30,9 @@ namespace API.Controllers
         /// <param name="categoryId"></param>
         /// <returns>IActionResult</returns>
         [HttpGet("categoryId/{categoryId}")]
-        public IActionResult getProductsByCategory(Guid categoryId)
+        public IActionResult getProductsByCategory(Guid categoryId,[FromQuery]int? order)
         {
-            ServiceResult result = productService.getProductsByCategory(categoryId);
+            ServiceResult result = productService.getProductsByCategory(categoryId, order);
             if (result.code == statusCode.success)
             {
                 return StatusCode(200, result.data);

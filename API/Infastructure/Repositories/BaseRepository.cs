@@ -29,11 +29,39 @@ namespace Infastructure.Repositories
         /// </summary>
         /// <typeparam name="entity">đối tượng</typeparam>
         /// <returns>Danh sách toàn bổ dữ liệu trong bảng</returns>
-        public IEnumerable<entity> GetAll<entity>()
+        public IEnumerable<entity> GetAll<entity>(int? pageNumber, int? items)
         {
             string className = typeof(entity).Name;
             string procName = $"procGet{className}s";
             List<entity> list = dbConnection.Query<entity>(procName, commandType: CommandType.StoredProcedure).ToList();
+            if(pageNumber != null && items != null)
+            {
+                //Số trang - mặc định số trang đầu tiền
+                int page = pageNumber ?? 1;
+                //Số lượng phần tử trong 1 trang - mặc định 10 phần tử
+                int number = items ?? 10;
+                //Chỉ số bắt đầu khi sao chép list
+                int startIndex = (page - 1) * number;
+                //Kiểm tra số lượng phần tử list > số lượng phần tử của 1 trang thì mới thực hiện 
+                if(list.Count > number)
+                {
+
+                    if (list.Count - startIndex >= number)
+                    {
+                        //nếu số phần tử còn lại tính từ vị trí startIndex đến phần tử cuối cùng của mảng lớn hơn số lượng phần tử của 1 trang
+                        entity[] subList = new entity[number];
+                        list.CopyTo(startIndex, subList, 0, number);
+                        return subList;
+                    }
+                    else
+                    {
+                        entity[] subList = new entity[list.Count - startIndex];
+                        list.CopyTo(startIndex, subList, 0, list.Count - startIndex);
+                        return subList;
+                    }
+                }
+                
+            }
             return list;
         }
 

@@ -29,7 +29,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
-        public IEnumerable<Product> getProductsByCategory(Guid categoryId);
+        public IEnumerable<Product> getProductsByCategory(Guid categoryId, int? orderVal);
 
         /// <summary>
         /// created by: vxkhanh

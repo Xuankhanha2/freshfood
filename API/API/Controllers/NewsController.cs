@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1.0/[controller]")]
     [ApiController]
     /// <summary>
     /// Created date: 20/7/2021

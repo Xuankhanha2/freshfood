@@ -207,7 +207,7 @@ banner middle
     padding: 0px;
     /* text-align: left; */
     margin-top: 10px;
-    height: 125px;
+    height: 120px;
     overflow: hidden;
     margin-bottom: 50px;
 }
@@ -235,13 +235,6 @@ banner middle
 .detailNewsBtn:hover{
     background-color: #5c3d21;
 }
-.newsPageList{
-    margin-top: 16px !important;
-}
-/* end Content */
 
-/* footer */
-
-/* end footer */
 
 

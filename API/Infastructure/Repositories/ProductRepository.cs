@@ -34,11 +34,16 @@ namespace Infastructure.Repositories
         /// </summary>
         /// <param name="categoryId">categoryId</param>
         /// <returns></returns>
-        public IEnumerable<Product> getProductsByCategory(Guid categoryId)
+        public IEnumerable<Product> getProductsByCategory(Guid categoryId, int? orderVal)
         {
             string procName = $"procGetProductsByCategory";
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("categoryId", categoryId.ToString());
+            //Nếu orderVal null thì gán mặc định = 0;
+            if (orderVal == null)
+                orderVal = 0;
+            //orderVal ( 1 - sắp theo tên z-a; 2 - sắp xếp theo giá tăng dần; 3 - sắp xếp theo giá giảm dần; mặc định - sắp xếp theo tên a-z)
+            dynamicParameters.Add($"orderVal", orderVal);
             var products = dbConnection.Query<Product>(procName, dynamicParameters, commandType: CommandType.StoredProcedure);
             return products;
         }

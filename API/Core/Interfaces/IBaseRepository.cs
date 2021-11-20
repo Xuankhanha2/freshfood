@@ -13,7 +13,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <typeparam name="entity">Đối tượng</typeparam>
         /// <returns>Danh sách dữ liệu cần lấy</returns>
-        public IEnumerable<entity> GetAll<entity>();
+        public IEnumerable<entity> GetAll<entity>(int? pageNumber, int? items);
 
         /// <summary>
         /// created date: 22/06/2021

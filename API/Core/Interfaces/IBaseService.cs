@@ -18,7 +18,7 @@ namespace Core.Interfaces
         /// Lấy toàn bộ đữ liệu
         /// </summary>
         /// <returns></returns>
-        public ServiceResult getAll<entity>();
+        public ServiceResult getAll<entity>(int? pageNumber, int? items);
 
         /// <summary>
         /// created date: 23/06/2021
