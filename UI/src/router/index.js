@@ -9,7 +9,7 @@ import news from '../components/page/newsPage.vue'
 import login from '../components/page/loginPage.vue'
 import register from '../components/page/registerPage.vue'
 import provider from '../components/page/providerPage.vue'
-
+import newsContent from '../components/page/newsContentPage.vue'
 const routes = [
   {
     path: '/',
@@ -26,6 +26,7 @@ const routes = [
   { name: 'login', path: '/login', component: login },
   { name: 'register', path: '/register', component: register },
   { name: 'provider', path: '/provider', component: provider },
+  { name: 'newsContent', path: '/newsContent', component: newsContent},
   
 ]
 

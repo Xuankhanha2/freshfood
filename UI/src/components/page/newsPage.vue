@@ -11,14 +11,12 @@
                 >
                     <img :src="item.newsImage" class="News-img">
                     <div class="newsRow">
-                        <a href="/News/Detail">
-                            <h3 class="">{{item.newsTitle}}</h3>
-                        </a>
-                        <a href="/News/Detail">
-                            <p class="description">
-                                {{item.newsContent}}
-                            </p>
-                        </a>
+                        <h3 class="" @click="goToNewsContent(item.newsId)">{{item.newsTitle}}</h3>
+                        <p 
+                            @click="goToNewsContent(item.newsId)"
+                        >
+                            {{item.newsContent}}
+                        </p>
                         <a href="/News/Detail/@item.id"><div class="btnDetail btn-success">Chi tiết</div></a>
                     </div>
                 </li>
@@ -79,6 +77,19 @@ export default {
             }).catch(()=>{
                 console.log("Đã có lỗi xảy ra.")
             })
+        },
+         /**
+         * created date: 26/11/2021
+         * created by: vxkhanh
+         * Hàm chuyển đến trang nội dung tin tức
+         */
+        goToNewsContent(newsId){
+            var id = String(newsId);
+            this.$router.push({
+                name: 'newsContent',
+                path: '/newsContent',
+                params: { newsId: id }
+            });
         }
     },
     async created() {

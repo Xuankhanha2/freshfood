@@ -259,7 +259,6 @@ export default {
          */
         pushToDetail(productId){
             var id = String(productId);
-            console.log(id);
             this.$router.push({
                 name: 'productDetail', 
                 path: '/productDetail', 
