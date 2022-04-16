@@ -14,11 +14,11 @@ namespace API.Controllers
     /// Created by: VXKHANH
     /// Lớp điều khiển cho store
     /// </summary>
-    public class StoreController : BaseController<Store>
+    public class ProviderController : BaseController<Provider>
     {
         IStoreService storeService;
 
-        public StoreController(IStoreService _storeService) : base(_storeService)
+        public ProviderController(IStoreService _storeService) : base(_storeService)
         {
             storeService = _storeService;
         }

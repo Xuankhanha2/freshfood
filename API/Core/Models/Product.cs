@@ -59,7 +59,7 @@ namespace Core.Models
         /// <summary>
         /// Mã cửa hàng phân phối sản phẩm
         /// </summary>
-        public Guid? storeId { get; set; }
+        public Guid? providerId { get; set; }
 
         /// <summary>
         /// Trạng thái của sản phẩm ( true - còn hàng ; false - hết hàng )

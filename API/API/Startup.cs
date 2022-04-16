@@ -53,8 +53,8 @@ namespace API
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             //Store
-            services.AddScoped<IStoreService, StoreService>();
-            services.AddScoped<IStoreRepository, StoreRepository>();
+            services.AddScoped<IStoreService, ProviderService>();
+            services.AddScoped<IStoreRepository, ProviderRepository>();
 
             //News
             services.AddScoped<INewsService, NewsService>();

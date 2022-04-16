@@ -9,7 +9,7 @@ namespace Infastructure.Repositories
     /// Created date: 20/7/2021
     /// Created by: VXKHANH
     /// </summary>
-    public class StoreRepository : BaseRepository, IStoreRepository
+    public class ProviderRepository : BaseRepository, IStoreRepository
     {
     }
 }
