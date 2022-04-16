@@ -30,7 +30,7 @@
             </div>
 
             <div class="grid-list">
-                <div class="outline-table">
+                <div class="outline-table scrollbar">
                     <table cellspacing="0" cellpadding="0" border="0">
                         <!-- Dòng tiêu đề của bảng -->
                         <tr>

@@ -143,7 +143,7 @@
                         <!-- / -->
 
                         <!-- Nhà cung cấp -->
-                        <td colspan="1" class="td-to-check">{{bindStoreName(product.storeId)}}</td>
+                        <td colspan="1" class="td-to-check">{{bindProviderName(product.providerId)}}</td>
                         <!-- / -->
 
                         <!-- Giảm giá -->
@@ -197,7 +197,7 @@
             :pageTitle="productDetailTitle"
             :refProduct="this.product"
             :refCategories="this.categories"
-            :refStores="this.stores"
+            :refproviders="this.providers"
             @closeForm="closeForm"
             @loadData="loadData"
         />
@@ -256,8 +256,8 @@ export default {
            product:{},
            //Biến dùng để lưu danh sách danh mục sản phẩm, sử dụng để tải dữ liệu vào ô chọn danh mục sản phẩm
             categories: [{}],
-            //Biến stores chứa danh sách cửa hàng, dùng để đưa dữ liêu vào ô chọn cửa hàng cung cấp - nhà phân phối sp
-            stores: [{}],
+            //Biến providers chứa danh sách cửa hàng, dùng để đưa dữ liêu vào ô chọn cửa hàng cung cấp - nhà phân phối sp
+            providers: [{}],
             //Biến hiển thị thông báo hỏi khi xóa sản phẩm
             deletePopup: false,
             //Biến hiển thị thông báo
@@ -318,11 +318,11 @@ export default {
             return name;
         },
         /**Hàm hiển thị tên cửa hàng - nhà cung cấp sản phẩm */
-        bindStoreName(storeId){
+        bindProviderName(providerId){
             var name;
-            this.stores.forEach(element => {
-                if(element.storeId == storeId){
-                    name = element.storeName;
+            this.providers.forEach(element => {
+                if(element.providerId == providerId){
+                    name = element.providerName;
                 }
             });
             return name;
@@ -377,10 +377,10 @@ export default {
             console.log('Đã có lỗi xảy ra khi lấy categories');
         });
 
-        this.stores = await axios.get('https://localhost:44368/api/v1.0/stores').then((result)=>{
+        this.providers = await axios.get('https://localhost:44368/api/v1.0/providers').then((result)=>{
             return result.data;
         }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy stores');
+            console.log('Đã có lỗi xảy ra khi lấy providers');
         });
         this.loading = false;
     },
