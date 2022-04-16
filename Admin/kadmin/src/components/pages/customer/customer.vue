@@ -209,6 +209,7 @@ import axios from 'axios'
 import customerDetail from './customerDetail.vue'
 import newButton from '../../layout/button.vue'
 import popup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     data() {
         return {
@@ -287,7 +288,7 @@ export default {
         },
         /**Hàm xóa khách hàng theo id */
         async deleteCustomer(id){
-            await axios.delete('https://localhost:44368/api/v1.0/customers/'+id).then((result)=>{
+            await axios.delete(apiPath.customers+id).then((result)=>{
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 this.notifyPopup = true;
                 this.loadData();
@@ -298,10 +299,10 @@ export default {
                 this.notifyPopup = true;
             })
         },
-        /**Hàm load lại trang sau khiu thêm sủa xóa  */
+        /**Hàm load lại trang sau khi thêm sủa xóa  */
         async loadData(){
             this.loading = true;
-            await axios.get('https://localhost:44368/api/v1.0/products').then((response)=>{
+            await axios.get(apiPath.customers).then((response)=>{
                 this.customers = response.data;
             }).catch(()=>{
                 console.log("Có lỗi xảy ra khi gọi api product");
@@ -332,7 +333,7 @@ export default {
 
     async created() {
         this.loading = true;
-        await axios.get('https://localhost:44368/api/v1.0/Customers').then((response)=>{
+        await axios.get(apiPath.customers).then((response)=>{
             this.customers = response.data;
         }).catch(()=>{
             console.log("Có lỗi xảy ra khi lấy api customer");

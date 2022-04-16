@@ -166,6 +166,7 @@ import axios from 'axios'
 import newsDetail from './newsDetail.vue'
 import newButton from '../../layout/button.vue'
 import popup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     data() {
         return {
@@ -259,7 +260,7 @@ export default {
             //Hiển thị ảnh load khi dữ liệu chưa tải xong
             this.loading = true;
             //Lấy dữ liệu trên server
-            await axios.get('https://localhost:44368/api/News').then((result)=>{
+            await axios.get(apiPath.news).then((result)=>{
                 //Gán dữ liệu trả về vào biến newsList
                 this.newsList = result.data;
             }).catch(()=>{
@@ -287,10 +288,10 @@ export default {
         //Hiện ảnh load dữ liệu
         this.loading = true;
         //Lấy dữ liệu trên server
-        await axios.get('https://localhost:44368/api/News').then((result)=>{
+        await axios.get(apiPath.news).then((result)=>{
             this.newsList = result.data;
         }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy categories');
+            console.log('Đã có lỗi xảy ra khi lấy News');
         });
         //Ẩn ảnh load dữ liệu
         this.loading = false;

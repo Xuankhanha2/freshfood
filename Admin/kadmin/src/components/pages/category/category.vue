@@ -128,6 +128,7 @@ import axios from 'axios'
 import categoryDetail from './categoryDetail.vue'
 import newButton from '../../layout/button.vue'
 import popup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     data() {
         return {
@@ -209,7 +210,7 @@ export default {
         },
         /**Hàm xóa sản phẩm theo id */
         async deleteCategory(id){
-            await axios.delete('https://localhost:44368/api/v1.0/categories/'+id).then((result)=>{
+            await axios.delete(apiPath.categories+id).then((result)=>{
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 this.notifyPopup = true;
                 console.log(result.data);
@@ -223,7 +224,7 @@ export default {
         /**Hàm load lại dữ liêu sau khi thêm sửa xóa */
         async loadData(){
             this.loading = true;
-            await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+            await axios.get(apiPath.categories).then((result)=>{
                 this.categories = result.data;
             }).catch(()=>{
                 console.log('Đã có lỗi xảy ra khi lấy categories');
@@ -235,7 +236,7 @@ export default {
 
     async created() {
         this.loading = true;
-        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+        await axios.get(apiPath.categories).then((result)=>{
             this.categories = result.data;
         }).catch(()=>{
             console.log('Đã có lỗi xảy ra khi lấy categories');
