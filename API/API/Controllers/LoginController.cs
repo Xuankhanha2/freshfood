@@ -1,46 +1,69 @@
-﻿using Core.Interfaces;
-using Core.Models;
-using Core.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Configuration;
+using Core.Models;
+using Core.Services;
+using System.Security.Claims;
+using System.Text;
+using Core.Interfaces;
 
 namespace API.Controllers
 {
-    /// <summary>
-    /// created date: 04/11/2021
-    /// created by: vxkhanh
-    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
-
-        ILoginService loginService;
-        public LoginController(ILoginService _loginService)
+        public IConfiguration _configuration;
+        public IUserService _userService;
+        public LoginController(IConfiguration config, IUserService userService)
         {
-            loginService = _loginService;
+            _configuration = config;
+            _userService = userService;
         }
 
-        /// <summary>
-        /// Hàm kiểm tra đăng nhập của khách hàng
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult login(string username, string password)
+        [HttpPost]
+        public async Task<IActionResult> post(User user)
         {
-            ServiceResult result = loginService.login(username, password);
-            if (result.code == statusCode.success)
-                return StatusCode(200, result);
-            else if (result.code == statusCode.noContent)
-                return StatusCode(204, result);
+            if (user != null && user.username != null && user.password != null)
+            {
+                User userData = (User) _userService.getUser(user.username, user.password).data;
+                if (userData != null)
+                {
+                    var claims = new[]
+                    {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("userId", userData.userId.ToString()),
+                        new Claim("fullname", userData.fullName.ToString())
+                    };
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var token = new JwtSecurityToken(
+                        _configuration["Jwt:Issuer"], 
+                        _configuration["Jwt:Audience"], 
+                        claims, 
+                        expires: DateTime.UtcNow.AddDays(1), 
+                        signingCredentials: signIn
+                    );
+                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                }
+                else
+                {
+                    return BadRequest("Invalid credentials");
+                }
+            }
             else
-                return StatusCode(500, result);
+            {
+                return BadRequest();
+            }
         }
     }
+    
 }

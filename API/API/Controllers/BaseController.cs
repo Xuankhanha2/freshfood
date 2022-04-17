@@ -1,6 +1,7 @@
 ﻿using Core.Interfaces;
 using Core.Models;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace API.Controllers
             baseService = _baseService;
         }
 
-        // GET: api/<BaseController>
+
         /// <summary>
         /// created date: 20/06/2021
         /// created by: VXKHANH
@@ -45,7 +46,6 @@ namespace API.Controllers
                 return StatusCode(204, result.data);
         }
 
-        // GET api/<BaseController>/5
         /// <summary>
         /// created date: 20/06/2021
         /// created by: VXKHANH
@@ -69,6 +69,7 @@ namespace API.Controllers
         /// created by: VXKHANH
         /// Thêm bản ghi mới với dữ liệu được láy từ bodyRequest
         /// </summary>
+        [Authorize]
         [HttpPost]
         public virtual IActionResult post(entity papram)
         {
@@ -83,13 +84,13 @@ namespace API.Controllers
                 return StatusCode(400, result);
         }
 
-        // PUT api/<BaseController>/5
         /// <summary>
         /// created date: 20/06/2021
         /// created by: VXKHANH
         /// Sửa bản ghi với dữ liêu được lấy tử bodyRequest
         /// </summary>
         /// <param name="id">Id</param>
+        [Authorize]
         [HttpPut]
         public virtual IActionResult put(entity papram)
         {
@@ -104,13 +105,13 @@ namespace API.Controllers
                 return StatusCode(400, result);
         }
 
-        // DELETE api/<BaseController>/5
         /// <summary>
         /// created date: 20/06/2021
         /// created by: VXKHANH
         /// Xóa 1 bản ghi theo id được truyền vào
         /// </summary>
         /// <param name="id">Id</param>
+        [Authorize]
         [HttpDelete("{id}")]
         public virtual IActionResult delete(Guid id)
         {
