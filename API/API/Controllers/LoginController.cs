@@ -15,7 +15,7 @@ using Core.Interfaces;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v0.1/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {

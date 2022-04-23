@@ -6,6 +6,7 @@ using System.Text;
 using Dapper;
 using MySqlConnector;
 using Core.Interfaces;
+using System.Security.Cryptography;
 
 namespace Infastructure.Repositories
 {
@@ -144,6 +145,18 @@ namespace Infastructure.Repositories
             dynamicParameters.Add($"@{propertyName}", param.ToString());
             entity result = dbConnection.Query<entity>(propertyName, param: dynamicParameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
+        }
+
+        public string sha256Hash(string value)
+        {
+            SHA256Managed sha256 = new SHA256Managed();
+            Byte[] byteValue = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+            string hashedValue = "";
+            foreach (Byte conv in byteValue)
+            {
+                hashedValue += conv.ToString("x2");
+            }
+            return hashedValue.ToLower();
         }
     }
 }

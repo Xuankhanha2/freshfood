@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <login/> -->
     <menuLayout v-show="true"/>
     <div  class="right-box" v-show="true">
       <headerLayout/>
@@ -12,14 +11,17 @@
 import menuLayout from './components/layout/menu.vue'
 import headerLayout from './components/layout/header.vue'
 import contentLayout from './components/layout/content.vue'
-// import login from './components/pages/login.vue'
 export default {
   name: 'App',
+  data() {
+    return {
+     
+    }
+  },
   components: {
     menuLayout,
     headerLayout,
     contentLayout,
-    // login,
   }
 }
 </script>

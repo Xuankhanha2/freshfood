@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
-
+using System.Security.Cryptography;
 namespace Infastructure.Repositories
 {
     /// <summary>
@@ -18,9 +18,11 @@ namespace Infastructure.Repositories
         public User getUser(string username, string password)
         {
             string procName = $"procGetUser";
+            SHA256Managed crypto = new SHA256Managed();
+            string cryptoPassword = base.sha256Hash(password);
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add($"@username", username);
-            dynamicParameters.Add($"@password", password);
+            dynamicParameters.Add($"@password", cryptoPassword);
             User result = dbConnection.Query<User>(procName, param: dynamicParameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }

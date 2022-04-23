@@ -1,16 +1,19 @@
 <template>
     <div class="content">
-        <!-- <product/> -->
         <router-view/>
     </div>
 </template>
 
 <script>
-// import product from '../pages/product.vue'
 
 export default {
+    data() {
+        return {
+            isLogin: false
+        }
+    },
     components:{
-        // product,
+        
     }
 }
 </script>
