@@ -206,12 +206,14 @@ import newLabel from '../../layout/label.vue'
 import newButton from '../../layout/button.vue'
 import axios from 'axios'
 import newPopup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     props:{
         pageTitle:String,
         focusOn: Boolean,
         isUpdate: Boolean,
-        refCustomer: Object
+        refCustomer: Object,
+        config: Object,
     },
     data() {
         return {
@@ -261,40 +263,44 @@ export default {
             if(isValid){
                 if(this.isUpdate){
                     //Thục hiện sửa
-                    await axios.put('https://localhost:44368/api/v1.0/customers',this.customer).then((result)=>{
+                    await axios.put(apiPath.customers, this.customer, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
-                        this.notifyText = processResult.message;
-                        this.popup = true;
+                        this.showNotifyPopup(processResult.message)
                         //Load lại dữ liệu
                         this.loadData();
                     }).catch(()=>{
-                        this.notifyText = "Đã có lỗi xảy ra.";
-                        this.popup = true;
-                        
+                        this.showNotifyPopup("Đã có lỗi xảy ra.")
                     })
                 }else{
                     
                     //Thực hiện thêm
-                    await axios.post('https://localhost:44368/api/v1.0/customers',this.customer).then((result)=>{
+                    await axios.post(apiPath.customers, this.customer, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
-                        this.notifyText = processResult.message;
-                        this.popup = true;
+                        this.showNotifyPopup(processResult.message)
                         this.loadData();
                     }).catch(()=>{
-                        this.popup = true;
-                        this.notifyText = "Đã có lỗi xảy ra.";
+                        this.showNotifyPopup("Đã có lỗi xảy ra.")
                     })
                     
                 }
-                console.log(processResult);
             }else{
                 //Nếu dữ liệu chưa hợp lệ thì kết thúc hàm bằng lệnh return 
                 console.log("Return");
                 return;
             }
             
+        },
+
+        /**
+         * created by: khanhvx
+         * created date: 28/04/2022
+         * Hàm thông báo lỗi
+         */
+        showNotifyPopup(msg){
+            this.popup = true;
+            this.notifyText = msg;
         },
 
         /**Hàm xử lý nghiệp vụ cho các ô nhập liệu*/

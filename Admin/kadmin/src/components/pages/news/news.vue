@@ -102,7 +102,6 @@
                                 <div class="btn-edit" title="Chỉnh sửa dòng dữ liệu này"
                                     @click="openForm(true, news)"
                                 ></div>
-                                <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
                                 <div class="btn-delete" title="Xóa dòng dữ liệu này"
                                     @click="showDeletePopup(news.newsId)"
                                 ></div>
@@ -127,6 +126,7 @@
             :isUpdate="isUpdate"
             :pageTitle="newsDetailTitle"
             :refNews="this.news"
+            :config="config"
             @closeForm="closeForm"
         />
         <!-- /Form thêm sửa tin tức -->
@@ -190,6 +190,7 @@ export default {
             news: {},
             //Biến sử dung để hiển thị loading khi load dữ liệu 
             loading: false,
+            config: {},
         }
     },
     components:{
@@ -240,7 +241,7 @@ export default {
         /**Hàm xóa sản phẩm theo id */
         async deleteCategory(id){
             //Gửi yêu cầu lên server
-            await axios.delete('https://localhost:44368/api/News/'+id).then((result)=>{
+            await axios.delete(apiPath.news+id, this.config).then((result)=>{
                 //Đưa ra thông báo thành công
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 //Hiển thi thông báo
@@ -280,21 +281,27 @@ export default {
                 return formatedDate;
             }
             return "";
+        },
+        /**
+         * created date: 27/04/2022
+         * created by: khanhvx
+         * hàm lấy tokken từ localStorage
+         */
+        getToken(){
+            if(localStorage.getItem('accessToken'))
+                return localStorage.getItem('accessToken');
+            else
+                return "";
         }
 
     },
 
     async created() {
-        //Hiện ảnh load dữ liệu
-        this.loading = true;
+        this.config = {
+            headers: { Authorization: `Bearer ${this.getToken()}` }
+        }
         //Lấy dữ liệu trên server
-        await axios.get(apiPath.news).then((result)=>{
-            this.newsList = result.data;
-        }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy News');
-        });
-        //Ẩn ảnh load dữ liệu
-        this.loading = false;
+        this.loadData()
     },
 }
 </script>

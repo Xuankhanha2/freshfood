@@ -30,6 +30,7 @@
                     <div class="form-left-row">
                         <select v-model="cloneProduct.categoryId"
                             @change="required.category = false"
+                            class="margin-r-16"
                         >
                             <option class="select-item"
                                 v-for="category in refCategories"
@@ -37,7 +38,7 @@
                                 :value="category.categoryId"
                             >{{category.categoryName}}</option>
                         </select>
-                        <div class="btn-plus"></div>
+                        <!-- <div class="btn-plus"></div> -->
                         <div class="tooltip" 
                             v-show="required.category">
                                 Bạn chưa chọn đanh mục nào!
@@ -56,7 +57,7 @@
                             class="textbox margin-r-16"
                             :class="{'required-outline':false}" 
                             v-model="cloneProduct.price"
-                            @keyup="formatMoney(); required.price = false"
+                            @keyup="required.price = false"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
                         <div class="tooltip" 
@@ -91,13 +92,13 @@
                         <!-- Ô Chọn dữ liệu  -->
                         <select class="mar-r-16px radius"
                             :class="{'required-outline':false}"
-                            v-model="cloneProduct.storeId"
+                            v-model="cloneProduct.providerId"
                         >
                             <option 
-                                v-for="store in refStores"
-                                :key="store.storeId"
-                                :value="store.storeId"
-                            >{{store.storeName}}</option>
+                                v-for="provider in refProvider"
+                                :key="provider.providerId"
+                                :value="provider.providerId"
+                            >{{provider.providerName}}</option>
                         </select>
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
                         <div class="tooltip" v-show="false">Dữ liệu không được để trống!</div>
@@ -211,6 +212,7 @@ import newLabel from '../../layout/label.vue'
 import newButton from '../../layout/button.vue'
 import axios from 'axios'
 import newPopup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     props:{
         pageTitle:String,
@@ -219,20 +221,25 @@ export default {
         refProduct: Object,
         refCategories: [],
         refStores: [],
+        config: Object,
     },
     data() {
         return {
             //Biến product lưu giá trị của sản phẩm dược cập nhật
             cloneProduct:{
                 productId: "",
-                productName: "",
                 categoryId: "",
-                price: null,
-                discount: null,
-                hot: false,
-                image: "",
+                createdBy: "",
+                createdDate: "",
                 description: "",
-                storeId: "",
+                discount: 0,
+                hot: true,
+                image: "",
+                modifiedDate: "",
+                price: 0,
+                productName: "",
+                providerId: "",
+                selectedItem: false,
                 status: false
             },
             /**Biến kiểm tra các ô không được để dữ liêu trống */
@@ -273,36 +280,30 @@ export default {
             if(isValid){
                 if(this.isUpdate){
                     //Thục hiện sửa
-                    await axios.put('https://localhost:44368/api/v1.0/products',this.cloneProduct).then((result)=>{
+                    await axios.put(apiPath.products, this.cloneProduct, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
-                        this.notifyText = processResult.message;
-                        this.popup = true;
+                        this.showNotifyPopup(processResult.message);
                         this.loadData();
                     }).catch(()=>{
-                        this.notifyText = "Đã có lỗi xảy ra.";
-                        this.popup = true;
-                        
+                        this.showNotifyPopup("Đã có lỗi xảy ra.");
                     })
                     
                 }else{
                     //Thực hiện thêm
-                    await axios.post('https://localhost:44368/api/v1.0/products',this.cloneProduct).then((result)=>{
+                    await axios.post(apiPath.products, this.cloneProduct, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
                         this.notifyText = processResult.message;
                         this.popup = true;
                         this.loadData();
                     }).catch(()=>{
-                        this.popup = true;
-                        this.notifyText = "Đã có lỗi xảy ra.";
+                        this.showNotifyPopup("Đã có lỗi xảy ra.");
                     })
                     
                 }
-                console.log(processResult);
             }else{
                 //Nếu dữ liệu chưa hợp lệ thì kết thúc hàm bằng lệnh return 
-                console.log("Return");
                 return;
             }
             
@@ -364,11 +365,30 @@ export default {
         loadData(){
             this.$emit('loadData');
         },
-        
+        /**
+         * created date: 27/04/2022
+         * created by: khanhvx
+         * hàm lấy tokken từ localStorage
+         */
+        getToken(){
+            if(localStorage.getItem('accessToken'))
+                return localStorage.getItem('accessToken');
+            else
+                return "";
+        },
+        /**
+         * created by: khanhvx
+         * created date: 28/04/2022
+         * Hàm thông báo lỗi
+         */
+        showNotifyPopup(msg){
+            this.popup = true;
+            this.notifyText = msg;
+        },
             
     },
     created() {
-        if(this.refProduct != null){
+        if(this.refProduct){
             this.cloneProduct={...this.refProduct};
         }
         //Format tiền ngay khi form được bật lên

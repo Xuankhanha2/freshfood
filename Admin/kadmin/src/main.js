@@ -18,7 +18,7 @@ Vue.use(CKEditor);
 
 const routes = [
   { path: '/login', name: 'login', component: loginPage },
-  { path: '/dashboard', name: 'dashboard', component: dashboard },
+  { path: '/overview', name: 'overview', component: dashboard },
   { path: '/product', name: 'product', component: productPage, meta: { requiresAuth: true } },
   { path: '/category', name: 'category', component: categoryPage, meta: { requiresAuth: true } },
   { path: '/news', name: 'news', component: newsPage, meta: { requiresAuth: true } },

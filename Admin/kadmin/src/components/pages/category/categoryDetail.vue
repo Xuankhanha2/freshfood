@@ -108,6 +108,7 @@ import newLabel from '../../layout/label.vue'
 import newButton from '../../layout/button.vue'
 import axios from 'axios'
 import newPopup from '../../popup/notifyPopup.vue'
+import apiPath from '../../../path'
 export default {
     props:{
         pageTitle:String,
@@ -115,6 +116,7 @@ export default {
         isUpdate: Boolean,
         refCategories: [],
         refCategory: Object,
+        config: Object,
     },
     data() {
         return {
@@ -155,7 +157,7 @@ export default {
             if(isValid){
                 if(this.isUpdate){
                     //Thục hiện sửa
-                    await axios.put('https://localhost:44368/api/v1.0/categories',this.cloneCategory).then((result)=>{
+                    await axios.put(apiPath.categories, this.cloneCategory, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
                         this.notifyText = processResult.message;
@@ -169,7 +171,7 @@ export default {
                     
                 }else{
                     //Thực hiện thêm
-                    await axios.post('https://localhost:44368/api/v1.0/categories',this.cloneCategory).then((result)=>{
+                    await axios.post(apiPath.categories, this.cloneCategory, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
                         this.notifyText = processResult.message;

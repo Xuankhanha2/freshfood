@@ -10,7 +10,8 @@
                 <div class="rowInput">
                     <div class="labelText">Tên tài khoản</div>
                     <div class="inputText">
-                        <input type="text" name="username" placeholder="Username" 
+                        <input type="text" name="username" placeholder="Username"  
+                            @keyup="reomveNotify()"
                             v-model="user.username"
                             autocomplete="off"
                         >
@@ -19,18 +20,22 @@
                 <div class="rowInput">
                     <div class="labelText">Mật khẩu</div>
                     <div class="inputText">
-                        <input type="password" name="password" placeholder="Password"
+                        <input type="password" name="password" placeholder="Password" 
+                            @keyup="reomveNotify()"
                             v-model="user.password"
                             autocomplete="off"
                         >
                     </div>
                 </div>
+                <div class="notify" v-if="loginFail">Login fail!</div>
                 <div class="rowInput">
                     <div class="checkRow">
                         <input type="checkbox" name="remember"
                             v-model="remember"
                         >
-                        <label>Remember this account.</label>
+                        <label style="margin-bottom: 0px; margin-left: 4px">
+                            Remember this account.
+                        </label>
                     </div>
                 </div>
                 <div class="btnInput">
@@ -42,6 +47,8 @@
                 </div>
             </div>
         </div>
+        <!-- Ảnh loading của trang  -->
+        <div class="preload" v-show="loading"></div>
     </div>
 </template>
 
@@ -61,11 +68,17 @@ export default {
             required:{
                 username: false,
                 password: false
-            }
+            },
+            loginFail: false,
+            loading: false
         }
     },
     created(){
+        // Xoá JWT trong localStorage 
+        localStorage.removeItem("accessToken");
+        // Kiểm tra xem có tài khoản được lưu không
         if(localStorage.getItem("user")){
+            // Gán user được remember vào form login
             this.user = JSON.parse(atob(localStorage.getItem("user")));
         }
     },
@@ -78,17 +91,20 @@ export default {
         async submitLogin(){
             if(this.validateForm()){
                 let accessToken;
+                this.loading = true;
                 await axios.post(apiPath.login, this.user).then((res)=>{
                     accessToken = res.data;
+                    this.loading = false;
                 }).catch(()=>{
-                    alert("Login fail!");
+                    this.loginFail = true;
+                    this.loading = false;
                 })
                 if(accessToken){
                     localStorage.setItem('accessToken', accessToken);
                     if(this.remember){
                         this.remeberAccount(this.user);
                     }
-                    this.$router.push('/dashboard');
+                    this.$router.push('/overview');
                 }
             }
         },
@@ -144,12 +160,12 @@ export default {
         },
 
         /**
-         * created date: 23/04/2022
-         * created by: khanhvx
-         * Hàm kiểm tra token xem đã hết hạn chưa
+         * created date: 25/04/2022
+         * created by: Khanhvx
+         * Hàm xóa thông báo khi người dùng nhập thông tin vào form đăng nhập
          */
-        checkingToken(){
-            
+        reomveNotify(){
+            this.loginFail = false;
         }
     },
 }
@@ -157,4 +173,5 @@ export default {
 
 <style lang="css" scoped>
     @import url('../../css/dictionary/login.css');
+    
 </style>

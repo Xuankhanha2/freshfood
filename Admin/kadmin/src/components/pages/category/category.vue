@@ -67,7 +67,6 @@
                                 <div class="btn-edit" title="Chỉnh sửa dòng dữ liệu này"
                                     @click="openForm(true, category)"
                                 ></div>
-                                <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
                                 <div class="btn-delete" title="Xóa dòng dữ liệu này"
                                     @click="showDeletePopup(category.categoryId)"
                                 ></div>
@@ -91,6 +90,7 @@
             :pageTitle="categoryDetailTitle"
             :refCategories="this.categories"
             :refCategory="this.category"
+            :config="config"
             @closeForm="closeForm"
         />
         <!-- Popup xóa danh mục -->
@@ -152,6 +152,7 @@ export default {
             category: {},
             //Biến sử dung để hiển thị loading khi load dữ liệu 
             loading: false,
+            config: {},
         }
     },
     components:{
@@ -174,7 +175,7 @@ export default {
             }   
             else{
                 this.categoryDetailTitle="Thêm danh mục mới"
-                this.category = {};
+                this.category = null;
             }
                
             this.showPopup = true;
@@ -210,7 +211,7 @@ export default {
         },
         /**Hàm xóa sản phẩm theo id */
         async deleteCategory(id){
-            await axios.delete(apiPath.categories+id).then((result)=>{
+            await axios.delete(apiPath.categories+id, this.config).then((result)=>{
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 this.notifyPopup = true;
                 console.log(result.data);
@@ -230,24 +231,30 @@ export default {
                 console.log('Đã có lỗi xảy ra khi lấy categories');
             });
             this.loading = false;
+        },
+        /**
+         * created date: 27/04/2022
+         * created by: khanhvx
+         * hàm lấy tokken từ localStorage
+         */
+        getToken(){
+            if(localStorage.getItem('accessToken'))
+                return localStorage.getItem('accessToken');
+            else
+                return "";
         }
 
     },
 
     async created() {
-        this.loading = true;
-        await axios.get(apiPath.categories).then((result)=>{
-            this.categories = result.data;
-        }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy categories');
-        });
-        console.log(this.categories);
-        this.loading = false;
+        this.config = {
+            headers: { Authorization: `Bearer ${this.getToken()}` }
+        }
+        this.loadData();
     },
 }
 </script>
 
 <style lang="css">
     @import '../../../css/dictionary/product/productPage.css';
-    
 </style>

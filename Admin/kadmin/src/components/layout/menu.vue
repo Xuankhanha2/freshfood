@@ -8,7 +8,7 @@
             <div class="toggle-btn"></div>
         </div>
         <div class="nav-content">
-            <router-link to="home">
+            <router-link to="overview">
                 <div class="nav-item">
                     <div class="select-highline"></div>
                     <div class="nav-item-icon dashroad-icon"></div>
@@ -55,18 +55,42 @@
                 </div>
             </router-link>
 
-            <div class="nav-item">
+            <div class="nav-item" @click="systemToggle()">
                 <div class="select-highline"></div>
                 <div class="nav-item-icon system-icon"></div>
                 <div class="nav-item-text">Hệ thống</div>
+                <!-- sub nav -->
+                <div class="sub-nav" id="sub-system-nav" 
+                    @click="signOut()"
+                >
+                    <div class="sub-nav-item">
+                        <div class="nav-item-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                        <div class="sub-nav-item-text">Sign Out</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
-    
+    methods: {
+        /**
+         * created by: khanhvx
+         * created date: 24/4/2022
+         * Hàm hiện các option của tùy chọn System
+         */
+        systemToggle(){
+            $("#sub-system-nav").slideToggle(200);
+        },
+
+        signOut(){
+            localStorage.removeItem('accessToken');
+            this.$router.push('/login');
+        }
+    },
 }
 </script>
 
@@ -107,7 +131,6 @@ export default {
         font-size: 15px;
         margin-left: 8px;
     }
-    
     .toggle-btn{
         position: absolute;
         top: 50%;
@@ -138,6 +161,7 @@ export default {
         background-color: #2f3136;
         padding-left: 10px;
         cursor: pointer;
+        position: relative;
     }
     .nav-item:hover{
         background-color:#4D4F5C;
@@ -146,6 +170,7 @@ export default {
     }
     .nav-item:hover .nav-item-text{
         color: #00d469;
+        text-decoration: none;
     }
     .nav-item-icon{
         width: 32px;
@@ -153,11 +178,16 @@ export default {
         background-position: center;
         background-position: center;
         background-repeat: no-repeat;
+        text-align: center;
+        color: #fff;
     }
     .nav-item-text{
         color:  #ffffff;
         font-size: 13px;
         margin-left: 16px;
+    }
+    a:hover{
+        text-decoration: none !important;
     }
         .dashroad-icon{
             background-image: url('../../assets/image/ic_TongQuan_32.svg');
@@ -180,7 +210,39 @@ export default {
         .message-icon{
             background-image: url('../../assets/image/ic_TinNhan_32.svg');
         }
-         .system-icon{
+        .system-icon{
             background-image: url('../../assets/image/ic_HeThong_32.svg');
         }
+        .sign-out-icon{
+            background-image: url('../../assets/image/logout-svgrepo-com.svg');
+        }
+
+    .sub-nav{
+        width: calc(100% - 24px);
+        display: none;
+        position: absolute;
+        top: 46px;
+        left: 24px;
+    }
+    .sub-nav-item{
+        width: auto;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        background-color: #2f3136;
+        padding-left: 10px;
+        cursor: pointer;
+        position: relative;
+    }
+    .nav-item:hover .sub-nav{
+        left: 20px;
+    }
+    .sub-nav-item-text{
+        color:  #ffffff;
+        font-size: 13px;
+        margin-left: 16px;
+    }
+    .sub-nav-item:hover .sub-nav-item-text{
+        color: #00d469;
+    }
 </style>

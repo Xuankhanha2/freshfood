@@ -140,10 +140,6 @@
                                     ></div>
                                     <!-- / -->
 
-                                    <!-- Sao chép -->
-                                    <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
-                                    <!-- / -->
-
                                     <!-- Xóa -->
                                     <div class="btn-delete" title="Xóa dòng dữ liệu này"
                                         @click="showDeletePopup(customer.customerId)"
@@ -169,6 +165,7 @@
             :isUpdate="isUpdate"
             :pageTitle="customerDetailTitle"
             :refCustomer="this.customer"
+            :config="config"
             @closeForm="closeForm"
             @loadData="loadData"
         />
@@ -181,7 +178,7 @@
             :firstBtn="true"
             :secondBtn="true"
             @closePopup="closePopup"
-            @negativeFunction="deleteProduct"
+            @negativeFunction="deleteCustomer"
             :param="popupParam"
         />
         <!-- end Popup xóa sản phẩm -->
@@ -236,6 +233,7 @@ export default {
             popupParam:'',
             //Biến sử dung để hiển thị loading khi load dữ liệu 
             loading: false,
+            config: {}
         }
     },
     components:{
@@ -262,7 +260,7 @@ export default {
                 this.customerDetailTitle="Cập nhật thông tin sản phẩm";
             }
             else{
-                this.customer={};
+                this.customer=null;
                 this.customerDetailTitle="Thêm sản phẩm";
             }
             this.showPopup = true;
@@ -288,7 +286,7 @@ export default {
         },
         /**Hàm xóa khách hàng theo id */
         async deleteCustomer(id){
-            await axios.delete(apiPath.customers+id).then((result)=>{
+            await axios.delete(apiPath.customers+id, this.config).then((result)=>{
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 this.notifyPopup = true;
                 this.loadData();
@@ -328,17 +326,25 @@ export default {
             }else{
                 return "Khác";
             }
+        },
+        /**
+         * created date: 27/04/2022
+         * created by: khanhvx
+         * hàm lấy tokken từ localStorage
+         */
+        getToken(){
+            if(localStorage.getItem('accessToken'))
+                return localStorage.getItem('accessToken');
+            else
+                return "";
         }
     },
 
     async created() {
-        this.loading = true;
-        await axios.get(apiPath.customers).then((response)=>{
-            this.customers = response.data;
-        }).catch(()=>{
-            console.log("Có lỗi xảy ra khi lấy api customer");
-        });
-        this.loading = false;
+        this.config = {
+            headers: { Authorization: `Bearer ${this.getToken()}` }
+        }
+        this.loadData();
     },
 }
 </script>

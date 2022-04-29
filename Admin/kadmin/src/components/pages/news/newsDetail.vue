@@ -137,13 +137,14 @@ import newButton from '../../layout/button.vue'
 import axios from 'axios'
 import newPopup from '../../popup/notifyPopup.vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import apiPath from '../../../path'
 export default {
     props:{
         pageTitle:String,
         focusOn: Boolean,
         isUpdate: Boolean,
         refNews: Object,
+        config: Object,
     },
     data() {
         return {
@@ -191,29 +192,24 @@ export default {
             if(isValid){
                 if(this.isUpdate){
                     //Thục hiện sửa
-                    await axios.put('https://localhost:44368/api/v1.0/categories',this.cloneCategory).then((result)=>{
+                    await axios.put(apiPath.news, this.news, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
-                        this.notifyText = processResult.message;
-                        this.popup = true;
+                        this.showNotifyPopup(processResult.message);
                         this.loadData();
                     }).catch(()=>{
-                        this.notifyText = "Đã có lỗi xảy ra.";
-                        this.popup = true;
-                        
+                        this.showNotifyPopup("Đã có lỗi xảy ra.")
                     })
                     
                 }else{
                     //Thực hiện thêm
-                    await axios.post('https://localhost:44368/api/v1.0/categories',this.cloneCategory).then((result)=>{
+                    await axios.post(apiPath.news, this.news, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
-                        this.notifyText = processResult.message;
-                        this.popup = true;
+                        this.showNotifyPopup(processResult.message);
                         this.loadData();
                     }).catch(()=>{
-                        this.popup = true;
-                        this.notifyText = "Đã có lỗi xảy ra.";
+                        this.showNotifyPopup("Đã có lỗi xảy ra.")
                     })
                     
                 }
@@ -224,6 +220,15 @@ export default {
                 return;
             }
             
+        },
+        /**
+         * created by: khanhvx
+         * created date: 29/04/2022
+         * Hàm hiện thị thông báo
+         */
+        showNotifyPopup(msg){
+            this.notifyText = msg;
+            this.popup = true;         
         },
         /**Hàm xử lý nghiệp vụ cho các ô nhập liệu*/
         validateData(){

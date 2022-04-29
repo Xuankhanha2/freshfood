@@ -1,27 +1,36 @@
 <template>
   <div id="app">
-    <menuLayout v-show="true"/>
-    <div  class="right-box" v-show="true">
-      <headerLayout/>
-      <contentLayout/>
-    </div>
+    <contentLayout v-if="true"/>
   </div>
 </template>
 <script>
-import menuLayout from './components/layout/menu.vue'
-import headerLayout from './components/layout/header.vue'
 import contentLayout from './components/layout/content.vue'
+// import loginPage from './components/pages/login.vue'
 export default {
   name: 'App',
   data() {
     return {
-     
     }
   },
   components: {
-    menuLayout,
-    headerLayout,
+    // loginPage,
     contentLayout,
+  },
+  created(){
+    // Kiểm tra login 
+    if(localStorage.getItem('accessToken')){
+      this.redirectToLogin()
+    }
+  },
+  methods:{
+    /**
+     * created by: khanhvx
+     * created date: 23/04/2022
+     * Hàm chuyển vê trang đănh nhập
+     */
+    redirectToLogin(){
+      this.$router.push('/login');
+    }
   }
 }
 </script>
@@ -54,10 +63,10 @@ body{
   width: 100%;
   display: flex;
 }
-.right-box{
-  width: calc(100% - 220px);
-}
+
 select, input{
   font-family: OpenSan-Regular;
 }
+@import url('./css/fontawesome-free-6.1.1-web/css/all.css');
+@import url('./css/bootstrap4/css/bootstrap.css');
 </style>

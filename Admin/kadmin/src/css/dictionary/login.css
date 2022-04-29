@@ -4,10 +4,14 @@
     background-color: #dddddd;
     display: flex;
     align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
 }
 .loginForm{
     background-color: #FFF;
-    width: 300px;
+    width: 360px;
     height: auto;
     margin: auto;
     padding: 32px;
@@ -96,4 +100,11 @@
 .btnSubmit:active{
     background-color: crimson;
     color: white;
+}
+.notify{
+    margin-top: 8px;
+    font-size: 13px !important;
+    color: red;
+    width: 100%;
+    text-align: center;
 }

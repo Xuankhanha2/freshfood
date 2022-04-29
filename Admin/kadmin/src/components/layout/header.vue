@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="css">
-@import url('../../css/fontawesome-free-5.15.1-web/css/all.css');
+@import url('../../css/fontawesome-free-6.1.1-web/css/all.css');
     .header{
         width: 100%;
         height: 46px;

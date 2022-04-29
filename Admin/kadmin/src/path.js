@@ -4,6 +4,6 @@ const ENDPOINT = {
     categories: "https://localhost:44368/api/v1.0/categories/",
     providers: "https://localhost:44368/api/v1.0/providers/",
     news: "https://localhost:44368/api/news/",
-    login: "https://localhost:44368/api/v0.1/login",
+    login: "https://localhost:44368/api/v1.0/login",
 }
 export default ENDPOINT;

@@ -1,23 +1,5 @@
 <template>
     <div class="revenue">
-        <!-- <div class="category">
-            <div class="category-item">
-                <hr>
-                Quy trình
-            </div>
-            <div class="category-item category-item-active">
-                <hr class="active-hr">
-                Danh sách khoản thu
-            </div>
-            <div class="category-item">
-                <hr>
-                Đăng ký khoản thu
-            </div>
-            <div class="category-item">
-                <hr>
-                Danh sách miễn giảm
-            </div>
-        </div> -->
         <div class="grid">
             <div class="filter-line">
                 <!-- checkbox hiển thị sản phẩm ngừng kinh doanh -->
@@ -167,10 +149,6 @@
                                 ></div>
                                 <!-- / -->
 
-                                <!-- Sao chép -->
-                                <div class="btn-copy" title="Sao chép dòng dữ liệu này"></div>
-                                <!-- / -->
-
                                 <!-- Xóa -->
                                 <div class="btn-delete" title="Xóa dòng dữ liệu này"
                                     @click="showDeletePopup(product.productId)"
@@ -198,6 +176,7 @@
             :refProduct="this.product"
             :refCategories="this.categories"
             :refproviders="this.providers"
+            :config="config"
             @closeForm="closeForm"
             @loadData="loadData"
         />
@@ -269,6 +248,7 @@ export default {
             popupParam:'',
             //Biến sử dung để hiển thị loading khi load dữ liệu 
             loading: false,
+            config: {}
         }
     },
     components:{
@@ -295,7 +275,7 @@ export default {
                 this.productDetailTitle="Cập nhật thông tin sản phẩm";
             }
             else{
-                this.product={};
+                this.product=null;
                 this.productDetailTitle="Thêm sản phẩm";
             }
             this.showPopup = true;
@@ -341,11 +321,10 @@ export default {
         },
         /**Hàm xóa sản phẩm theo id */
         async deleteProduct(id){
-            await axios.delete(apiPath.products+id).then((result)=>{
+            await axios.delete(apiPath.products+id, this.config).then((result)=>{
                 this.notifyText = "Đã xóa sản phẩm vừa chọn.";
                 this.notifyPopup = true;
                 this.loadData();
-                console.log(result.data);
                 return result;
             }).catch(()=>{
                 this.notifyText = "Không thể xóa sản phẩm này";
@@ -358,30 +337,43 @@ export default {
             await axios.get(apiPath.products).then((response)=>{
                 this.products = response.data;
             }).catch(()=>{
-                console.log("Có lỗi xảy ra khi gọi api product");
             });
             this.loading = false;
+        },
+        /**
+         * created date: 27/04/2022
+         * created by: khanhvx
+         * hàm lấy tokken từ localStorage
+         */
+        getToken(){
+            if(localStorage.getItem('accessToken'))
+                return localStorage.getItem('accessToken');
+            else
+                return "";
         }
 
     },
 
     async created() {
         this.loading = true;
+        this.config = {
+            headers: { Authorization: `Bearer ${this.getToken()}` }
+        }
         this.products = await axios.get(apiPath.products).then((response)=>{
             return response.data;
         }).catch(()=>{
-            console.log("Có lỗi xảy ra khi gọi api product");
+            
         });
         this.categories = await axios.get(apiPath.categories).then((result)=>{
             return result.data;
         }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy categories');
+            
         });
 
         this.providers = await axios.get(apiPath.providers).then((result)=>{
             return result.data;
         }).catch(()=>{
-            console.log('Đã có lỗi xảy ra khi lấy providers');
+            
         });
         this.loading = false;
     },
