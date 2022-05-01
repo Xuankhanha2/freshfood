@@ -23,6 +23,11 @@ namespace Core.Models
         [required]
         public string newsTitle { get; set; }
 
+        /// <summary>
+        /// Mô tả về tin tức
+        /// </summary>
+        public string newsDescription { get; set; }
+
 
         /// <summary>
         /// Nội dung tin tức

@@ -34,7 +34,7 @@ namespace Core.Models
         /// Giá của sản phẩm
         /// </summary>
         [required]
-        public double price { get; set; }
+        public double? price { get; set; }
 
         /// <summary>
         /// giảm giá (%)

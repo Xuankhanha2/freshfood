@@ -15,6 +15,14 @@ namespace Infastructure.Repositories
     /// </summary>
     public class UserRepository : BaseRepository, IUserRepository
     {
+        /// <summary>
+        /// created by: khanhvx
+        /// created date: 3/5/2022
+        /// Hàm lấy thông tin user theo username và password
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public User getUser(string username, string password)
         {
             string procName = $"procGetUser";
@@ -26,5 +34,7 @@ namespace Infastructure.Repositories
             User result = dbConnection.Query<User>(procName, param: dynamicParameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
+
+        
     }
 }

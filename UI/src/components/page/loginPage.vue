@@ -68,6 +68,7 @@
 
 <script>
 import axios from 'axios'
+import path from '../../path'
 export default {
     data() {
         return {
@@ -79,7 +80,7 @@ export default {
         }
     },
     created(){
-        
+        localStorage.removeItem('customer');
     },
     methods: {
         /**
@@ -88,11 +89,11 @@ export default {
          * Hàm kiểm tra đầy đủ thông tin trước khi đăng nhập
          */
         validate(){
-            if(this.user.username == "" || this.user.username == null){
+            if(String(this.user.username).trim() == "" || this.user.username == null){
                 alert("Bạn chưa nhập tên tài khoản");
                 return false;
             }
-            if(this.user.password == "" || this.user.password == null){
+            if(String(this.user.password).trim() == "" || this.user.password == null){
                 alert("Bạn chưa nhập mật khẩu");
                 return false;
             }
@@ -106,15 +107,13 @@ export default {
         async login(){
             if(this.validate())
             {
-                var response = await axios.get('https://localhost:44368/api/Login?username='+this.user.username+'&password='+this.user.password).then((result)=>{
+                var response = await axios.post(path.customers+'login', this.user).then((result)=>{
                     return result.data;
                 });
                 //console.log(response);
                 if(response != null && response != ""){
                     this.loginFail = false;
-                    console.log(response)
-                    localStorage.setItem('userName', response.data.customerName);
-                    localStorage.setItem('userId', response.data.customerId);
+                    localStorage.setItem('customer', btoa(JSON.stringify(response)));
                     this.$router.push('/home');
                 }
                 else

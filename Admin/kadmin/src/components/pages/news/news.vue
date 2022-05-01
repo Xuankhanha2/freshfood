@@ -41,10 +41,10 @@
                         <!-- /Tiêu đề của tin tức -->
 
                         <!-- Nguồn tin tức hay tác giả -->
-                        <th colspan="1" class="col-group-revenue">
+                        <!-- <th colspan="1" class="col-group-revenue">
                             <div class="th-text">Nguồn</div>
                             <div class="btn-filter"><input type="text"></div>
-                        </th>
+                        </th> -->
                         <!-- /Nguồn tin tức hay tác giả -->
 
                         <!-- Ngày tạo tin tức -->
@@ -72,7 +72,7 @@
 
                         <!-- Ảnh chính của tin tức -->
                         <td colspan="1" class="imageCell">
-                            <img :src="news.image" />
+                            <img :src="news.newsImage" />
                         </td>
                         <!-- /Ảnh của tin tức -->
 
@@ -85,7 +85,7 @@
                         
 
                         <!-- Nguồn tin tức -->
-                        <td colspan="1" class="">{{news.newsBy}}</td>
+                        <!-- <td colspan="1" class="">{{news.newsBy}}</td> -->
                         <!-- /Nguồn tin tức -->
                         
                         <!-- Ngày tạo tin tức -->
@@ -170,13 +170,13 @@ import apiPath from '../../../path'
 export default {
     data() {
         return {
-           /**Biến tiêu đề của popup thêm - sửa tin tức */
-           newsDetailTitle: '',
-           /** Biến kiểm tra popup thêm sửa hiển thị lên là thêm hay sửa*/
-           isUpdate:false,
-           /**Biến mở - đóng popup thêm - sửa */
-           showPopup: false,
-           //Biến dùng để lưu danh sách tin tức, sử dụng để tải dữ liệu vào ô chọn danh mục sản phẩm
+            /**Biến tiêu đề của popup thêm - sửa tin tức */
+            newsDetailTitle: '',
+            /** Biến kiểm tra popup thêm sửa hiển thị lên là thêm hay sửa*/
+            isUpdate:false,
+            /**Biến mở - đóng popup thêm - sửa */
+            showPopup: false,
+            //Biến dùng để lưu danh sách tin tức, sử dụng để tải dữ liệu vào ô chọn danh mục sản phẩm
             newsList: [{}],
             //Biến hiển thị thông báo hỏi khi xóa sản phẩm
             deletePopup: false,
@@ -213,7 +213,7 @@ export default {
             }   
             else{
                 this.newsDetailTitle="Thêm tin tức mới"
-                this.news = {};
+                this.news = null;
             }
                
             this.showPopup = true;
@@ -234,7 +234,7 @@ export default {
         },
         /**Hàm đóng popup */
         closePopup(){
-            this.notifyText= "Đã có lỗi xảy ra.";
+            this.notifyText= "";
             this.deletePopup = false;
             this.notifyPopup = false;
         },

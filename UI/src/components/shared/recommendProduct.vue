@@ -8,7 +8,7 @@
                 <li v-for="product in products"
                     :key="product.productId"
                 >
-                    <img src="../../assets/images/tcmn-image12.jpg">
+                    <img :src="product.image">
                     <div class="suggestedProductInfor">
                         <p>{{product.productName}}</p>
                         <h3>{{product.price}}<sup>₫</sup></h3>

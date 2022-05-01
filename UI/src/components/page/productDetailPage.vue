@@ -20,12 +20,12 @@
                         <img :src="product.image?product.image:'#'" id="anh-chinh" alt="">
                     </div>
                     <div class="otherImage">
-                        <ul class="row">
+                        <!-- <ul class="row">
                             <li class="col-xl-2"><img id="img" src="../../assets/images/tcmn-image1.jpg" alt="" class="active"></li>
                             <li class="col-xl-2"><img id="img" src="../../assets/images/tcmn-image1.jpg" alt=""></li>
                             <li class="col-xl-2"><img id="img" src="../../assets/images/tcmn-image1.jpg" alt=""></li>
                             <li class="col-xl-2"><img id="img" src="../../assets/images/tcmn-image1.jpg" alt=""></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -219,6 +219,7 @@
 </template>
 
 <script>
+import path from '../../path'
 import sideCategoryBar from '../shared/sideCategoryBar.vue'
 import axios from 'axios'
 import recommendProduct from '../shared/recommendProduct.vue'
@@ -278,9 +279,12 @@ export default {
         
     },
     async created() {
-        console.log(this)
+        let id = this.$route.params.productId
+        if(id && String(id).trim() !== null)
+            localStorage.setItem('productId', btoa(id));
+        id = atob(localStorage.getItem('productId'));
         //Lấy thông tin sản phẩm theo id trên router
-        await axios.get('https://localhost:44368/api/v1.0/Products/'+this.$route.params.productId).then((result)=>{
+        await axios.get(path.products+id).then((result)=>{
             this.product = result.data;
         }).catch(()=>{
             return;

@@ -44,5 +44,51 @@ namespace Core.Services
             }
             return serviceResult;
         }
+
+        /// <summary>
+        /// created by: khanhvx
+        /// created date: 3/5/2022
+        /// Hàm đăng ký khách hàng
+        /// </summary>
+        /// <param name="customer">Đối tượng khách hàng</param>
+        /// <returns></returns>
+        public ServiceResult customerRegister(Customer customer)
+        {
+            try
+            {
+                //validate với trạng thái là insert
+                base.baseValidate<Customer>(customer, false);
+                if (serviceResult.isValid)
+                {
+                    int check = customerRepository.customerRegister(customer);
+                    if (check > 0)
+                    {
+                        serviceResult.code = statusCode.success;
+                        serviceResult.message = Properties.resource.createdSuccess;
+                        serviceResult.data = check;
+                    }
+                    else
+                    {
+                        serviceResult.code = statusCode.fail;
+                        serviceResult.message = Properties.resource.createFail;
+                        serviceResult.data = check;
+                    }
+                }
+                else
+                {
+                    serviceResult.code = statusCode.notValid;
+                    //Không cần gán message vì trong hàm validate đã gán rồi
+                    serviceResult.data = null;
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.message = e.Message;
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
+        }
     }
 }

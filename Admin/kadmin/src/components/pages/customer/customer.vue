@@ -280,7 +280,7 @@ export default {
         },
         /**Hàm đóng popup */
         closePopup(){
-            this.notifyText= "Đã có lỗi xảy ra.";
+            this.notifyText= "";
             this.deletePopup = false;
             this.notifyPopup = false;
         },

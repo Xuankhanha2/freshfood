@@ -81,7 +81,7 @@
                         <input type="radio" name="address"> <label>Quận 10 - TP. HCM</label>
                     </form>
                     
-                    <h4>Thành tiền: <span id="total">00 ₫</span></h4>
+                    <h4>Thành tiền: <span id="total">{{total}} ₫</span></h4>
                 </div>
                 <a href="/Cart/Checkout"><div class="btn-danger pay">Thanh toán</div></a>
             </div>
@@ -91,12 +91,15 @@
 
 <script>
 import axios from 'axios'
+import path from '../../path'
 export default {
     props:['products'],
     data() {
         return {
             //Biến lưu mảng chứa các cartItem
             cart: [],
+            customer: {},
+            total: 0,
         }
     },
     methods: {
@@ -173,9 +176,10 @@ export default {
          * Hàm load lại dữ liệu khi xóa hoặc cập nhật giỏ hàng
          */
         async loadCartData(){
-            var customerId = localStorage.getItem('userId');
-            if(customerId != null && customerId != ""){
-                await axios.get('https://localhost:44368/api/v1.0/carts/customerId/'+customerId).then((result)=>{
+            if(localStorage.getItem('customer').trim() !== "")
+            {
+                this.customer = JSON.parse(atob(localStorage.getItem('customer')));
+                await axios.get(path.cart+'customerId/'+this.customer.customerId).then((result)=>{
                     this.cart = result.data;
                     for(var j = 0; j<this.cart.length; j++){
                         //Lấy thông tin sản phẩm theo id trong biến cart
@@ -186,6 +190,23 @@ export default {
                     console.log("Đã có lỗi xảy ra");
                 })
             }
+        },
+
+        /**
+         * created date: 7/5/2022
+         * created by: khanhvx
+         * Hàm lấy ra tổng giá trị của các sản phẩm trong giỏ hàng
+         */
+        getTotal(){
+            let all = 0;
+            if(this.cart.length > 0){
+                this.cart.forEach((element) => {
+                    if(element.total){
+                        all += parseInt(element.total);
+                    }
+                })
+            }
+            this.total = all;
         }
     },
     mounted() {
@@ -198,17 +219,9 @@ export default {
         //console.log(this.products) 
     },
     async created() {
-        //Kiểm tra xem nếu props chưa được truyền thì lấy dữ liệu trên serve về
-        if(this.products.length == 0)
-        {
-            await axios.get('https://localhost:44368/api/v1.0/products').then((result)=>{
-                this.product = result.data;
-            }).catch(()=>{
-                console.log("Đã xảy ra lỗi.");
-            })
-        }
         //Gọi hàm load dữ liệu
-        this.loadCartData();
+        await this.loadCartData();
+        this.getTotal();
     },
 }
 </script>

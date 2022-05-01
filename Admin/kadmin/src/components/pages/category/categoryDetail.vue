@@ -16,7 +16,7 @@
                             v-model="cloneCategory.categoryName"
                             @keyup="required.categoryName = false"
                         >
-                        <div class="tooltip tooltipChangePosition" 
+                        <div class="tooltipCustom tooltipChangePosition" 
                             v-show="required.categoryName">
                                 Dữ liệu không được để trống!
                         </div>
@@ -39,7 +39,7 @@
                             >{{category.categoryName}}</option>
                         </select>
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip" v-show="false">Dữ liệu không được để trống!</div>
+                        <div class="tooltipCustom" v-show="false">Dữ liệu không được để trống!</div>
                     </div>
                 <!-- end Nhà cung cấp sản phẩm -->
                     <newLabel :text="'Thẻ icon của sản phẩm'" 
@@ -56,7 +56,7 @@
                             title="Thẻ icon có thể lấy trên trang Fontawsome"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip " 
+                        <div class="tooltipCustom " 
                             v-show="false">
                                 Dữ liệu không được để trống!
                         </div>
@@ -121,7 +121,11 @@ export default {
     data() {
         return {
             /**Biến chứa giá trị danh mục khi cập nhật */
-            cloneCategory: {},
+            cloneCategory: {
+                categoryId: "197fda97-5a35-781d-0e77-d9ebc53aac3d",
+                categoryName: "",
+                categoryIcon: ""
+            },
             /**Biến kiểm tra các ô không được để dữ liêu trống */
             required:{
                 categoryName:false,
@@ -218,6 +222,7 @@ export default {
         closePopup(){
             this.notifyText = "";
             this.popup = false;
+            this.closeForm();
             
         },
         /**load dữ liệu khi thực hiện thêm, sửa thành công */

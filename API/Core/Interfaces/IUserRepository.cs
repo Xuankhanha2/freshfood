@@ -21,5 +21,6 @@ namespace Core.Interfaces
         /// <param name="password">password</param>
         /// <returns>User</returns>
         public User getUser(string username, string password);
+
     }
 }

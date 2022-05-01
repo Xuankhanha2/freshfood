@@ -21,7 +21,7 @@ namespace Core.Models
         /// <summary>
         /// Ngày tạo bản ghi
         /// </summary>
-        public DateTime createdDate { get; set; }
+        public DateTime? createdDate { get; set; }
 
         /// <summary>
         /// Người tạo 
@@ -31,12 +31,12 @@ namespace Core.Models
         /// <summary>
         /// Ngày sửa đổi gần nhất
         /// </summary>
-        public DateTime modifiedDate { get; set; }
+        public DateTime? modifiedDate { get; set; }
 
         /// <summary>
         /// Biến dử dụng để xác định phần tử đươc chọn trong lưới dữ liệu
         /// </summary>
-        public bool selectedItem { get; set; }
+        public bool? selectedItem { get; set; }
 
         /// <summary>
         /// Attribute Bắt buộc không để trống

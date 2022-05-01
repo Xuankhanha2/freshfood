@@ -2,7 +2,7 @@
   <div class="banner">
     <div class="bannerLogo">
       <a href="/Home/index"
-        ><img src="../../assets/images/Banner-logo.jpg" alt=""
+        ><img src="../../assets/images/Banner-logo.png" alt=""
       /></a>
     </div>
     <div class="bannerContent">
@@ -11,7 +11,7 @@
           <img src="../../assets/images/banner-image1.jpg" />
           <div>
             <h1>Giao hàng miễn phí</h1>
-            <p>Bán kính 100km</p>
+            <p>Bán kính 10 km</p>
           </div>
         </li>
         <li>
@@ -22,10 +22,10 @@
           </div>
         </li>
         <li>
-          <img src="../../assets/images/banner-image4.jpg" alt="" />
+          <img src="../../assets/images/banner-image3.png" alt="" />
           <div>
             <h1>Đảm bảo chất lượng</h1>
-            <p>Thực phẩm tươi, sạch</p>
+            <p>Hoa tươi nhập khẩu</p>
           </div>
         </li>
       </ul>

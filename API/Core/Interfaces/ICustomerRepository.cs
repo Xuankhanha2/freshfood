@@ -21,6 +21,15 @@ namespace Core.Interfaces
         /// <param name="password">Mật khẩu</param>
         /// <returns>Thông tin khách hàng</returns>
         public Customer customerLogin(string username, string password);
+
+        /// <summary>
+        /// created by: khanhvx
+        /// created date: 3/5/2022
+        /// Hàm đăng ký khách hàng mới
+        /// </summary>
+        /// <param name="customer">Đối tượng khách hàng</param>
+        /// <returns></returns>
+        public int customerRegister(Customer customer);
        
     }
 }

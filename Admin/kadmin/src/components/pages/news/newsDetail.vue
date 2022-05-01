@@ -16,7 +16,7 @@
                             v-model="news.newsTitle"
                             @keyup="required.newsTitle = false"
                         >
-                        <div class="tooltip tooltipChangePosition" 
+                        <div class="tooltipCustom tooltipChangePosition" 
                             v-show="required.newsTitle">
                                 Dữ liệu không được để trống!
                         </div>
@@ -27,12 +27,12 @@
                     <newLabel :text="'Mô tả tin tức'" 
                         :required="false"/>
                     <div class="input">
-                        <textarea
+                        <input type="text"
                             class="textbox margin-r-16"
-                            v-model="news.description"
+                            v-model="news.newsDescription"
+                            @keyup="required.newsDescription = false"
                         >   
-                        </textarea>
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="false">
                                 Dữ liệu không được để trống!
                         </div>
@@ -82,7 +82,7 @@
                             v-model="news.newsImage"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip " 
+                        <div class="tooltipCustome " 
                             v-show="false">
                                 Dữ liệu không được để trống!
                         </div>
@@ -149,7 +149,19 @@ export default {
     data() {
         return {
             /**Biến chứa giá trị danh mục khi cập nhật */
-            news: {},
+            news: {
+                newsId: "00000000-0000-0000-0000-000000000000",
+                newsTitle: "",
+                newsContent: "",
+                newsDescription: "",
+                hotNews: 1,
+                newsImage: "",
+                newsBy: "",
+                createdDate: null,
+                createdBy: "",
+                modifiedDate: null,
+                selectedItem: false
+            },
             /**Biến kiểm tra các ô không được để dữ liêu trống */
             required:{
                 newsTitle:false,
@@ -191,7 +203,7 @@ export default {
             //Kiem tra dữ liệu hợp lệ. Nếu hợp lệ thì thực hiện thêm - sửa
             if(isValid){
                 if(this.isUpdate){
-                    //Thục hiện sửa
+                    // Thục hiện sửa
                     await axios.put(apiPath.news, this.news, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
@@ -202,7 +214,7 @@ export default {
                     })
                     
                 }else{
-                    //Thực hiện thêm
+                    // Thực hiện thêm
                     await axios.post(apiPath.news, this.news, this.config).then((result)=>{
                         processResult = result.data;
                         //Hiển thị kết quả sau khi xử lý
@@ -213,13 +225,10 @@ export default {
                     })
                     
                 }
-                console.log(processResult);
             }else{
-                //Nếu dữ liệu chưa hợp lệ thì kết thúc hàm bằng lệnh return 
-                console.log("Return");
+                // Nếu dữ liệu chưa hợp lệ thì kết thúc hàm bằng lệnh return 
                 return;
             }
-            
         },
         /**
          * created by: khanhvx
@@ -232,7 +241,8 @@ export default {
         },
         /**Hàm xử lý nghiệp vụ cho các ô nhập liệu*/
         validateData(){
-            var newsTitle = this.cloneCategory.categoryName;
+            var newsTitle = this.news.newsTitle;
+            // var newsContent = this.news.newsContent;
             //Thực hiện kiểm tra dữ liêu hợp lệ
             var isValid = true;
             if(newsTitle == "" | newsTitle == null | newsTitle == undefined){
@@ -241,7 +251,7 @@ export default {
             }else{
                 newsTitle = String(newsTitle);
                 newsTitle = newsTitle.trim();
-                if(name == ""){
+                if(newsTitle == ""){
                     isValid = false;
                     this.required.newsTitle = true;
                 }
@@ -256,6 +266,7 @@ export default {
         closePopup(){
             this.notifyText = "";
             this.popup = false;
+            this.closeForm();
             
         },
         /**load dữ liệu khi thực hiện thêm, sửa thành công */
@@ -264,9 +275,8 @@ export default {
         }  
     },
     created() {
-        if(this.refNews != null){
+        if(this.refNews){
             this.news={...this.refNews};
-            console.log(this.news);
         }
     },
 }

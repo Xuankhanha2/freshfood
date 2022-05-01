@@ -8,11 +8,9 @@
 
             <!--  -->
             <div class="slide col-xl-9">
-                <div class="slideItem "><img src="../../assets/images/slide1.jpg" alt=""></div>
-                <div class="slideItem imageOnTop"><img src="../../assets/images/slide2.jpg" alt=""></div>
-                <div class="slideItem "><img src="../../assets/images/slide3.jpg" alt=""></div>
-                <div class="slideItem "><img src="../../assets/images/slide4.jpg" alt=""></div>
-                <div class="slideItem "><img src="../../assets/images/slide5.jpg" alt=""></div>
+                <div class="slideItem imageOnTop"><img src="../../assets/images/flower-banner1.jpg" alt=""></div>
+                <div class="slideItem "><img src="../../assets/images/flower-banner2.jpg" alt=""></div>
+                <div class="slideItem "><img src="../../assets/images/flower-banner3.jpg" alt=""></div>
             </div>
             
         </div>
@@ -20,7 +18,7 @@
 
         <!-- product -->
         <div class="productRow">
-            <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
+            <div class="categoryName">HOA PHỔ BIẾN NHẤT</div>
             <!-- Danh sách sản phẩm -->
             <div class="productList row">
                 <!-- Ô sản phẩm -->
@@ -56,7 +54,7 @@
                         <div class="sale">-{{product.discount}}%</div>
 
                         <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
+                        <!-- <div class="wishlist"><i class="far fa-heart"></i></div> -->
 
                         <!-- button Thêm vào giỏ -->
                         <div class="btn btn-primary" id="btnAddCart"
@@ -90,7 +88,7 @@
 
         <!-- product -->
         <div class="productRow">
-            <div class="categoryName">TRÁI CÂY MỖI NGÀY</div>
+            <div class="categoryName">HOA ĐƯỢC ĐỀ XUẤT</div>
             <!-- Danh sách sản phẩm -->
             <div class="productList row">
                 <!-- Ô sản phẩm -->
@@ -145,14 +143,14 @@
         </div>
         <div class="service">
             <div class="serviceContent">
-                <img src="../../assets/images/service1.jpg">
+                <img src="../../assets/images/policy_left.jpg">
                 <div class="policy">
                     Chính sách vận chuyển<br>
                     <span>Miễn phí trong nội thành</span>
                 </div>
             </div>
             <div class="serviceContent">
-                <img src="../../assets/images/service2.jpg">
+                <img src="../../assets/images/policy_right.jpg">
                 <div class="policy">
                     Chính sách thanh toán<br>
                     <span>Thanh toán online được giảm 2%</span>
@@ -161,7 +159,7 @@
         </div>
         <!-- Tin tức -->
         <div class="serviceTitle">
-            <p>TIN TỨC VỀ THỰC PHẨM</p>
+            <p>TIN TỨC</p>
             <hr>
         </div>
         <div class="newsContent">
@@ -170,7 +168,7 @@
                     v-for="news in newsList"
                     :key="news.newsId"
                 >
-                    <img src="../../assets/images/tintuc-image1.jpg" alt="">
+                    <img :src="news.newsImage" alt="">
                     <h1><a href="#">{{news.newsTitle}}</a></h1>
                     <p>{{news.newsContent}}</p>
                     <a href="#"><div class="detailNewsBtn">Chi tiết</div></a>
@@ -194,12 +192,22 @@
 <script>
 import axios from 'axios'
 import sideCategoryBar from '../shared/sideCategoryBar.vue'
+import path from '../../path'
 export default {
     props:['products'],
     data() {
         return {
             //Biến tạm thời dùng để lưu thông tin giỏ hàng
-            cart: {},
+            cart: {
+                createdDate: "",
+                createdBy: "",
+                modifiedDate: "",
+                cartId: "",
+                productId: [],
+                customerId: "",
+                quantity: 0,
+                total: 0
+            },
             //Biến lưu danh sách sản phẩm thứ 1
             firstProducts:[],
             //Biến lưu danh sách sản phẩm thứ 2
@@ -231,15 +239,17 @@ export default {
          * Hàm thêm sản phẩm vào giỏ hàng
          */
         async addCart(productId){
-            if(localStorage.getItem('userId'))
+            if(localStorage.getItem('customer'))
             {
-                if(productId != null && productId != ""){
-                    this.cart.productId = productId;
+                if(productId && String(productId).trim !== ""){
                     //Nhấn nút thêm -> mặc định số lượng thêm là 1 sp
                     this.cart.quantity = 1;
                     //Lấy mã khách hàng đã đăng nhập được lưu trong localStorage
                     this.cart.customerId = localStorage.getItem('userId');
-                    await axios.post('https://localhost:44368/api/v1.0/Carts', this.cart).then((result)=>{
+                    this.cart.productId = productId;
+                    //Check tồn tại product trong cart chưa
+                    this.checkExistsProductInCart(productId);
+                    await axios.post(path.cart, this.cart).then((result)=>{
                         console.log(result.data);
                         alert("Đã thêm sản phẩm vào giỏ hàng.");
                     }).catch(()=>{
@@ -259,6 +269,7 @@ export default {
          */
         pushToDetail(productId){
             var id = String(productId);
+            if(productId && id.trim() !== "")
             this.$router.push({
                 name: 'productDetail', 
                 path: '/productDetail', 
@@ -291,6 +302,32 @@ export default {
             }).catch(()=>{
                 console.log("Đã có lỗi xảy ra.")
             })
+        },
+
+        /**
+         * created date: 3/5/2022
+         * created by: khanhvx
+         * 
+         */
+        async getCustomerCart(customerId){
+            if(customerId && String(customerId).trim() !== "")
+                await axios.get('https://localhost:44368/api/v1.0/Carts?customerId='+customerId).then((result)=>{
+                    console.log(result.data);
+                    return result.data;
+                }).catch(()=>{
+                    return [];
+                });
+            else
+                return [];
+        },
+
+         /**
+         * created date: 3/5/2022
+         * created by: khanhvx
+         * Hàm kiếm tra xem sản phẩm đã tồn tại trong cart chưa
+         */
+        async checkExistsProductInCart(){
+
         }
     },
     async mounted() {
@@ -301,14 +338,6 @@ export default {
         this.firstProducts = new Array;
         this.secondProducts = new Array;
         this.newsList = new Array;
-        //Tạo giá trị ban đầu cho biến cart
-        this.cart = {
-            cartId: "00000000-0000-0000-0000-000000000000",
-            productId: "00000000-0000-0000-0000-000000000000",
-            customerId: "00000000-0000-0000-0000-000000000000",
-            quantity: 1,
-            total: 0
-        }
         //Lấy danh sách sản phẩm ở trang đầu tiên
         await axios.get('https://localhost:44368/api/v1.0/Products?pageNumber=1&items=12').then((result)=>{
             this.firstProducts = result.data;
@@ -322,6 +351,8 @@ export default {
         }).catch(()=>{
             console.log("Đã có lỗi xảy ra.")
         })
+
+        // Kiểm tra nếu đã có thông tin khách hàng thì
     },
 }
 </script>

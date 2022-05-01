@@ -6,8 +6,8 @@
         </div>
         <div class="header-right">
             <div class="hr-item1">
-                <input type ="text" class="hr-item-text" placeholder="Tìm kiếm...">
-                <div class="hr-item-icon"><i class="fas fa-search"></i></div>
+                <!-- <input type ="text" class="hr-item-text" placeholder="Tìm kiếm...">
+                <div class="hr-item-icon"><i class="fas fa-search"></i></div> -->
             </div>
             <!-- <div class="hr-item2">
                 <select id="yearselect">

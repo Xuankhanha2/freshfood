@@ -40,14 +40,14 @@
         </div>
         <div class="service">
             <div class="serviceContent">
-                <img src="../../assets/images/service1.jpg">
+                <img src="../../assets/images/policy_left.jpg">
                 <div class="policy">
                     Chính sách vận chuyển<br>
                     <span>Miễn phí trong nội thành</span>
                 </div>
             </div>
             <div class="serviceContent">
-                <img src="../../assets/images/service2.jpg">
+                <img src="../../assets/images/policy_right.jpg">
                 <div class="policy">
                     Chính sách thanh toán<br>
                     <span>Thanh toán online được giảm 2%</span>

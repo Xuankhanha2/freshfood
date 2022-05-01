@@ -16,7 +16,7 @@
                             v-model="cloneProduct.productName"
                             @keyup="required.productName = false"
                         >
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.productName">
                                 Dữ liệu không được để trống!
                         </div>
@@ -39,7 +39,7 @@
                             >{{category.categoryName}}</option>
                         </select>
                         <!-- <div class="btn-plus"></div> -->
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.category">
                                 Bạn chưa chọn đanh mục nào!
                         </div>
@@ -57,10 +57,10 @@
                             class="textbox margin-r-16"
                             :class="{'required-outline':false}" 
                             v-model="cloneProduct.price"
-                            @keyup="required.price = false"
+                            @keyup="formatMoney(); required.price = false"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.price">
                                 Dữ liệu không được để trống!
                         </div>
@@ -79,7 +79,7 @@
                             v-model="cloneProduct.discount"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="false">
                                 Dữ liệu không được để trống!
                         </div>
@@ -95,13 +95,13 @@
                             v-model="cloneProduct.providerId"
                         >
                             <option 
-                                v-for="provider in refProvider"
+                                v-for="provider in refProviders"
                                 :key="provider.providerId"
                                 :value="provider.providerId"
                             >{{provider.providerName}}</option>
                         </select>
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip" v-show="false">Dữ liệu không được để trống!</div>
+                        <div class="tooltipCustom" v-show="false">Dữ liệu không được để trống!</div>
                     </div>
                 <!-- end Nhà cung cấp sản phẩm -->
 
@@ -131,7 +131,7 @@
                             >
                                 
                             </textarea>
-                            <div class="tooltip" 
+                            <div class="tooltipCustom" 
                                 v-show="false">
                                     Dữ liệu không được để trống!
                             </div>
@@ -162,11 +162,11 @@
             <div class="form-footer">
                 <div class="f-footer-left">
                     <div class="row-check non-margin">
-                        <input type="checkbox">
+                        <!-- <input type="checkbox">
                         <label></label>
                         <div class="col-row-text">
                             Ngừng kinh doanh
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="f-footer-right">
@@ -220,25 +220,25 @@ export default {
         isUpdate: Boolean,
         refProduct: Object,
         refCategories: [],
-        refStores: [],
+        refProviders: [],
         config: Object,
     },
     data() {
         return {
             //Biến product lưu giá trị của sản phẩm dược cập nhật
             cloneProduct:{
-                productId: "",
-                categoryId: "",
+                productId: "00000000-0000-0000-0000-000000000000",
+                categoryId: "00000000-0000-0000-0000-000000000000",
                 createdBy: "",
-                createdDate: "",
+                createdDate: null,
                 description: "",
                 discount: 0,
                 hot: true,
                 image: "",
-                modifiedDate: "",
-                price: 0,
+                modifiedDate: null,
+                price: "",
                 productName: "",
-                providerId: "",
+                providerId: "00000000-0000-0000-0000-000000000000",
                 selectedItem: false,
                 status: false
             },
@@ -352,14 +352,14 @@ export default {
         /**Hàm format số tiền */
         formatMoney(){
             var newPrice = String(this.cloneProduct.price);
-            //newPrice = newPrice.toString().split(".").join("");
+            newPrice = newPrice.toString().split(".").join("");
             this.cloneProduct.price = newPrice.replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
         },
         /*Hàm xử lý sự kiện đóng popup thông báo*/
         closePopup(){
             this.notifyText = "";
             this.popup = false;
-            
+            this.closeForm();
         },
         /**Hàm load dữ liệu khi thêm hoặc sủa trên form */
         loadData(){
@@ -390,6 +390,7 @@ export default {
     created() {
         if(this.refProduct){
             this.cloneProduct={...this.refProduct};
+            this.formatMoney();
         }
         //Format tiền ngay khi form được bật lên
         this.formatMoney();

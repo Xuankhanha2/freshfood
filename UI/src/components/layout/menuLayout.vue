@@ -24,11 +24,11 @@
                         </div>
                     </li>
                     
-                    <router-link to="/provider">
+                    <!-- <router-link to="/provider">
                     <li>
-                        Nhà cung cấp
+                        Chủ đề
                     </li>
-                    </router-link>
+                    </router-link> -->
 
                     <router-link to="/news">
                     <li>
@@ -58,8 +58,9 @@
                         <ul>
                             <li v-for="product in products"
                                 :key="product.productId"
+                                @click="pushToDetail(product.productId)"
                             >
-                                <img :src="product.image?product.image:''">
+                                <img :src="product.image">
                                 <div class="productSearchContent">
                                     <h2><span>{{product.productName?product.productName:''}}</span></h2>
                                     <h3><span>{{formatMoney(product.price)}}₫</span></h3>
@@ -75,6 +76,7 @@
 
 <script>
 import axios from 'axios'
+import path from '../../path'
 export default {
     data() {
         return {
@@ -93,7 +95,11 @@ export default {
          */
         pushToCategory(categoryId){
             var id = String(categoryId);
-            this.$router.push({ name: 'category', path:'/category', params: {categoryId: id}});
+            if(id && String(id).trim() !== "")
+            {
+                this.categories = [];
+                this.$router.push({ name: 'category', path:'/category', params: {categoryId: id}});
+            }
         },
         /**
             created date: 16/11/2021
@@ -102,12 +108,15 @@ export default {
          */
         async searchProduct(){
             var key = document.getElementById('search').value;
-            await axios.get('https://localhost:44368/api/v1.0/Products/search?key='+key).then((result)=>{
+            if(key && String(key).trim() !== "")
+            {
+                await axios.get(path.productKeySearch+key).then((result)=>{
                 this.products = result.data;
                 console.log(result.data);
-            }).catch(()=>{
-                console.log("Đã xảy ra lỗi");
-            })
+                }).catch(()=>{
+                    
+                })
+            }
         },
         /**Hàm format giá tiền sản phẩm
          * created by: VXKHANH
@@ -118,15 +127,30 @@ export default {
             var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
             return formatedMoney;
         },
+        /**
+         * created by: vxkhanh
+         * created date: 11/11/2021
+         * Hàm chuyển đến trang chi tiết sản phẩm
+         */
+        pushToDetail(productId){
+            var id = String(productId);
+            if(productId && id.trim() !== ""){
+                this.products = null;
+                this.$router.push({
+                    name: 'productDetail', 
+                    path: '/productDetail', 
+                    params: { productId: id}
+                });
+            }
+        },
     },
     async created() {
         this.products = new Array();
-        await axios.get('https://localhost:44368/api/v1.0/categories').then((result)=>{
+        await axios.get(path.categories).then((result)=>{
             this.categories = result.data;
         })
     },
-
-
+    
 };
 </script>
 

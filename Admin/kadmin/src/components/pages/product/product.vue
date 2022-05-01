@@ -4,11 +4,11 @@
             <div class="filter-line">
                 <!-- checkbox hiển thị sản phẩm ngừng kinh doanh -->
                 <div class="filter-left">
-                    <div class="select-line"
+                    <!-- <div class="select-line"
                         :class="{'selected-line':stopBusiness}"
                         @click="showStopBusiness"
                     ></div>
-                    <label for="">Hiển thị sản phẩm ngừng kinh doanh</label>
+                    <label for="">Hiển thị sản phẩm ngừng kinh doanh</label> -->
                 </div>
                 <!-- / -->
 
@@ -175,7 +175,7 @@
             :pageTitle="productDetailTitle"
             :refProduct="this.product"
             :refCategories="this.categories"
-            :refproviders="this.providers"
+            :refProviders="this.providers"
             :config="config"
             @closeForm="closeForm"
             @loadData="loadData"
@@ -315,7 +315,7 @@ export default {
         },
         /**Hàm đóng popup */
         closePopup(){
-            this.notifyText= "Đã có lỗi xảy ra.";
+            this.notifyText= "";
             this.deletePopup = false;
             this.notifyPopup = false;
         },

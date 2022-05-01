@@ -1,4 +1,5 @@
-﻿using Core.Services;
+﻿using Core.Models;
+using Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,15 @@ namespace Core.Interfaces
         /// <param name="password">Mật khẩu</param>
         /// <returns>ServiceResult</returns>
         public ServiceResult customerLogin(string username, string password);
+
+        /// <summary>
+        /// created date: 3/5/2022
+        /// created by: khanhvx
+        /// Hàm đăng ký khách hàng
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public ServiceResult customerRegister(Customer customer);
 
     }
 }

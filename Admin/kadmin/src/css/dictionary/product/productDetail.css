@@ -333,7 +333,7 @@ select option{
     font-size: 16px;
     color: #000 !important;
 }
-.tooltip{
+.tooltipCustom{
     background-color: #4d4f5c;
     font-size: 14px;
     color: #ffffff;
@@ -369,7 +369,7 @@ select option{
     top: 50%;
     transform: translate(0,-50%);
 }
-.tooltip::before{
+.tooltipCustom::before{
     content: '';
     border-bottom: 6px solid #4d4f5c;
     border-right: 6px solid transparent;

@@ -102,6 +102,9 @@
     width: 30%;
     line-height: 45px;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .search input {
@@ -125,7 +128,7 @@
     line-height: 34px;
     margin: 0px;
     padding: 0px;
-    margin-top: 5px;
+    margin: 0px;
     width: 300px;
     padding: 0px 10px;
     border-radius: 30px;

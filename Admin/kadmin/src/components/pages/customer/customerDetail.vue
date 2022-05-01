@@ -27,7 +27,7 @@
                             v-model="customer.customerName"
                             @keyup="required.customerName = false"
                         >
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.customerName">
                                 Dữ liệu không được để trống!
                         </div>
@@ -36,14 +36,14 @@
 
                 <!-- Ngày sinh -->
                     <newLabel :text="'Ngày sinh'"
-                        :required="true"
+                        :required="false"
                     />
                     <div class="input">
                         <input type="date" 
                             class="textbox margin-r-16"
                             v-model="customer.dateOfBirth"
                         >
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="false">
                                 Dữ liệu không được để trống!
                         </div>
@@ -94,7 +94,7 @@
                             v-model="customer.email"
                             @keyup="required.email = false"
                         >
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.email">
                                 Dữ liệu không được để trống!
                         </div>
@@ -116,7 +116,7 @@
                             @keyup="required.phoneNumber = false"
                         >
                         <!-- Tooltip thông báo khi dữ liệu của trường này bị để trống khi gửi -->
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.phoneNumber">
                                 Dữ liệu không được để trống!
                         </div>
@@ -125,14 +125,14 @@
 
                     <!-- Địa chỉ  -->
                     <newLabel :text="'Địa chỉ'" 
-                        :required="false"/>
+                        :required="true"/>
                     <div class="input">
                         <textarea
                             class="textbox"
                             v-model="customer.address"
                         >    
                         </textarea>
-                        <div class="tooltip" 
+                        <div class="tooltipCustom" 
                             v-show="required.address">
                                 Dữ liệu không được để trống!
                         </div>
@@ -149,7 +149,7 @@
                                 v-model="customer.note"
                             >  
                             </textarea>
-                            <div class="tooltip" 
+                            <div class="tooltipCustom" 
                                 v-show="false">
                                     Dữ liệu không được để trống!
                             </div>
@@ -350,7 +350,7 @@ export default {
         closePopup(){
             this.notifyText = "";
             this.popup = false;
-            
+            this.closeForm();
         },
 
         /**Hàm load dữ liệu khi thêm hoặc sủa trên form */

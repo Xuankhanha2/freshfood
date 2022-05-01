@@ -281,20 +281,6 @@ namespace Core.Services
                             }
                         }
                     }
-                    else
-                    {
-                        //Kiểm tra trùng Id với trạng thái là insert
-                        Guid id = new Guid(propertyValue.ToString());
-                        var check = baseRepository.getById<entity>(id);
-                        if (check != null)
-                        {
-                            serviceResult.isValid = false;
-                            listError.Add(propertyName + "is not duplicate!");
-                            serviceResult.code = statusCode.notValid;
-                            serviceResult.message = property.Name + Properties.resource.duplicateData;
-                        }
-                    }
-                    
                 }
             }
         }
