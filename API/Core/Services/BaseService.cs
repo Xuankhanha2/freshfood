@@ -46,7 +46,7 @@ namespace Core.Services
             catch (Exception e)
             {
                 serviceResult.isValid = false;
-                serviceResult.data = null;
+                serviceResult.data = e.Message;
                 serviceResult.message = e.Message;
                 serviceResult.code = statusCode.exception;
             }
@@ -83,7 +83,7 @@ namespace Core.Services
             {
                 serviceResult.message = e.Message;
                 serviceResult.isValid = false;
-                serviceResult.data = null;
+                serviceResult.data = e.Message;
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;
@@ -97,7 +97,7 @@ namespace Core.Services
         /// <typeparam name="entity">Kiểu</typeparam>
         /// <param name="param">Đối tượng</param>
         /// <returns>Số dòng ảnh hưởng. Nếu > 0 thì đã thêm thành công</returns>
-        public ServiceResult insert<entity>(entity param)
+        public virtual ServiceResult insert<entity>(entity param)
         {
             try
             {
@@ -110,13 +110,13 @@ namespace Core.Services
                     {
                         serviceResult.code = statusCode.success;
                         serviceResult.message = Properties.resource.createdSuccess;
-                        serviceResult.data = check;
+                        serviceResult.data = Properties.resource.createdSuccess;
                     }
                     else
                     {
                         serviceResult.code = statusCode.fail;
                         serviceResult.message = Properties.resource.createFail;
-                        serviceResult.data = check;
+                        serviceResult.data = Properties.resource.createdSuccess;
                     }
                 }
                 else
@@ -130,7 +130,7 @@ namespace Core.Services
             {
                 serviceResult.message = e.Message;
                 serviceResult.isValid = false;
-                serviceResult.data = null;
+                serviceResult.data = e.Message;
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;
@@ -176,7 +176,7 @@ namespace Core.Services
             {
                 serviceResult.message = e.Message;
                 serviceResult.isValid = false;
-                serviceResult.data = null;
+                serviceResult.data = e.Message;
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;
@@ -215,7 +215,7 @@ namespace Core.Services
             {
                 serviceResult.message = e.Message;
                 serviceResult.isValid = false;
-                serviceResult.data = null;
+                serviceResult.data = e.Message;
                 serviceResult.code = statusCode.exception;
             }
             return serviceResult;

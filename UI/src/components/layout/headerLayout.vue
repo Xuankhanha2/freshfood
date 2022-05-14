@@ -9,7 +9,7 @@
                     </li>
                     <li>
                         <i class="far fa-envelope h-icon"></i>
-                        <a href="#" class="email">Email: freshfood24@gmail.com</a>
+                        <a href="#" class="email">Email: nova.flower@gmail.com</a>
                     </li>
                     <li>
                         <i class="fas fa-map-marker-alt h-icon"></i>
@@ -26,11 +26,11 @@
                     <ul v-if="logedIn" class="col-xl-12">
                         <li class="col-xl-8">
                             <img src="../../assets/logo.png" id="avatar">
-                            <a href="#">{{userName}}</a>
+                            <a href="#">{{customer.customerName}}</a>
                             <ul class="sub-account-option col-xl-12">
                                 <li><a href="#"><i class="fas fa-user-edit"></i> Thông tin tài khoản</a></li>
                                 <li><a href="#"><i class="far fa-heart"></i> Sản phẩm ưa thích</a></li>
-                                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                                <li><a href="javascript:void(0)" @click="logout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                             </ul>
                         </li> 
                     </ul>
@@ -44,16 +44,34 @@
 export default {
     data(){
         return {
-            userName: "",
+            customer: null,
             logedIn: false,
         }
     },
     created(){
-        this.userName = localStorage.getItem('userName')
-        if(this.userName != null && this.userName != "")
-            this.logedIn = true;
-        else
-            this.logedIn = false;
+        this.logedIn = false;
+        this.loadData();
+    },
+    methods: {
+        /**
+         * created by: khanhvx
+         * created date: 8/5/2022
+         */
+        logout(){
+            localStorage.removeItem('customer');
+            this.$router.push('/home');
+        },
+
+        /**
+         * created by: khanhvx
+         * created date: 8/5/2022
+         */
+        loadData(){
+            if(localStorage.getItem('customer')){
+                this.customer = JSON.parse(atob(localStorage.getItem('customer')));
+                this.logedIn = true;
+            }
+        }
     }
 }
 </script>

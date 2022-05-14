@@ -54,7 +54,7 @@
                         <!-- / -->
 
                         <!-- Hiển thị khi không có mặt hàng nào -->
-                        <tr v-if="false">
+                        <tr v-if="cart.length <= 0">
                             <td colspan="5">
                                 Chưa có mặt hàng nào.
                             </td>
@@ -63,7 +63,7 @@
                     </table>
                     <div id="cartFooter">
                         <router-link to="/home"><div class="btn btn-dark btnCart">Tiếp tục mua hàng</div></router-link>
-                        <div class="btn btn-primary btnCart"><i class="fas fa-trash-alt"></i> Xóa toàn bộ</div>
+                        <!-- <div class="btn btn-primary btnCart"><i class="fas fa-trash-alt"></i> Xóa toàn bộ</div> -->
                     </div>
                 </div>
                 <!-- end drop box -->
@@ -81,7 +81,7 @@
                         <input type="radio" name="address"> <label>Quận 10 - TP. HCM</label>
                     </form>
                     
-                    <h4>Thành tiền: <span id="total">{{total}} ₫</span></h4>
+                    <h4>Thành tiền: <span id="total">{{ formatMoney(total) }} ₫</span></h4>
                 </div>
                 <a href="/Cart/Checkout"><div class="btn-danger pay">Thanh toán</div></a>
             </div>
@@ -163,8 +163,7 @@ export default {
          */
         async deleteCart(cartId){
             var id = String(cartId);
-            await axios.delete('https://localhost:44368/api/v1.0/carts/'+id).then((result)=>{
-                    alert(result.data.message)
+            await axios.delete('https://localhost:44368/api/v1.0/carts/'+id).then(()=>{
                     this.loadCartData();
             }).catch(()=>{
                 console.log("Đã có lỗi xảy ra");

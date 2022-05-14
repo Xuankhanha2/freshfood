@@ -18,5 +18,13 @@ namespace Core.Interfaces
         /// <param name="customerId">id khách hàng</param>
         /// <returns>service result</returns>
         public ServiceResult getCartsByCustomerId(Guid customerId);
+
+        /// <summary>
+        /// created by: khanhvx
+        /// created date: 8/5/2022
+        /// </summary>
+        /// <param name="customerId">customerId</param>
+        /// <param name="productId">productId</param>
+        public ServiceResult getExistsCart(Guid customerId, Guid productId);
     }
 }

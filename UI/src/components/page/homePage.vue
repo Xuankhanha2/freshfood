@@ -26,41 +26,11 @@
                     v-for="product in firstProducts" 
                     :key="product.productId"
                 >
-                    <div class="productCell">
-                        <img :src="product.image"
-                            class="productImage"
-                            @click="pushToDetail(product.productId)"
-                        >
-                        <h1 class="productName"
-                            @click="pushToDetail(product.productId)"
-                        >{{product.productName}}</h1>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>{{formatMoney(product.price)}} ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-{{product.discount}}%</div>
-
-                        <!-- button add wishlist -->
-                        <!-- <div class="wishlist"><i class="far fa-heart"></i></div> -->
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary" id="btnAddCart"
-                            @click="addCart(product.productId)"
-                        >Thêm vào giỏ</div>
-                    </div>
+                    <productCell
+                        @pushToDetail = "pushToDetail"
+                        :product="product"
+                        @addCart="addCart"
+                    />
                 </div>
                 <!-- /Ô sản phẩm -->
             </div>
@@ -69,11 +39,11 @@
             <!-- pagination -->
             <nav class="newsPageList">
                 <ul class="pagination alignRight">
-                    <li class="page-item"><span class="page-link" @click="goToPage(1)">Prev</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPreviousPage()">Prev</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPage(1)">1</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPage(2)">2</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPage(3)">3</span></li>
-                    <li class="page-item"><span class="page-link" @click="goToPage(1)">Next</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToNextPage()">Next</span></li>
                 </ul>
             </nav>
             <!-- / -->
@@ -96,40 +66,11 @@
                     v-for="product in secondProducts" 
                     :key="product.productId"
                 >
-                    <div class="productCell">
-                        <img :src="product.image"
-                            @click="pushToDetail(product.productId)"
-                        >
-                        <h1
-                            @click="pushToDetail(product.productId)"
-                        >{{product.productName}}</h1>
-                        <!-- ratingStar -->
-                        <div class="ratingStars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <!-- end rating Star -->
-
-                        <!--Real price -->
-                        <h2>100.000 đ</h2>
-
-                        <!-- price after discount -->
-                        <p>{{formatMoney(product.price)}} ₫</p>
-
-                        <!-- discount percent -->
-                        <div class="sale">-{{product.discount}}%</div>
-
-                        <!-- button add wishlist -->
-                        <div class="wishlist"><i class="far fa-heart"></i></div>
-
-                        <!-- button Thêm vào giỏ -->
-                        <div class="btn btn-primary" id="btnAddCart"
-                            @click="addCart(product.productId)"
-                        >Thêm vào giỏ</div>
-                    </div>
+                    <productCell
+                        @pushToDetail = "pushToDetail"
+                        @addCart="addCart"
+                        :product="product"
+                    />
                 </div>
                 <!-- /Ô sản phẩm -->
             </div>
@@ -177,11 +118,11 @@
 
             <nav class="newsPageList">
                 <ul class="pagination alignRight">
-                    <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">Prev</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews()">Prev</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">1</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPageForNews(2)">2</span></li>
                     <li class="page-item"><span class="page-link" @click="goToPageForNews(3)">3</span></li>
-                    <li class="page-item"><span class="page-link" @click="goToPageForNews(1)">Next</span></li>
+                    <li class="page-item"><span class="page-link" @click="goToPageForNews()">Next</span></li>
                 </ul>
             </nav>
         </div>
@@ -192,6 +133,7 @@
 <script>
 import axios from 'axios'
 import sideCategoryBar from '../shared/sideCategoryBar.vue'
+import productCell from '../shared/productCell.vue'
 import path from '../../path'
 export default {
     props:['products'],
@@ -199,12 +141,12 @@ export default {
         return {
             //Biến tạm thời dùng để lưu thông tin giỏ hàng
             cart: {
-                createdDate: "",
+                createdDate: null,
                 createdBy: "",
-                modifiedDate: "",
-                cartId: "",
+                modifiedDate: null,
+                cartId: "00000000-0000-0000-0000-000000000000",
                 productId: [],
-                customerId: "",
+                customerId: null,
                 quantity: 0,
                 total: 0
             },
@@ -218,43 +160,47 @@ export default {
             menuItems:[],
             //Biến lưu danh sách tin tức
             newsList:[],
+            //Số trang sản phẩm hiện tại
+            currentPageNumber: 1,
+            isExistsCart: false,
         }
     },
     components:{
-        sideCategoryBar
+        sideCategoryBar,
+        productCell
     },
     methods: {
-        /**Hàm format giá tiền sản phẩm
-         * created by: VXKHANH
-         * created date: 30/10/21
-         */
-        formatMoney(money){
-            //chuyển đổi tiền
-            var formatedMoney = String(money).replace(/(\d)(?=(?:\d{3})+$)/g, '$1.');
-            return formatedMoney;
-        },
         /**
          * created date: 09/11/2021
          * created by: vxkhanh
          * Hàm thêm sản phẩm vào giỏ hàng
          */
         async addCart(productId){
-            if(localStorage.getItem('customer'))
+            if(String(localStorage.getItem('customer')).trim() !== "")
             {
+                let customer = JSON.parse(atob(localStorage.getItem('customer')));
                 if(productId && String(productId).trim !== ""){
+                   
                     //Nhấn nút thêm -> mặc định số lượng thêm là 1 sp
                     this.cart.quantity = 1;
                     //Lấy mã khách hàng đã đăng nhập được lưu trong localStorage
-                    this.cart.customerId = localStorage.getItem('userId');
+                    this.cart.customerId = customer.customerId;
                     this.cart.productId = productId;
                     //Check tồn tại product trong cart chưa
-                    this.checkExistsProductInCart(productId);
-                    await axios.post(path.cart, this.cart).then((result)=>{
-                        console.log(result.data);
-                        alert("Đã thêm sản phẩm vào giỏ hàng.");
-                    }).catch(()=>{
-                        console.log("Đã có lỗi hệ thống xảy ra.");
-                    })
+                    await this.checkExistsProductInCart(this.cart);
+                    if(this.isExistsCart){
+                        this.cart.quantity += 1;
+                        this.updateCart(this.cart);
+                    }
+                    else{
+                        await axios.post(path.cart, this.cart).then((result)=>{
+                            console.log(result.data)
+                            alert("Đã thêm sản phẩm vào giỏ hàng.");
+                            this.isExistsCart = false;
+                        }).catch(()=>{
+                            console.log("Đã có lỗi hệ thống xảy ra.");
+                        })
+                    }
                 }
             }
             else{
@@ -283,13 +229,35 @@ export default {
          */
         async goToPage(page){
             page = parseInt(page);
+            this.currentPageNumber = page;
             await axios.get('https://localhost:44368/api/v1.0/Products?pageNumber='+page+'&items=12').then((result)=>{
                 this.firstProducts = result.data;
             }).catch(()=>{
                 console.log("Đã xảy ra lỗi.");
             })
         },
+        
+        /**
+         * created date: 8/5/2022
+         * creatd by: khanhvx
+         * Lấy danh sách sản phẩm tiếp theo
+         */
+        goToNextPage(){
+            this.currentPageNumber += 1;
+            this.goToPage(this.currentPageNumber);
+        },
 
+        /**
+         * created date: 8/5/2022
+         * created by: khanhvx
+         * Lấy danh sách sản phẩm trước đó
+         */
+        goToPreviousPage(){
+            if(this.currentPageNumber > 1){
+                this.currentPageNumber -= 1;
+                this.goToPage(this.currentPageNumber);
+            } 
+        },
         /**
          * created date: 19/11/2021
          * created by: vxkhanh
@@ -311,7 +279,7 @@ export default {
          */
         async getCustomerCart(customerId){
             if(customerId && String(customerId).trim() !== "")
-                await axios.get('https://localhost:44368/api/v1.0/Carts?customerId='+customerId).then((result)=>{
+                await axios.get(path.cart+'customerId/'+customerId).then((result)=>{
                     console.log(result.data);
                     return result.data;
                 }).catch(()=>{
@@ -326,8 +294,28 @@ export default {
          * created by: khanhvx
          * Hàm kiếm tra xem sản phẩm đã tồn tại trong cart chưa
          */
-        async checkExistsProductInCart(){
+        async checkExistsProductInCart(cart){
+            await axios.get('https://localhost:44368/api/v1.0/Carts?customerId='+cart.customerId+'&productId='+cart.productId).then((result)=>{
+                if(result.data){
+                    this.cart = result.data;
+                    this.isExistsCart = true;
+                }else{
+                    this.isExistsCart = false;
+                }
+            }).catch(()=>{
+                console.log("Đã có lỗi xảy ra");
+            })
+        },
 
+        async updateCart(cart){
+            if(cart){
+                await axios.put('https://localhost:44368/api/v1.0/Carts', cart).then(() => {
+                    alert("Đã cập nhật vào giỏ hàng");
+                    this.isExistsCart = false;
+                }).catch(() => {
+                    console.log("Đã có lỗi xảy ra")
+                })
+            }
         }
     },
     async mounted() {

@@ -4,6 +4,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace Infastructure.Repositories
@@ -27,6 +28,16 @@ namespace Infastructure.Repositories
             dynamicParameters.Add("customerId", customerId);
             var carts = dbConnection.Query<Cart>(procName, param: dynamicParameters, commandType: CommandType.StoredProcedure);
             return carts;
+        }
+
+        public Cart getExistsCart(Guid customerId, Guid productId)
+        {
+            string procName = $"procGetCartByCustomerIdNProductId";
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("customerId", customerId);
+            dynamicParameters.Add("productId", productId);
+            Cart cart = dbConnection.Query<Cart>(procName, param: dynamicParameters, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return cart;
         }
     }
 }

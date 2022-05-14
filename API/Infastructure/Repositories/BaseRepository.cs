@@ -88,7 +88,7 @@ namespace Infastructure.Repositories
         /// <typeparam name="entity">Đối tượng</typeparam>
         /// <param name="param">Đối tượng chứa dữ liệu thêm mới</param>
         /// <returns>Số dòng thay đổi</returns>
-        public int insertEntity<entity>(entity param)
+        public virtual int insertEntity<entity>(entity param)
         {
             string className = typeof(entity).Name;
             string procName = $"procInsert{className}";

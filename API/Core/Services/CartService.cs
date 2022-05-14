@@ -49,5 +49,40 @@ namespace Core.Services
             }
             return serviceResult;
         }
+
+        /// <summary>
+        /// created by: khanhvx
+        /// created date: 8/5/2022
+        /// Hàm lấy thông tin giỏ hàng ứng với productId và customerId
+        /// </summary>
+        /// <param name="customerId">customerId</param>
+        /// <param name="productId">productId</param>
+        public ServiceResult getExistsCart(Guid customerId, Guid productId)
+        {
+            try
+            {
+                var list = cartRepository.getExistsCart(customerId, productId);
+                if (list != null)
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.success;
+                }
+                else
+                {
+                    serviceResult.isValid = true;
+                    serviceResult.data = list;
+                    serviceResult.code = statusCode.noContent;
+                }
+            }
+            catch (Exception e)
+            {
+                serviceResult.isValid = false;
+                serviceResult.data = null;
+                serviceResult.message = e.Message;
+                serviceResult.code = statusCode.exception;
+            }
+            return serviceResult;
+        }
     }
 }

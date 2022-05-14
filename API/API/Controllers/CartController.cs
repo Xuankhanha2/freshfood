@@ -14,10 +14,12 @@ namespace API.Controllers
     /// created date: 02/11/21
     /// created by: vxkhanh
     /// </summary>
-    public class CartController : BaseController<Cart>
+    [Route("api/v1.0/[controller]s")]
+    [ApiController]
+    public class CartController : ControllerBase
     {
         ICartService cartService;
-        public CartController(ICartService _cartService): base(_cartService)
+        public CartController(ICartService _cartService)
         {
             cartService = _cartService;
         }
@@ -39,6 +41,70 @@ namespace API.Controllers
                 return StatusCode(200, result.data);
             else
                 return StatusCode(204, result.data);
+        }
+
+        [HttpGet()]
+        public IActionResult getExistCart(Guid customerId, Guid productId)
+        {
+            ServiceResult result = cartService.getExistsCart(customerId, productId);
+            if (result.code == statusCode.exception)
+                return StatusCode(500, result);
+            if (result.code == statusCode.success)
+                return StatusCode(200, result.data);
+            else
+                return StatusCode(204, result.data);
+        }
+
+        [HttpPost]
+        public IActionResult post(Cart papram)
+        {
+            ServiceResult result = cartService.insert<Cart>(papram);
+            if (result.code == statusCode.exception)
+                return StatusCode(500, result.data);
+            if (result.code == statusCode.success)
+                return StatusCode(201, result.data);
+            if (result.code == statusCode.fail)
+                return StatusCode(200, result.data);
+            else
+                return StatusCode(400, result.data);
+        }
+
+        /// <summary>
+        /// created date: 20/06/2021
+        /// created by: VXKHANH
+        /// Sửa bản ghi với dữ liêu được lấy tử bodyRequest
+        /// </summary>
+        /// <param name="id">Id</param>
+        [HttpPut]
+        public IActionResult put(Cart papram)
+        {
+            ServiceResult result = cartService.update<Cart>(papram);
+            if (result.code == statusCode.exception)
+                return StatusCode(500, result.data);
+            if (result.code == statusCode.success)
+                return StatusCode(201, result.data);
+            if (result.code == statusCode.fail)
+                return StatusCode(200, result.data);
+            else
+                return StatusCode(400, result.data);
+        }
+
+        /// <summary>
+        /// created date: 20/06/2021
+        /// created by: VXKHANH
+        /// Xóa 1 bản ghi theo id được truyền vào
+        /// </summary>
+        /// <param name="id">Id</param>
+        [HttpDelete("{id}")]
+        public IActionResult delete(Guid id)
+        {
+            ServiceResult result = cartService.delete<Cart>(id);
+            if (result.code == statusCode.success)
+                return StatusCode(200, result.data);
+            if (result.code == statusCode.fail)
+                return StatusCode(400, result.data);
+            else
+                return StatusCode(500, result.data);
         }
     }
 }

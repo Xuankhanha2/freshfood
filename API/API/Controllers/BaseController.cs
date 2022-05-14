@@ -35,7 +35,7 @@ namespace API.Controllers
         /// <typeparam name="entity"></typeparam>
         /// <returns>Danh sách các bản ghi</returns>
         [HttpGet]
-        public virtual IActionResult getAll(int? pageNumber, int? items)
+        public virtual IActionResult getAll<T>(int? pageNumber, int? items)
         {
             ServiceResult result = baseService.getAll<entity>(pageNumber, items);
             if (result.code == statusCode.exception)
@@ -77,9 +77,9 @@ namespace API.Controllers
             if (result.code == statusCode.exception)
                 return StatusCode(500, result);
             if (result.code == statusCode.success)
-                return StatusCode(201, result);
+                return StatusCode(201, result.data);
             if (result.code == statusCode.fail)
-                return StatusCode(200, result);
+                return StatusCode(200, result.data);
             else
                 return StatusCode(400, result);
         }
@@ -98,9 +98,9 @@ namespace API.Controllers
             if (result.code == statusCode.exception)
                 return StatusCode(500, result);
             if (result.code == statusCode.success)
-                return StatusCode(201, result);
+                return StatusCode(201, result.data);
             if (result.code == statusCode.fail)
-                return StatusCode(200, result);
+                return StatusCode(200, result.data);
             else
                 return StatusCode(400, result);
         }
@@ -117,7 +117,7 @@ namespace API.Controllers
         {
             ServiceResult result = baseService.delete<entity>(id);
             if (result.code == statusCode.success)
-                return StatusCode(200, result);
+                return StatusCode(200, result.data);
             if (result.code == statusCode.fail)
                 return StatusCode(400, result);
             else
